@@ -516,6 +516,7 @@ Enzyme catalysis</textarea>
       <button class="btn btn-success" id="testBtn"><i class="fas fa-pen-fancy"></i> Test</button>
       <button class="btn btn-secondary" id="shuffleBtn"><i class="fas fa-random"></i> Shuffle</button>
       <button class="btn btn-secondary" id="timerBtn"><i class="fas fa-clock"></i> Timer: OFF</button>
+      <button class="btn btn-secondary" id="negativeTimerBtn"><i class="fas fa-history"></i> Neg. Timer: OFF</button>
     </div>
   </div>
 
@@ -564,11 +565,15 @@ Enzyme catalysis</textarea>
     let flashcards = [];
     let currentIndex = 0;
     let scores = [];
+    let timerSpent = []; // tracks exact elapsed or negative overflow time per card
     let tested = false;
     let subject = 'Biology 101';
 
     let timerEnabled = false;
+    let negativeTimerEnabled = false;
+    let timerSeconds = 15;
     let timerInterval = null;
+    let currentRemaining = 15;
 
     // DOM refs
     const subjectInput = document.getElementById('subjectInput');
@@ -578,6 +583,7 @@ Enzyme catalysis</textarea>
     const timerLength = document.getElementById('timerLength');
     const shuffleBtn = document.getElementById('shuffleBtn');
     const timerBtn = document.getElementById('timerBtn');
+    const negativeTimerBtn = document.getElementById('negativeTimerBtn');
     const questionText = document.getElementById('questionText');
     const cardCounter = document.getElementById('cardCounter');
     const progressText = document.getElementById('progressText');
@@ -602,6 +608,7 @@ Enzyme catalysis</textarea>
       body.classList.remove('test-active');
       tested = false;
       scores = new Array(flashcards.length).fill(-1);
+      timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
       resultPanel.classList.remove('active');
       responseBtns.forEach(btn => btn.disabled = true);
@@ -668,8 +675,15 @@ Enzyme catalysis</textarea>
       for (let i = 0; i < flashcards.length; i++) {
         const score = scores[i];
         if (score === 0 || score === 1) {
+          const overflow = timerSpent[i];
+          let timeLabel = '';
+          if (overflow < 0) {
+            timeLabel = ` (${overflow}s overtime)`;
+          } else if (overflow > 0 && timerEnabled) {
+            timeLabel = ` (${overflow}s left)`;
+          }
           focusItems.push({
-            question: flashcards[i].question || 'Untitled',
+            question: (flashcards[i].question || 'Untitled') + timeLabel,
             score: score,
             label: score === 0 ? 'Forgor' : 'Partially recall'
           });
@@ -703,6 +717,7 @@ Enzyme catalysis</textarea>
       clearInterval(timerInterval);
       tested = false;
       scores = new Array(flashcards.length).fill(-1);
+      timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
       resultPanel.classList.remove('active');
       responseBtns.forEach(btn => btn.disabled = true);
@@ -737,12 +752,14 @@ Enzyme catalysis</textarea>
         resultPanel.classList.remove('active');
         tested = false;
         scores = [];
+        timerSpent = [];
         exitTestMode();
         return;
       }
       flashcards = lines.map(text => ({ question: text }));
       tested = false;
       scores = new Array(flashcards.length).fill(-1);
+      timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
       resultPanel.classList.remove('active');
       responseBtns.forEach(btn => btn.disabled = true);
@@ -763,6 +780,7 @@ Enzyme catalysis</textarea>
       enterTestMode();
       tested = true;
       scores = new Array(flashcards.length).fill(-1);
+      timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
       resultPanel.classList.remove('active');
       responseBtns.forEach(btn => btn.classList.remove('selected'));
@@ -773,6 +791,10 @@ Enzyme catalysis</textarea>
       clearInterval(timerInterval);
       const btn = e.currentTarget;
       if (btn.disabled || !tested || flashcards.length === 0) return;
+      
+      // Save remaining/negative counter state before moving on
+      timerSpent[currentIndex] = currentRemaining;
+
       const score = parseInt(btn.dataset.score, 10);
       scores[currentIndex] = score;
       if (currentIndex + 1 < flashcards.length) {
@@ -790,6 +812,7 @@ Enzyme catalysis</textarea>
       clearInterval(timerInterval);
       flashcards = [];
       scores = [];
+      timerSpent = [];
       currentIndex = 0;
       tested = false;
       resultPanel.classList.remove('active');
@@ -807,6 +830,7 @@ Enzyme catalysis</textarea>
     function shuffleCards(){
       flashcards.sort(() => Math.random() - 0.5);
       scores = new Array(flashcards.length).fill(-1);
+      timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
       statusBadge.textContent = "🔀 shuffled";
       renderCard();
@@ -816,24 +840,30 @@ Enzyme catalysis</textarea>
       clearInterval(timerInterval);
       if(!timerEnabled || !tested) return;
 
-      let remaining = Number(timerLength.value) || 15;
-      statusBadge.textContent = `⏱ ${remaining}s`;
+      currentRemaining = Number(timerLength.value) || 15;
+      statusBadge.textContent = `⏱ ${currentRemaining}s`;
 
       timerInterval = setInterval(()=>{
-        remaining--;
-        statusBadge.textContent = `⏱ ${remaining}s`;
+        currentRemaining--;
+        
+        if (currentRemaining < 0) {
+          statusBadge.textContent = `⏱ ${currentRemaining}s`;
+          if (!negativeTimerEnabled) {
+            // Auto-forgor and advance if negative timer mode is OFF
+            clearInterval(timerInterval);
+            timerSpent[currentIndex] = currentRemaining;
+            scores[currentIndex] = 0;
 
-        if(remaining <= 0){
-          clearInterval(timerInterval);
-          scores[currentIndex] = 0; // automatically mark as forgor
-
-          if(currentIndex + 1 < flashcards.length){
-            currentIndex++;
-            renderCard();
-          } else {
-            renderCard();
-            showResults();
+            if(currentIndex + 1 < flashcards.length){
+              currentIndex++;
+              renderCard();
+            } else {
+              renderCard();
+              showResults();
+            }
           }
+        } else {
+          statusBadge.textContent = `⏱ ${currentRemaining}s`;
         }
       }, 1000);
     }
@@ -855,6 +885,14 @@ Enzyme catalysis</textarea>
           statusBadge.textContent = `📌 ${subject}`;
         }
       }
+    });
+
+    negativeTimerBtn.addEventListener('click', () => {
+      negativeTimerEnabled = !negativeTimerEnabled;
+      negativeTimerBtn.innerHTML = negativeTimerEnabled
+        ? '<i class="fas fa-history"></i> Neg. Timer: ON'
+        : '<i class="fas fa-history"></i> Neg. Timer: OFF';
+      negativeTimerBtn.style.background = negativeTimerEnabled ? '#5865f2' : '#40444b';
     });
 
     loadBtn.addEventListener('click', loadCards);
