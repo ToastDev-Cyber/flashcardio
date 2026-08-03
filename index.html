@@ -505,6 +505,114 @@
         margin: 0 1rem;
         width: auto;
       }
+      .theme-selector {
+  background: #40444b;
+  color: #dcddde;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+
+/* Discord Black */
+body.theme-discord {
+  background:#36393f;
+}
+
+body.theme-discord .flashcardio {
+  background:#2f3136;
+}
+
+
+/* Average 2009 Website */
+body.theme-oldweb {
+  background:#d6d6d6;
+  font-family: Arial, sans-serif;
+}
+
+body.theme-oldweb .flashcardio {
+  background:white;
+  color:#111;
+  border-radius:8px;
+  box-shadow:0 2px 10px #777;
+}
+
+body.theme-oldweb .flashcard-area {
+  background:#eeeeee;
+  border-left:4px solid #0000ff;
+}
+
+
+/* Twitter Black */
+body.theme-twitter {
+  background:#000;
+}
+
+body.theme-twitter .flashcardio {
+  background:#15202b;
+}
+
+body.theme-twitter .flashcard-area {
+  background:#192734;
+}
+
+
+/* Roblox Light */
+body.theme-roblox {
+  background:#eeeeee;
+}
+
+body.theme-roblox .flashcardio {
+  background:white;
+  color:#222;
+  box-shadow:0 8px 20px #aaa;
+}
+
+body.theme-roblox .flashcard-area {
+  background:#f2f2f2;
+}
+
+
+/* YELOOW */
+body.theme-yellow {
+  background:#ffe600;
+}
+
+body.theme-yellow .flashcardio {
+  background:#fff176;
+  color:#222;
+}
+
+body.theme-yellow .flashcard-area {
+  background:#ffeb3b;
+}
+
+
+/* Neon Dark Green */
+body.theme-neongreen {
+  background:#001b00;
+}
+
+body.theme-neongreen .flashcardio {
+  background:#002b00;
+  box-shadow:0 0 30px #00ff44;
+}
+
+body.theme-neongreen .flashcard-area {
+  background:#003d00;
+  border-left-color:#00ff44;
+}
+
+body.theme-neongreen .btn-primary {
+  background:#00aa33;
+}
+
+body.theme-neongreen .header h1 {
+  background:linear-gradient(135deg,#00ff44,#00ffaa);
+  -webkit-background-clip:text;
+}
     }
   </style>
 </head>
@@ -515,6 +623,14 @@
     <h1><i class="fas fa-brain"></i> Flashcardio</h1>
     <span class="badge"><i class="fas fa-tasks"></i> active</span>
     <span style="margin-left: auto; color: #8e9297; font-size: 0.9rem;"><i class="fas fa-comments"></i>probably a vibe</span>
+    <select id="themeSelector" class="theme-selector">
+  <option value="discord">Discord Black</option>
+  <option value="oldweb">Average 2009 Website</option>
+  <option value="twitter">Twitter Black</option>
+  <option value="roblox">Roblox Light Mode</option>
+  <option value="yellow">YELOOW</option>
+  <option value="neongreen">Neon Dark Green</option>
+</select>
   </div>
 
   <!-- input section -->
@@ -621,6 +737,7 @@ The sky is green || false</textarea>
     const exitTestBtn = document.getElementById('exitTestBtn');
     const app = document.getElementById('app');
     const body = document.body;
+    const themeSelector = document.getElementById("themeSelector");
 
     function enterTestMode() {
       body.classList.add('test-active');
@@ -993,6 +1110,13 @@ The sky is green || false</textarea>
         startTimer();
       }
     });
+    themeSelector.addEventListener("change", () => {
+  document.body.className = document.body.className
+    .replace(/theme-\w+/g, "")
+    .trim();
+
+  document.body.classList.add("theme-" + themeSelector.value);
+});
 
     negativeTimerBtn.addEventListener('click', () => {
       negativeTimerEnabled = !negativeTimerEnabled;
