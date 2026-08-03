@@ -1128,6 +1128,23 @@ The sky is green || false</textarea>
 
     loadBtn.addEventListener('click', loadCards);
     testBtn.addEventListener('click', startTest);
+    // Theme changer
+themeSelector.addEventListener('change', () => {
+  // remove old theme
+  document.body.classList.remove(
+    'theme-discord',
+    'theme-oldweb',
+    'theme-twitter',
+    'theme-roblox',
+    'theme-yellow',
+    'theme-neongreen'
+  );
+
+  // add selected theme
+  document.body.classList.add(
+    'theme-' + themeSelector.value
+  );
+});
     
     resetBtn.addEventListener('click', function() {
       resetTest();
