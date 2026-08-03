@@ -148,6 +148,16 @@
     }
 
     .button-group {
+      <input 
+  type="number"
+  id="timerLength"
+  class="btn"
+  min="1"
+  max="300"
+  value="15"
+  style="width:90px;"
+>
+<span style="color:#b9bbbe;">seconds</span>
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
@@ -490,6 +500,9 @@ Enzyme catalysis</textarea>
       <button class="btn btn-secondary" id="shuffleBtn">
 <i class="fas fa-random"></i> Shuffle
 </button>
+      <button class="btn btn-secondary" id="timerBtn">
+<i class="fas fa-clock"></i> Timer: OFF
+</button>
     </div>
   </div>
 
@@ -535,19 +548,24 @@ Enzyme catalysis</textarea>
 <script>
   (function(){
     // ----- state -----
-    let flashcards = [];
+let flashcards = [];
 let currentIndex = 0;
 let scores = [];
-let difficulty = [];
 let tested = false;
 let subject = 'Biology 101';
+
+let timerEnabled = false;
+let timerSeconds = 15;
+let timerInterval = null;
 
     // DOM refs
     const subjectInput = document.getElementById('subjectInput');
     const notesInput = document.getElementById('notesInput');
     const loadBtn = document.getElementById('loadBtn');
     const testBtn = document.getElementById('testBtn');
+    const timerLength = document.getElementById('timerLength');
     const shuffleBtn = document.getElementById('shuffleBtn');
+    const timerBtn = document.getElementById('timerBtn');
     const questionText = document.getElementById('questionText');
     const cardCounter = document.getElementById('cardCounter');
     const progressText = document.getElementById('progressText');
@@ -609,6 +627,7 @@ let subject = 'Biology 101';
       }
 
       const card = flashcards[currentIndex];
+      startTimer();
       questionText.textContent = card.question || 'Untitled';
       cardCounter.textContent = `${currentIndex+1} / ${flashcards.length}`;
       progressText.textContent = `🧠 ${scores.filter(s => s !== -1).length} / ${flashcards.length} answered`;
@@ -736,6 +755,7 @@ let subject = 'Biology 101';
     }
 
     function handleResponse(e) {
+      clearInterval(timerInterval);
       const btn = e.currentTarget;
       if (btn.disabled || !tested || flashcards.length === 0) return;
       const score = parseInt(btn.dataset.score, 10);
@@ -780,9 +800,53 @@ let subject = 'Biology 101';
 
   renderCard();
 }
+    function startTimer(){
+
+  clearInterval(timerInterval);
+
+  if(!timerEnabled) return;
+
+  let remaining = Number(timerLength.value) || 15;
+
+  statusBadge.textContent = `⏱ ${remaining}s`;
+
+  timerInterval = setInterval(()=>{
+
+    remaining--;
+
+    statusBadge.textContent = `⏱ ${remaining}s`;
+
+    if(remaining <= 0){
+
+      clearInterval(timerInterval);
+
+      // automatically mark as forgor
+      scores[currentIndex] = 0;
+
+      if(currentIndex + 1 < flashcards.length){
+        currentIndex++;
+        renderCard();
+      }
+      else{
+        showResults();
+      }
+
+    }
+
+  },1000);
+}
 
     // ---- event bindings ----
     shuffleBtn.addEventListener('click', shuffleCards);
+    timerBtn.addEventListener('click',()=>{
+
+  timerEnabled = !timerEnabled;
+
+  timerBtn.innerHTML = timerEnabled
+  ? '<i class="fas fa-clock"></i> Timer: ON'
+  : '<i class="fas fa-clock"></i> Timer: OFF';
+
+});
     loadBtn.addEventListener('click', loadCards);
     testBtn.addEventListener('click', startTest);
     resetBtn.addEventListener('click', function() {
