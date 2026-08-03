@@ -487,6 +487,9 @@ Enzyme catalysis</textarea>
     <div class="button-group">
       <button class="btn btn-primary" id="loadBtn"><i class="fas fa-upload"></i> Load cards</button>
       <button class="btn btn-success" id="testBtn"><i class="fas fa-pen-fancy"></i> Test</button>
+      <button class="btn btn-secondary" id="shuffleBtn">
+<i class="fas fa-random"></i> Shuffle
+</button>
     </div>
   </div>
 
@@ -533,16 +536,18 @@ Enzyme catalysis</textarea>
   (function(){
     // ----- state -----
     let flashcards = [];
-    let currentIndex = 0;
-    let scores = [];
-    let tested = false;
-    let subject = 'Biology 101';
+let currentIndex = 0;
+let scores = [];
+let difficulty = [];
+let tested = false;
+let subject = 'Biology 101';
 
     // DOM refs
     const subjectInput = document.getElementById('subjectInput');
     const notesInput = document.getElementById('notesInput');
     const loadBtn = document.getElementById('loadBtn');
     const testBtn = document.getElementById('testBtn');
+    const shuffleBtn = document.getElementById('shuffleBtn');
     const questionText = document.getElementById('questionText');
     const cardCounter = document.getElementById('cardCounter');
     const progressText = document.getElementById('progressText');
@@ -762,8 +767,22 @@ Enzyme catalysis</textarea>
       focusList.innerHTML = '';
       exitTestMode();
     }
+    function shuffleCards(){
+
+  flashcards.sort(() => Math.random() - 0.5);
+
+  scores = new Array(flashcards.length).fill(-1);
+  difficulty = new Array(flashcards.length).fill("normal");
+
+  currentIndex = 0;
+
+  statusBadge.textContent = "🔀 shuffled";
+
+  renderCard();
+}
 
     // ---- event bindings ----
+    shuffleBtn.addEventListener('click', shuffleCards);
     loadBtn.addEventListener('click', loadCards);
     testBtn.addEventListener('click', startTest);
     resetBtn.addEventListener('click', function() {
