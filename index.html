@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcardio · Discord style</title>
+  <!-- Fontawesome (Discord-like icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: #36393f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    body.test-active {
+      padding: 0;
+      background: #1e1f22;
+    }
+
+    .flashcardio {
+      max-width: 880px;
+      width: 100%;
+      background: #2f3136;
+      border-radius: 28px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      padding: 2rem 2rem 2.2rem;
+      color: #dcddde;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    body.test-active .flashcardio {
+      max-width: 100%;
+      border-radius: 0;
+      padding: 0;
+      background: #1e1f22;
+      box-shadow: none;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* header */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #40444b;
+      padding-bottom: 1rem;
+      margin-bottom: 1.8rem;
+      flex-wrap: wrap;
+    }
+
+    body.test-active .header {
+      display: none;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #5865f2, #8ea1f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header h1 i {
+      background: none;
+      -webkit-text-fill-color: #5865f2;
+      font-size: 2.1rem;
+    }
+
+    .header .badge {
+      background: #40444b;
+      border-radius: 40px;
+      padding: 0.2rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #b9bbbe;
+    }
+
+    /* input section - hidden during test */
+    .input-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+      transition: all 0.3s ease;
+    }
+
+    body.test-active .input-section {
+      display: none !important;
+    }
+
+    .input-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .input-row label {
+      font-weight: 600;
+      color: #b9bbbe;
+      min-width: 70px;
+      font-size: 0.95rem;
+    }
+
+    .input-row input, 
+    .input-row textarea {
+      flex: 1;
+      background: #40444b;
+      border: none;
+      border-radius: 12px;
+      padding: 0.7rem 1rem;
+      color: #f2f3f5;
+      font-size: 0.95rem;
+      outline: none;
+      transition: 0.15s;
+      min-width: 200px;
+      resize: vertical;
+    }
+
+    .input-row input:focus, 
+    .input-row textarea:focus {
+      background: #4e535c;
+      box-shadow: 0 0 0 2px #5865f2;
+    }
+
+    .input-row textarea {
+      min-height: 70px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 6px;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      background: #40444b;
+      border: none;
+      border-radius: 40px;
+      padding: 0.6rem 1.4rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #dcddde;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: 0.15s;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: #5865f2;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #4752c4;
+    }
+    .btn-success {
+      background: #3ba55d;
+      color: white;
+    }
+    .btn-success:hover {
+      background: #2d8b4e;
+    }
+    .btn-secondary {
+      background: #4e535c;
+      color: white;
+    }
+    .btn-secondary:hover {
+      background: #5d626c;
+    }
+    .btn-danger {
+      background: #ed4245;
+      color: white;
+    }
+    .btn-danger:hover {
+      background: #c03537;
+    }
+    .btn:disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* flashcard area - normal mode */
+    .flashcard-area {
+      background: #292b2f;
+      border-radius: 20px;
+      padding: 1.5rem 1.5rem 1rem;
+      margin: 1.8rem 0 1.2rem;
+      min-height: 140px;
+      border-left: 4px solid #5865f2;
+      transition: all 0.3s ease;
+    }
+
+    /* flashcard area - test mode (full screen) */
+    body.test-active .flashcard-area {
+      background: transparent;
+      border-radius: 0;
+      padding: 3rem 4rem;
+      margin: 0;
+      min-height: 80vh;
+      border-left: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .flashcard-prompt {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      color: #f2f3f5;
+    }
+
+    body.test-active .flashcard-prompt {
+      font-size: 2.2rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    body.test-active .flashcard-prompt small {
+      font-size: 1.2rem;
+      display: block;
+      margin-top: 0.5rem;
+    }
+
+    .flashcard-prompt small {
+      font-weight: 400;
+      color: #8e9297;
+      font-size: 0.9rem;
+      margin-left: 10px;
+    }
+
+    .response-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 0.8rem;
+    }
+
+    body.test-active .response-buttons {
+      gap: 16px;
+      margin-top: 2rem;
+      justify-content: center;
+    }
+
+    .response-btn {
+      background: #40444b;
+      border: none;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 500;
+      color: #dcddde;
+      transition: 0.1s;
+      cursor: pointer;
+      flex: 1 0 auto;
+      min-width: 100px;
+      border: 1px solid transparent;
+    }
+
+    body.test-active .response-btn {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      min-width: 140px;
+      flex: 0 1 auto;
+    }
+
+    .response-btn:hover {
+      background: #4e535c;
+      border-color: #5865f2;
+    }
+    .response-btn.selected {
+      background: #5865f2;
+      color: white;
+      border-color: #5865f2;
+    }
+
+    .progress-indicator {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      color: #8e9297;
+      margin-top: 0.8rem;
+    }
+
+    body.test-active .progress-indicator {
+      font-size: 1.1rem;
+      margin-top: 2rem;
+      padding: 0 1rem;
+      justify-content: center;
+      gap: 3rem;
+    }
+
+    .result-panel {
+      background: #1e1f22;
+      border-radius: 20px;
+      padding: 1.4rem 1.8rem;
+      margin-top: 1.8rem;
+      border-left: 4px solid #3ba55d;
+      display: none;
+    }
+
+    .result-panel.active {
+      display: block;
+    }
+
+    body.test-active .result-panel {
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+      border-radius: 24px;
+      padding: 2.5rem;
+    }
+
+    .result-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #f2f3f5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.8rem;
+    }
+
+    body.test-active .result-title {
+      font-size: 2rem;
+      justify-content: center;
+    }
+
+    .focus-list {
+      list-style: none;
+      margin-top: 0.6rem;
+    }
+
+    .focus-list li {
+      background: #2f3136;
+      margin: 6px 0;
+      padding: 0.6rem 1rem;
+      border-radius: 14px;
+      border-left: 3px solid #ed4245;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    body.test-active .focus-list li {
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .focus-list .tag {
+      background: #ed4245;
+      color: white;
+      border-radius: 40px;
+      padding: 0.1rem 0.9rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .reset-area {
+      margin-top: 1.2rem;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    body.test-active .reset-area {
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    body.test-active .reset-area .btn {
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+    }
+
+    .status-message {
+      color: #b9bbbe;
+      font-size: 0.9rem;
+      margin-top: 0.8rem;
+      font-style: italic;
+    }
+
+    body.test-active .status-message {
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .footer {
+      margin-top: 1.4rem;
+      font-size: 0.8rem;
+      color: #72767d;
+      display: flex;
+      gap: 20px;
+      border-top: 1px solid #40444b;
+      padding-top: 1rem;
+    }
+
+    body.test-active .footer {
+      display: none;
+    }
+
+    .exit-test-btn {
+      margin-left: auto;
+    }
+
+    /* test mode adjustments */
+    body.test-active .flashcardio {
+      padding: 0;
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      body.test-active .flashcard-area {
+        padding: 2rem 1.5rem;
+        min-height: 70vh;
+      }
+      
+      body.test-active .flashcard-prompt {
+        font-size: 1.6rem;
+      }
+      
+      body.test-active .response-btn {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.95rem;
+        min-width: 100px;
+      }
+      
+      body.test-active .result-panel {
+        padding: 1.5rem;
+        margin: 0 1rem;
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="flashcardio" id="app">
+  <!-- header -->
+  <div class="header">
+    <h1><i class="fas fa-brain"></i> Flashcardio</h1>
+    <span class="badge"><i class="fas fa-tasks"></i>  active</span>
+    <span style="margin-left: auto; color: #8e9297; font-size: 0.9rem;"><i class="fas fa-discord"></i>  discord vibe</span>
+  </div>
+
+  <!-- input section -->
+  <div class="input-section" id="inputSection">
+    <div class="input-row">
+      <label><i class="fas fa-book"></i> Subject</label>
+      <input type="text" id="subjectInput" placeholder="e.g. History, Python, Anatomy" value="Biology 101">
+    </div>
+    <div class="input-row">
+      <label><i class="fas fa-list-ul"></i> Notes</label>
+      <textarea id="notesInput" placeholder="One item per line&#10;e.g.&#10;Mitochondria is powerhouse&#10;Photosynthesis equation&#10;DNA double helix">Mitochondria is powerhouse
+Photosynthesis equation
+DNA double helix
+Cell membrane function
+Enzyme catalysis</textarea>
+    </div>
+    <div class="button-group">
+      <button class="btn btn-primary" id="loadBtn"><i class="fas fa-upload"></i> Load cards</button>
+      <button class="btn btn-success" id="testBtn"><i class="fas fa-pen-fancy"></i> Test</button>
+    </div>
+  </div>
+
+  <!-- flashcard area -->
+  <div class="flashcard-area" id="flashcardArea">
+    <div class="flashcard-prompt">
+      <i class="fas fa-quote-left" style="color:#5865f2; margin-right: 6px;"></i>
+      <span id="questionText">Add your subject & notes, then click "Test"</span>
+      <small id="cardCounter"></small>
+    </div>
+    <div id="responseButtons" class="response-buttons">
+      <button class="response-btn" data-score="0"><i class="fas fa-skull"></i> Forgor</button>
+      <button class="response-btn" data-score="1"><i class="fas fa-question-circle"></i> Partially recall</button>
+      <button class="response-btn" data-score="2"><i class="fas fa-check-circle"></i> Recall</button>
+      <button class="response-btn" data-score="3"><i class="fas fa-star"></i> Easily recall</button>
+    </div>
+    <div class="progress-indicator">
+      <span id="progressText"><i class="fas fa-chevron-circle-right"></i> 0 / 0</span>
+      <span id="statusBadge" style="background:#40444b; padding:0.2rem 1rem; border-radius:40px;">ready</span>
+    </div>
+  </div>
+
+  <!-- result panel -->
+  <div class="result-panel" id="resultPanel">
+    <div class="result-title"><i class="fas fa-bullseye" style="color:#ed4245;"></i> Focus on these</div>
+    <div id="focusContainer">
+      <ul class="focus-list" id="focusList"></ul>
+    </div>
+    <div class="reset-area">
+      <button class="btn btn-secondary" id="resetBtn"><i class="fas fa-undo-alt"></i> Reset session</button>
+      <button class="btn btn-secondary" id="newCardsBtn"><i class="fas fa-plus-circle"></i> New cards</button>
+      <button class="btn btn-danger exit-test-btn" id="exitTestBtn"><i class="fas fa-times"></i> Exit test</button>
+    </div>
+    <div id="extraMessage" class="status-message"></div>
+  </div>
+
+  <div class="footer">
+    <span><i class="fas fa-check-circle" style="color:#3ba55d;"></i> honest answers</span>
+    <span><i class="fas fa-robot"></i> smart focus</span>
+  </div>
+</div>
+
+<script>
+  (function(){
+    // ----- state -----
+    let flashcards = [];
+    let currentIndex = 0;
+    let scores = [];
+    let tested = false;
+    let subject = 'Biology 101';
+
+    // DOM refs
+    const subjectInput = document.getElementById('subjectInput');
+    const notesInput = document.getElementById('notesInput');
+    const loadBtn = document.getElementById('loadBtn');
+    const testBtn = document.getElementById('testBtn');
+    const questionText = document.getElementById('questionText');
+    const cardCounter = document.getElementById('cardCounter');
+    const progressText = document.getElementById('progressText');
+    const statusBadge = document.getElementById('statusBadge');
+    const responseBtns = document.querySelectorAll('.response-btn');
+    const resultPanel = document.getElementById('resultPanel');
+    const focusList = document.getElementById('focusList');
+    const extraMessage = document.getElementById('extraMessage');
+    const resetBtn = document.getElementById('resetBtn');
+    const newCardsBtn = document.getElementById('newCardsBtn');
+    const exitTestBtn = document.getElementById('exitTestBtn');
+    const app = document.getElementById('app');
+    const body = document.body;
+
+    function enterTestMode() {
+      body.classList.add('test-active');
+      // Force reflow for animation
+      void body.offsetWidth;
+    }
+
+    function exitTestMode() {
+      body.classList.remove('test-active');
+      // reset test state but keep cards
+      tested = false;
+      scores = new Array(flashcards.length).fill(-1);
+      currentIndex = 0;
+      resultPanel.classList.remove('active');
+      responseBtns.forEach(btn => btn.disabled = true);
+      responseBtns.forEach(btn => btn.classList.remove('selected'));
+      if (flashcards.length > 0) {
+        questionText.textContent = 'Press "Test" to start.';
+        cardCounter.textContent = `${flashcards.length} cards ready`;
+        progressText.textContent = `⏳ ${flashcards.length} cards`;
+        statusBadge.textContent = '📋 loaded';
+      } else {
+        questionText.textContent = 'Add notes and load cards.';
+        cardCounter.textContent = '';
+        progressText.textContent = '📭 0';
+        statusBadge.textContent = '⏸ idle';
+      }
+      extraMessage.textContent = '';
+    }
+
+    function renderCard() {
+      if (!tested || flashcards.length === 0) {
+        if (flashcards.length === 0) {
+          questionText.textContent = 'No flashcards. Load some notes!';
+          cardCounter.textContent = '';
+          progressText.textContent = '📭 0 / 0';
+          statusBadge.textContent = '⏸ idle';
+        } else {
+          questionText.textContent = 'Press "Test" to start.';
+          cardCounter.textContent = `${flashcards.length} cards ready`;
+          progressText.textContent = `⏳ ${flashcards.length} cards`;
+          statusBadge.textContent = '📋 loaded';
+        }
+        responseBtns.forEach(btn => btn.disabled = true);
+        return;
+      }
+
+      const card = flashcards[currentIndex];
+      questionText.textContent = card.question || 'Untitled';
+      cardCounter.textContent = `${currentIndex+1} / ${flashcards.length}`;
+      progressText.textContent = `🧠 ${scores.filter(s => s !== -1).length} / ${flashcards.length} answered`;
+      statusBadge.textContent = `📌 ${subject}`;
+
+      const currentScore = scores[currentIndex];
+      responseBtns.forEach(btn => {
+        btn.disabled = false;
+        const val = parseInt(btn.dataset.score, 10);
+        if (currentScore === val) {
+          btn.classList.add('selected');
+        } else {
+          btn.classList.remove('selected');
+        }
+      });
+
+      if (scores.every(s => s !== -1)) {
+        showResults();
+      }
+    }
+
+    function computeFocus() {
+      const focusItems = [];
+      for (let i = 0; i < flashcards.length; i++) {
+        const score = scores[i];
+        if (score === 0 || score === 1) {
+          focusItems.push({
+            question: flashcards[i].question || 'Untitled',
+            score: score,
+            label: score === 0 ? 'Forgor' : 'Partially recall'
+          });
+        }
+      }
+      return focusItems;
+    }
+
+    function showResults() {
+      const focusItems = computeFocus();
+      resultPanel.classList.add('active');
+      focusList.innerHTML = '';
+      if (focusItems.length === 0) {
+        focusList.innerHTML = `<li style="border-left-color: #3ba55d; background: #2f3136; color: #b9bbbe;"><i class="fas fa-check-circle" style="color:#3ba55d;"></i>  All cards recalled! Keep it up 🎉</li>`;
+        extraMessage.textContent = '✨ You remembered everything. Great job!';
+      } else {
+        focusItems.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<span><i class="fas fa-${item.score === 0 ? 'skull' : 'question-circle'}" style="margin-right:10px; color:${item.score === 0 ? '#ed4245' : '#faa81a'};"></i> ${item.question}</span>
+                          <span class="tag">${item.label}</span>`;
+          focusList.appendChild(li);
+        });
+        extraMessage.textContent = `🔁 ${focusItems.length} card(s) need extra review. Focus on these.`;
+      }
+      responseBtns.forEach(btn => btn.disabled = true);
+      statusBadge.textContent = '✅ done';
+    }
+
+    function resetTest() {
+      tested = false;
+      scores = new Array(flashcards.length).fill(-1);
+      currentIndex = 0;
+      resultPanel.classList.remove('active');
+      responseBtns.forEach(btn => btn.disabled = true);
+      responseBtns.forEach(btn => btn.classList.remove('selected'));
+      if (flashcards.length > 0) {
+        questionText.textContent = 'Press "Test" to start.';
+        cardCounter.textContent = `${flashcards.length} cards ready`;
+        progressText.textContent = `⏳ ${flashcards.length} cards`;
+        statusBadge.textContent = '📋 loaded';
+      } else {
+        questionText.textContent = 'Add notes and load cards.';
+        cardCounter.textContent = '';
+        progressText.textContent = '📭 0';
+        statusBadge.textContent = '⏸ idle';
+      }
+      extraMessage.textContent = '';
+    }
+
+    function loadCards() {
+      const rawSubject = subjectInput.value.trim() || 'Subject';
+      subject = rawSubject;
+      const rawNotes = notesInput.value;
+      const lines = rawNotes.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+      if (lines.length === 0) {
+        flashcards = [];
+        questionText.textContent = '⚠️ No notes found. Add items line by line.';
+        cardCounter.textContent = '';
+        progressText.textContent = '📭 0';
+        statusBadge.textContent = '⚠️ empty';
+        responseBtns.forEach(btn => btn.disabled = true);
+        resultPanel.classList.remove('active');
+        tested = false;
+        scores = [];
+        exitTestMode(); // ensure we're not in test mode
+        return;
+      }
+      flashcards = lines.map(text => ({ question: text }));
+      tested = false;
+      scores = new Array(flashcards.length).fill(-1);
+      currentIndex = 0;
+      resultPanel.classList.remove('active');
+      responseBtns.forEach(btn => btn.disabled = true);
+      responseBtns.forEach(btn => btn.classList.remove('selected'));
+      questionText.textContent = 'Press "Test" to start.';
+      cardCounter.textContent = `${flashcards.length} cards ready`;
+      progressText.textContent = `⏳ ${flashcards.length} cards`;
+      statusBadge.textContent = '📋 loaded';
+      extraMessage.textContent = '';
+      exitTestMode(); // ensure we exit test mode when loading new cards
+    }
+
+    function startTest() {
+      if (flashcards.length === 0) {
+        questionText.textContent = '⚠️ Load some flashcards first!';
+        return;
+      }
+      // Enter test mode
+      enterTestMode();
+      
+      tested = true;
+      scores = new Array(flashcards.length).fill(-1);
+      currentIndex = 0;
+      resultPanel.classList.remove('active');
+      responseBtns.forEach(btn => btn.classList.remove('selected'));
+      renderCard();
+    }
+
+    function handleResponse(e) {
+      const btn = e.currentTarget;
+      if (btn.disabled || !tested || flashcards.length === 0) return;
+      const score = parseInt(btn.dataset.score, 10);
+      scores[currentIndex] = score;
+      if (currentIndex + 1 < flashcards.length) {
+        currentIndex++;
+        renderCard();
+      } else {
+        renderCard();
+        if (scores.every(s => s !== -1)) {
+          showResults();
+        }
+      }
+    }
+
+    function resetAll() {
+      flashcards = [];
+      scores = [];
+      currentIndex = 0;
+      tested = false;
+      resultPanel.classList.remove('active');
+      responseBtns.forEach(btn => btn.disabled = true);
+      responseBtns.forEach(btn => btn.classList.remove('selected'));
+      questionText.textContent = 'Add notes and load cards.';
+      cardCounter.textContent = '';
+      progressText.textContent = '📭 0';
+      statusBadge.textContent = '⏸ idle';
+      extraMessage.textContent = '';
+      focusList.innerHTML = '';
+      exitTestMode();
+    }
+
+    // ---- event bindings ----
+    loadBtn.addEventListener('click', loadCards);
+    testBtn.addEventListener('click', startTest);
+    resetBtn.addEventListener('click', function() {
+      resetTest();
+      exitTestMode();
+    });
+    newCardsBtn.addEventListener('click', function() {
+      resetAll();
+      notesInput.focus();
+    });
+    exitTestBtn.addEventListener('click', function() {
+      exitTestMode();
+    });
+
+    responseBtns.forEach(btn => {
+      btn.addEventListener('click', handleResponse);
+    });
+
+    // initial render
+    loadCards();
+  })();
+</script>
+</body>
+</html>
