@@ -509,13 +509,14 @@ Enzyme catalysis</textarea>
     <div class="button-group">
       <div class="timer-container">
         <i class="fas fa-hourglass-half" style="color:#b9bbbe; font-size: 0.85rem;"></i>
-        <input type="number" id="timerLength" min="1" max="300" value="15">
+        <input type="number" id="timerLength" min="1" max="600" value="30">
         <span style="color:#b9bbbe; font-size:0.85rem; padding-right:4px;">s</span>
       </div>
       <button class="btn btn-primary" id="loadBtn"><i class="fas fa-upload"></i> Load cards</button>
       <button class="btn btn-success" id="testBtn"><i class="fas fa-pen-fancy"></i> Test</button>
       <button class="btn btn-secondary" id="shuffleBtn"><i class="fas fa-random"></i> Shuffle</button>
       <button class="btn btn-secondary" id="timerBtn"><i class="fas fa-clock"></i> Timer: OFF</button>
+      <button class="btn btn-secondary" id="timerModeBtn"><i class="fas fa-sync-alt"></i> Mode: Per-Card</button>
       <button class="btn btn-secondary" id="negativeTimerBtn"><i class="fas fa-history"></i> Neg. Timer: OFF</button>
     </div>
   </div>
@@ -565,15 +566,15 @@ Enzyme catalysis</textarea>
     let flashcards = [];
     let currentIndex = 0;
     let scores = [];
-    let timerSpent = []; // tracks exact elapsed or negative overflow time per card
+    let timerSpent = []; 
     let tested = false;
     let subject = 'Biology 101';
 
     let timerEnabled = false;
+    let persistentTimerMode = false; // false = per-card reset, true = continuous session timer
     let negativeTimerEnabled = false;
-    let timerSeconds = 15;
     let timerInterval = null;
-    let currentRemaining = 15;
+    let currentRemaining = 30;
 
     // DOM refs
     const subjectInput = document.getElementById('subjectInput');
@@ -583,6 +584,7 @@ Enzyme catalysis</textarea>
     const timerLength = document.getElementById('timerLength');
     const shuffleBtn = document.getElementById('shuffleBtn');
     const timerBtn = document.getElementById('timerBtn');
+    const timerModeBtn = document.getElementById('timerModeBtn');
     const negativeTimerBtn = document.getElementById('negativeTimerBtn');
     const questionText = document.getElementById('questionText');
     const cardCounter = document.getElementById('cardCounter');
@@ -629,7 +631,7 @@ Enzyme catalysis</textarea>
 
     function renderCard() {
       if (!tested || flashcards.length === 0) {
-        clearInterval(timerInterval);
+        if (!persistentTimerMode) clearInterval(timerInterval);
         if (flashcards.length === 0) {
           questionText.textContent = 'No flashcards. Load some notes!';
           cardCounter.textContent = '';
@@ -784,15 +786,24 @@ Enzyme catalysis</textarea>
       currentIndex = 0;
       resultPanel.classList.remove('active');
       responseBtns.forEach(btn => btn.classList.remove('selected'));
+      
+      // Initialize persistent timer pool if needed
+      if (timerEnabled && persistentTimerMode) {
+        currentRemaining = Number(timerLength.value) || 30;
+      }
+      
       renderCard();
     }
 
     function handleResponse(e) {
-      clearInterval(timerInterval);
+      // If NOT in persistent mode, we clear timer interval per question click
+      if (!persistentTimerMode) {
+        clearInterval(timerInterval);
+      }
+      
       const btn = e.currentTarget;
       if (btn.disabled || !tested || flashcards.length === 0) return;
       
-      // Save remaining/negative counter state before moving on
       timerSpent[currentIndex] = currentRemaining;
 
       const score = parseInt(btn.dataset.score, 10);
@@ -833,14 +844,26 @@ Enzyme catalysis</textarea>
       timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
       statusBadge.textContent = "🔀 shuffled";
+      
+      if (timerEnabled && persistentTimerMode) {
+        currentRemaining = Number(timerLength.value) || 30;
+      }
+      
       renderCard();
     }
 
     function startTimer(){
-      clearInterval(timerInterval);
       if(!timerEnabled || !tested) return;
 
-      currentRemaining = Number(timerLength.value) || 15;
+      // If per-card mode, reset timer every card
+      if(!persistentTimerMode) {
+        clearInterval(timerInterval);
+        currentRemaining = Number(timerLength.value) || 15;
+      } else {
+        // If persistent mode and interval is already running, do nothing to avoid double intervals
+        if(timerInterval) return;
+      }
+
       statusBadge.textContent = `⏱ ${currentRemaining}s`;
 
       timerInterval = setInterval(()=>{
@@ -848,8 +871,7 @@ Enzyme catalysis</textarea>
         
         if (currentRemaining < 0) {
           statusBadge.textContent = `⏱ ${currentRemaining}s`;
-          if (!negativeTimerEnabled) {
-            // Auto-forgor and advance if negative timer mode is OFF
+          if (!negativeTimerEnabled && !persistentTimerMode) {
             clearInterval(timerInterval);
             timerSpent[currentIndex] = currentRemaining;
             scores[currentIndex] = 0;
@@ -879,11 +901,30 @@ Enzyme catalysis</textarea>
       
       if (tested) {
         if (timerEnabled) {
+          if (persistentTimerMode) {
+            currentRemaining = Number(timerLength.value) || 30;
+          }
           startTimer();
         } else {
           clearInterval(timerInterval);
           statusBadge.textContent = `📌 ${subject}`;
         }
+      }
+    });
+
+    timerModeBtn.addEventListener('click', () => {
+      persistentTimerMode = !persistentTimerMode;
+      timerModeBtn.innerHTML = persistentTimerMode
+        ? '<i class="fas fa-sync-alt"></i> Mode: Session'
+        : '<i class="fas fa-sync-alt"></i> Mode: Per-Card';
+      timerModeBtn.style.background = persistentTimerMode ? '#5865f2' : '#40444b';
+
+      if (tested && timerEnabled) {
+        clearInterval(timerInterval);
+        if (persistentTimerMode) {
+          currentRemaining = Number(timerLength.value) || 30;
+        }
+        startTimer();
       }
     });
 
