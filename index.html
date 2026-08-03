@@ -148,21 +148,38 @@
     }
 
     .button-group {
-      <input 
-  type="number"
-  id="timerLength"
-  class="btn"
-  min="1"
-  max="300"
-  value="15"
-  style="width:90px;"
->
-<span style="color:#b9bbbe;">seconds</span>
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       margin-top: 6px;
       justify-content: flex-end;
+      align-items: center;
+    }
+
+    .timer-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #40444b;
+      padding: 0.3rem 0.8rem;
+      border-radius: 40px;
+      border: 1px solid transparent;
+    }
+
+    .timer-container input {
+      background: #2f3136;
+      border: none;
+      border-radius: 8px;
+      padding: 0.3rem 0.5rem;
+      color: #f2f3f5;
+      font-size: 0.9rem;
+      outline: none;
+      width: 60px;
+      text-align: center;
+    }
+
+    .timer-container input:focus {
+      box-shadow: 0 0 0 2px #5865f2;
     }
 
     .btn {
@@ -441,11 +458,6 @@
       margin-left: auto;
     }
 
-    /* test mode adjustments */
-    body.test-active .flashcardio {
-      padding: 0;
-    }
-
     /* responsive */
     @media (max-width: 768px) {
       body.test-active .flashcard-area {
@@ -476,8 +488,8 @@
   <!-- header -->
   <div class="header">
     <h1><i class="fas fa-brain"></i> Flashcardio</h1>
-    <span class="badge"><i class="fas fa-tasks"></i>  active</span>
-    <span style="margin-left: auto; color: #8e9297; font-size: 0.9rem;"><i class="fas fa-discord"></i>  discord vibe</span>
+    <span class="badge"><i class="fas fa-tasks"></i> active</span>
+    <span style="margin-left: auto; color: #8e9297; font-size: 0.9rem;"><i class="fas fa-discord"></i> discord vibe</span>
   </div>
 
   <!-- input section -->
@@ -495,14 +507,15 @@ Cell membrane function
 Enzyme catalysis</textarea>
     </div>
     <div class="button-group">
+      <div class="timer-container">
+        <i class="fas fa-hourglass-half" style="color:#b9bbbe; font-size: 0.85rem;"></i>
+        <input type="number" id="timerLength" min="1" max="300" value="15">
+        <span style="color:#b9bbbe; font-size:0.85rem; padding-right:4px;">s</span>
+      </div>
       <button class="btn btn-primary" id="loadBtn"><i class="fas fa-upload"></i> Load cards</button>
       <button class="btn btn-success" id="testBtn"><i class="fas fa-pen-fancy"></i> Test</button>
-      <button class="btn btn-secondary" id="shuffleBtn">
-<i class="fas fa-random"></i> Shuffle
-</button>
-      <button class="btn btn-secondary" id="timerBtn">
-<i class="fas fa-clock"></i> Timer: OFF
-</button>
+      <button class="btn btn-secondary" id="shuffleBtn"><i class="fas fa-random"></i> Shuffle</button>
+      <button class="btn btn-secondary" id="timerBtn"><i class="fas fa-clock"></i> Timer: OFF</button>
     </div>
   </div>
 
@@ -548,15 +561,14 @@ Enzyme catalysis</textarea>
 <script>
   (function(){
     // ----- state -----
-let flashcards = [];
-let currentIndex = 0;
-let scores = [];
-let tested = false;
-let subject = 'Biology 101';
+    let flashcards = [];
+    let currentIndex = 0;
+    let scores = [];
+    let tested = false;
+    let subject = 'Biology 101';
 
-let timerEnabled = false;
-let timerSeconds = 15;
-let timerInterval = null;
+    let timerEnabled = false;
+    let timerInterval = null;
 
     // DOM refs
     const subjectInput = document.getElementById('subjectInput');
@@ -582,13 +594,12 @@ let timerInterval = null;
 
     function enterTestMode() {
       body.classList.add('test-active');
-      // Force reflow for animation
       void body.offsetWidth;
     }
 
     function exitTestMode() {
+      clearInterval(timerInterval);
       body.classList.remove('test-active');
-      // reset test state but keep cards
       tested = false;
       scores = new Array(flashcards.length).fill(-1);
       currentIndex = 0;
@@ -611,6 +622,7 @@ let timerInterval = null;
 
     function renderCard() {
       if (!tested || flashcards.length === 0) {
+        clearInterval(timerInterval);
         if (flashcards.length === 0) {
           questionText.textContent = 'No flashcards. Load some notes!';
           cardCounter.textContent = '';
@@ -631,7 +643,9 @@ let timerInterval = null;
       questionText.textContent = card.question || 'Untitled';
       cardCounter.textContent = `${currentIndex+1} / ${flashcards.length}`;
       progressText.textContent = `🧠 ${scores.filter(s => s !== -1).length} / ${flashcards.length} answered`;
-      statusBadge.textContent = `📌 ${subject}`;
+      if (!timerEnabled) {
+        statusBadge.textContent = `📌 ${subject}`;
+      }
 
       const currentScore = scores[currentIndex];
       responseBtns.forEach(btn => {
@@ -665,11 +679,12 @@ let timerInterval = null;
     }
 
     function showResults() {
+      clearInterval(timerInterval);
       const focusItems = computeFocus();
       resultPanel.classList.add('active');
       focusList.innerHTML = '';
       if (focusItems.length === 0) {
-        focusList.innerHTML = `<li style="border-left-color: #3ba55d; background: #2f3136; color: #b9bbbe;"><i class="fas fa-check-circle" style="color:#3ba55d;"></i>  All cards recalled! Keep it up 🎉</li>`;
+        focusList.innerHTML = `<li style="border-left-color: #3ba55d; background: #2f3136; color: #b9bbbe;"><i class="fas fa-check-circle" style="color:#3ba55d;"></i> All cards recalled! Keep it up 🎉</li>`;
         extraMessage.textContent = '✨ You remembered everything. Great job!';
       } else {
         focusItems.forEach(item => {
@@ -685,6 +700,7 @@ let timerInterval = null;
     }
 
     function resetTest() {
+      clearInterval(timerInterval);
       tested = false;
       scores = new Array(flashcards.length).fill(-1);
       currentIndex = 0;
@@ -706,6 +722,7 @@ let timerInterval = null;
     }
 
     function loadCards() {
+      clearInterval(timerInterval);
       const rawSubject = subjectInput.value.trim() || 'Subject';
       subject = rawSubject;
       const rawNotes = notesInput.value;
@@ -720,7 +737,7 @@ let timerInterval = null;
         resultPanel.classList.remove('active');
         tested = false;
         scores = [];
-        exitTestMode(); // ensure we're not in test mode
+        exitTestMode();
         return;
       }
       flashcards = lines.map(text => ({ question: text }));
@@ -735,7 +752,7 @@ let timerInterval = null;
       progressText.textContent = `⏳ ${flashcards.length} cards`;
       statusBadge.textContent = '📋 loaded';
       extraMessage.textContent = '';
-      exitTestMode(); // ensure we exit test mode when loading new cards
+      exitTestMode();
     }
 
     function startTest() {
@@ -743,9 +760,7 @@ let timerInterval = null;
         questionText.textContent = '⚠️ Load some flashcards first!';
         return;
       }
-      // Enter test mode
       enterTestMode();
-      
       tested = true;
       scores = new Array(flashcards.length).fill(-1);
       currentIndex = 0;
@@ -772,6 +787,7 @@ let timerInterval = null;
     }
 
     function resetAll() {
+      clearInterval(timerInterval);
       flashcards = [];
       scores = [];
       currentIndex = 0;
@@ -787,76 +803,72 @@ let timerInterval = null;
       focusList.innerHTML = '';
       exitTestMode();
     }
+
     function shuffleCards(){
-
-  flashcards.sort(() => Math.random() - 0.5);
-
-  scores = new Array(flashcards.length).fill(-1);
-  difficulty = new Array(flashcards.length).fill("normal");
-
-  currentIndex = 0;
-
-  statusBadge.textContent = "🔀 shuffled";
-
-  renderCard();
-}
-    function startTimer(){
-
-  clearInterval(timerInterval);
-
-  if(!timerEnabled) return;
-
-  let remaining = Number(timerLength.value) || 15;
-
-  statusBadge.textContent = `⏱ ${remaining}s`;
-
-  timerInterval = setInterval(()=>{
-
-    remaining--;
-
-    statusBadge.textContent = `⏱ ${remaining}s`;
-
-    if(remaining <= 0){
-
-      clearInterval(timerInterval);
-
-      // automatically mark as forgor
-      scores[currentIndex] = 0;
-
-      if(currentIndex + 1 < flashcards.length){
-        currentIndex++;
-        renderCard();
-      }
-      else{
-        showResults();
-      }
-
+      flashcards.sort(() => Math.random() - 0.5);
+      scores = new Array(flashcards.length).fill(-1);
+      currentIndex = 0;
+      statusBadge.textContent = "🔀 shuffled";
+      renderCard();
     }
 
-  },1000);
-}
+    function startTimer(){
+      clearInterval(timerInterval);
+      if(!timerEnabled || !tested) return;
+
+      let remaining = Number(timerLength.value) || 15;
+      statusBadge.textContent = `⏱ ${remaining}s`;
+
+      timerInterval = setInterval(()=>{
+        remaining--;
+        statusBadge.textContent = `⏱ ${remaining}s`;
+
+        if(remaining <= 0){
+          clearInterval(timerInterval);
+          scores[currentIndex] = 0; // automatically mark as forgor
+
+          if(currentIndex + 1 < flashcards.length){
+            currentIndex++;
+            renderCard();
+          } else {
+            renderCard();
+            showResults();
+          }
+        }
+      }, 1000);
+    }
 
     // ---- event bindings ----
     shuffleBtn.addEventListener('click', shuffleCards);
-    timerBtn.addEventListener('click',()=>{
+    
+    timerBtn.addEventListener('click', () => {
+      timerEnabled = !timerEnabled;
+      timerBtn.innerHTML = timerEnabled
+        ? '<i class="fas fa-clock"></i> Timer: ON'
+        : '<i class="fas fa-clock"></i> Timer: OFF';
+      
+      if (tested) {
+        if (timerEnabled) {
+          startTimer();
+        } else {
+          clearInterval(timerInterval);
+          statusBadge.textContent = `📌 ${subject}`;
+        }
+      }
+    });
 
-  timerEnabled = !timerEnabled;
-
-  timerBtn.innerHTML = timerEnabled
-  ? '<i class="fas fa-clock"></i> Timer: ON'
-  : '<i class="fas fa-clock"></i> Timer: OFF';
-
-});
     loadBtn.addEventListener('click', loadCards);
     testBtn.addEventListener('click', startTest);
+    
     resetBtn.addEventListener('click', function() {
       resetTest();
-      exitTestMode();
     });
+    
     newCardsBtn.addEventListener('click', function() {
       resetAll();
       notesInput.focus();
     });
+    
     exitTestBtn.addEventListener('click', function() {
       exitTestMode();
     });
