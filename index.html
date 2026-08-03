@@ -310,6 +310,10 @@
       min-width: 100px;
       border: 1px solid transparent;
       position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
     body.test-active .response-btn {
@@ -521,11 +525,11 @@
     </div>
     <div class="input-row">
       <label><i class="fas fa-list-ul"></i> Notes</label>
-      <textarea id="notesInput" placeholder="One item per line&#10;e.g.&#10;Mitochondria is powerhouse&#10;Photosynthesis equation&#10;DNA double helix">Mitochondria is powerhouse
-Photosynthesis equation
+      <textarea id="notesInput" placeholder="One item per line&#10;e.g.&#10;Mitochondria is powerhouse || true&#10;Earth is flat || false&#10;DNA double helix">Mitochondria is powerhouse || true
+Earth is flat || false
 DNA double helix
-Cell membrane function
-Enzyme catalysis</textarea>
+Cell membrane function || true
+The sky is green || false</textarea>
     </div>
     <div class="button-group">
       <div class="timer-container">
@@ -550,10 +554,7 @@ Enzyme catalysis</textarea>
       <small id="cardCounter"></small>
     </div>
     <div id="responseButtons" class="response-buttons">
-      <button class="response-btn" data-score="0"><i class="fas fa-skull"></i> Forgor <kbd>1</kbd></button>
-      <button class="response-btn" data-score="1"><i class="fas fa-question-circle"></i> Partially recall <kbd>2</kbd></button>
-      <button class="response-btn" data-score="2"><i class="fas fa-check-circle"></i> Recall <kbd>3</kbd></button>
-      <button class="response-btn" data-score="3"><i class="fas fa-star"></i> Easily recall <kbd>4</kbd></button>
+      <!-- Dynamically filled with either 4-tier memory buttons or True/False buttons -->
     </div>
     <div class="progress-indicator">
       <span id="progressText"><i class="fas fa-chevron-circle-right"></i> 0 / 0</span>
@@ -611,7 +612,7 @@ Enzyme catalysis</textarea>
     const cardCounter = document.getElementById('cardCounter');
     const progressText = document.getElementById('progressText');
     const statusBadge = document.getElementById('statusBadge');
-    const responseBtns = document.querySelectorAll('.response-btn');
+    const responseButtonsContainer = document.getElementById('responseButtons');
     const resultPanel = document.getElementById('resultPanel');
     const focusList = document.getElementById('focusList');
     const extraMessage = document.getElementById('extraMessage');
@@ -630,12 +631,11 @@ Enzyme catalysis</textarea>
       clearInterval(timerInterval);
       body.classList.remove('test-active');
       tested = false;
-      scores = new Array(flashcards.length).fill(-1);
+      scores = flashcards.map(card => card.defaultScore !== undefined ? card.defaultScore : -1);
       timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
       resultPanel.classList.remove('active');
-      responseBtns.forEach(btn => btn.disabled = true);
-      responseBtns.forEach(btn => btn.classList.remove('selected'));
+      responseButtonsContainer.innerHTML = '';
       if (flashcards.length > 0) {
         questionText.textContent = 'Press "Test" to start.';
         cardCounter.textContent = `${flashcards.length} cards ready`;
@@ -664,7 +664,7 @@ Enzyme catalysis</textarea>
           progressText.textContent = `⏳ ${flashcards.length} cards`;
           statusBadge.textContent = '📋 loaded';
         }
-        responseBtns.forEach(btn => btn.disabled = true);
+        responseButtonsContainer.innerHTML = '';
         return;
       }
 
@@ -678,14 +678,35 @@ Enzyme catalysis</textarea>
       }
 
       const currentScore = scores[currentIndex];
-      responseBtns.forEach(btn => {
-        btn.disabled = false;
-        const val = parseInt(btn.dataset.score, 10);
-        if (currentScore === val) {
-          btn.classList.add('selected');
-        } else {
-          btn.classList.remove('selected');
-        }
+      
+      // Render proper buttons based on whether it's a True/False card or a standard card
+      if (card.isTrueFalse) {
+        responseButtonsContainer.innerHTML = `
+          <button class="response-btn ${currentScore === 3 ? 'selected' : ''}" data-val="true"><i class="fas fa-check" style="color:#3ba55d;"></i> True <kbd>1</kbd></button>
+          <button class="response-btn ${currentScore === 0 ? 'selected' : ''}" data-val="false"><i class="fas fa-times" style="color:#ed4245;"></i> False <kbd>2</kbd></button>
+        `;
+      } else {
+        responseButtonsContainer.innerHTML = `
+          <button class="response-btn ${currentScore === 0 ? 'selected' : ''}" data-score="0"><i class="fas fa-skull"></i> Forgor <kbd>1</kbd></button>
+          <button class="response-btn ${currentScore === 1 ? 'selected' : ''}" data-score="1"><i class="fas fa-question-circle"></i> Partially recall <kbd>2</kbd></button>
+          <button class="response-btn ${currentScore === 2 ? 'selected' : ''}" data-score="2"><i class="fas fa-check-circle"></i> Recall <kbd>3</kbd></button>
+          <button class="response-btn ${currentScore === 3 ? 'selected' : ''}" data-score="3"><i class="fas fa-star"></i> Easily recall <kbd>4</kbd></button>
+        `;
+      }
+
+      // Bind click handlers to newly created buttons
+      responseButtonsContainer.querySelectorAll('.response-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const targetBtn = e.currentTarget;
+          if (card.isTrueFalse) {
+            const userChoice = targetBtn.dataset.val === 'true';
+            const scoreVal = userChoice === card.expectedBool ? 3 : 0;
+            handleResponse(scoreVal);
+          } else {
+            const val = parseInt(targetBtn.dataset.score, 10);
+            handleResponse(val);
+          }
+        });
       });
 
       if (scores.every(s => s !== -1)) {
@@ -705,10 +726,11 @@ Enzyme catalysis</textarea>
           } else if (overflow > 0 && timerEnabled) {
             timeLabel = ` (${overflow}s left)`;
           }
+          const labelText = flashcards[i].isTrueFalse ? 'Incorrect' : (score === 0 ? 'Forgor' : 'Partially recall');
           focusItems.push({
             question: (flashcards[i].question || 'Untitled') + timeLabel,
             score: score,
-            label: score === 0 ? 'Forgor' : 'Partially recall'
+            label: labelText
           });
         }
       }
@@ -721,8 +743,8 @@ Enzyme catalysis</textarea>
       resultPanel.classList.add('active');
       focusList.innerHTML = '';
       if (focusItems.length === 0) {
-        focusList.innerHTML = `<li style="border-left-color: #3ba55d; background: #2f3136; color: #b9bbbe;"><i class="fas fa-check-circle" style="color:#3ba55d;"></i> All cards recalled! Keep it up 🎉</li>`;
-        extraMessage.textContent = '✨ You remembered everything. Great job!';
+        focusList.innerHTML = `<li style="border-left-color: #3ba55d; background: #2f3136; color: #b9bbbe;"><i class="fas fa-check-circle" style="color:#3ba55d;"></i> All cards mastered! Keep it up 🎉</li>`;
+        extraMessage.textContent = '✨ You answered everything correctly. Great job!';
       } else {
         focusItems.forEach(item => {
           const li = document.createElement('li');
@@ -732,19 +754,18 @@ Enzyme catalysis</textarea>
         });
         extraMessage.textContent = `🔁 ${focusItems.length} card(s) need extra review. Focus on these.`;
       }
-      responseBtns.forEach(btn => btn.disabled = true);
+      responseButtonsContainer.innerHTML = '';
       statusBadge.textContent = '✅ done';
     }
 
     function resetTest() {
       clearInterval(timerInterval);
       tested = false;
-      scores = new Array(flashcards.length).fill(-1);
+      scores = flashcards.map(card => card.defaultScore !== undefined ? card.defaultScore : -1);
       timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
       resultPanel.classList.remove('active');
-      responseBtns.forEach(btn => btn.disabled = true);
-      responseBtns.forEach(btn => btn.classList.remove('selected'));
+      responseButtonsContainer.innerHTML = '';
       if (flashcards.length > 0) {
         questionText.textContent = 'Press "Test" to start.';
         cardCounter.textContent = `${flashcards.length} cards ready`;
@@ -765,13 +786,14 @@ Enzyme catalysis</textarea>
       subject = rawSubject;
       const rawNotes = notesInput.value;
       const lines = rawNotes.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+      
       if (lines.length === 0) {
         flashcards = [];
         questionText.textContent = '⚠️ No notes found. Add items line by line.';
         cardCounter.textContent = '';
         progressText.textContent = '📭 0';
         statusBadge.textContent = '⚠️ empty';
-        responseBtns.forEach(btn => btn.disabled = true);
+        responseButtonsContainer.innerHTML = '';
         resultPanel.classList.remove('active');
         tested = false;
         scores = [];
@@ -779,14 +801,37 @@ Enzyme catalysis</textarea>
         exitTestMode();
         return;
       }
-      flashcards = lines.map(text => ({ question: text }));
+
+      flashcards = lines.map(line => {
+        let questionText = line;
+        let defaultScore = undefined; 
+        let isTrueFalse = false;
+        let expectedBool = false;
+
+        if (line.endsWith('|| true')) {
+          questionText = line.slice(0, line.lastIndexOf('|| true')).trim();
+          isTrueFalse = true;
+          expectedBool = true;
+        } else if (line.endsWith('|| false')) {
+          questionText = line.slice(0, line.lastIndexOf('|| false')).trim();
+          isTrueFalse = true;
+          expectedBool = false;
+        }
+
+        return { 
+          question: questionText, 
+          defaultScore: defaultScore, 
+          isTrueFalse: isTrueFalse, 
+          expectedBool: expectedBool 
+        };
+      });
+
       tested = false;
-      scores = new Array(flashcards.length).fill(-1);
+      scores = flashcards.map(card => card.defaultScore !== undefined ? card.defaultScore : -1);
       timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
       resultPanel.classList.remove('active');
-      responseBtns.forEach(btn => btn.disabled = true);
-      responseBtns.forEach(btn => btn.classList.remove('selected'));
+      responseButtonsContainer.innerHTML = '';
       questionText.textContent = 'Press "Test" to start.';
       cardCounter.textContent = `${flashcards.length} cards ready`;
       progressText.textContent = `⏳ ${flashcards.length} cards`;
@@ -802,11 +847,10 @@ Enzyme catalysis</textarea>
       }
       enterTestMode();
       tested = true;
-      scores = new Array(flashcards.length).fill(-1);
+      scores = flashcards.map(card => card.defaultScore !== undefined ? card.defaultScore : -1);
       timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
       resultPanel.classList.remove('active');
-      responseBtns.forEach(btn => btn.classList.remove('selected'));
       
       if (timerEnabled && persistentTimerMode) {
         currentRemaining = Number(timerLength.value) || 30;
@@ -844,8 +888,7 @@ Enzyme catalysis</textarea>
       currentIndex = 0;
       tested = false;
       resultPanel.classList.remove('active');
-      responseBtns.forEach(btn => btn.disabled = true);
-      responseBtns.forEach(btn => btn.classList.remove('selected'));
+      responseButtonsContainer.innerHTML = '';
       questionText.textContent = 'Add notes and load cards.';
       cardCounter.textContent = '';
       progressText.textContent = '📭 0';
@@ -856,9 +899,17 @@ Enzyme catalysis</textarea>
     }
 
     function shuffleCards(){
-      flashcards.sort(() => Math.random() - 0.5);
-      scores = new Array(flashcards.length).fill(-1);
-      timerSpent = new Array(flashcards.length).fill(0);
+      const combined = flashcards.map((card, idx) => ({
+        card: card,
+        score: scores[idx],
+        timer: timerSpent[idx]
+      }));
+      
+      combined.sort(() => Math.random() - 0.5);
+      
+      flashcards = combined.map(item => item.card);
+      scores = combined.map(item => item.score);
+      timerSpent = combined.map(item => item.timer);
       currentIndex = 0;
       statusBadge.textContent = "🔀 shuffled";
       
@@ -967,27 +1018,33 @@ Enzyme catalysis</textarea>
       exitTestMode();
     });
 
-    responseBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const val = parseInt(e.currentTarget.dataset.score, 10);
-        handleResponse(val);
-      });
-    });
-
-    // Global Keybind Listener for 1-4 keys during test mode
+    // Global Keybind Listener for 1-4 keys (or 1-2 for T/F) during test mode
     window.addEventListener('keydown', (e) => {
-      if (!tested) return;
-      // Do not trigger if typing in inputs/textareas
+      if (!tested || flashcards.length === 0) return;
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
 
-      if (e.key === '1') {
-        handleResponse(0); // Forgor
-      } else if (e.key === '2') {
-        handleResponse(1); // Partially recall
-      } else if (e.key === '3') {
-        handleResponse(2); // Recall
-      } else if (e.key === '4') {
-        handleResponse(3); // Easily recall
+      const card = flashcards[currentIndex];
+
+      if (card.isTrueFalse) {
+        if (e.key === '1') {
+          // Key 1 = True
+          const scoreVal = (true === card.expectedBool) ? 3 : 0;
+          handleResponse(scoreVal);
+        } else if (e.key === '2') {
+          // Key 2 = False
+          const scoreVal = (false === card.expectedBool) ? 3 : 0;
+          handleResponse(scoreVal);
+        }
+      } else {
+        if (e.key === '1') {
+          handleResponse(0); // Forgor
+        } else if (e.key === '2') {
+          handleResponse(1); // Partially recall
+        } else if (e.key === '3') {
+          handleResponse(2); // Recall
+        } else if (e.key === '4') {
+          handleResponse(3); // Easily recall
+        }
       }
     });
 
