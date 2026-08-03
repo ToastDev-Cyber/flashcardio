@@ -309,6 +309,7 @@
       flex: 1 0 auto;
       min-width: 100px;
       border: 1px solid transparent;
+      position: relative;
     }
 
     body.test-active .response-btn {
@@ -318,12 +319,32 @@
       flex: 0 1 auto;
     }
 
+    .response-btn kbd {
+      background: #2f3136;
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      font-size: 0.75rem;
+      color: #b9bbbe;
+      margin-left: 6px;
+      border: 1px solid #40444b;
+    }
+
+    body.test-active .response-btn kbd {
+      font-size: 0.85rem;
+      margin-left: 8px;
+    }
+
     .response-btn:hover {
       background: #4e535c;
       border-color: #5865f2;
     }
     .response-btn.selected {
       background: #5865f2;
+      color: white;
+      border-color: #5865f2;
+    }
+    .response-btn.selected kbd {
+      background: #4752c4;
       color: white;
       border-color: #5865f2;
     }
@@ -529,10 +550,10 @@ Enzyme catalysis</textarea>
       <small id="cardCounter"></small>
     </div>
     <div id="responseButtons" class="response-buttons">
-      <button class="response-btn" data-score="0"><i class="fas fa-skull"></i> Forgor</button>
-      <button class="response-btn" data-score="1"><i class="fas fa-question-circle"></i> Partially recall</button>
-      <button class="response-btn" data-score="2"><i class="fas fa-check-circle"></i> Recall</button>
-      <button class="response-btn" data-score="3"><i class="fas fa-star"></i> Easily recall</button>
+      <button class="response-btn" data-score="0"><i class="fas fa-skull"></i> Forgor <kbd>1</kbd></button>
+      <button class="response-btn" data-score="1"><i class="fas fa-question-circle"></i> Partially recall <kbd>2</kbd></button>
+      <button class="response-btn" data-score="2"><i class="fas fa-check-circle"></i> Recall <kbd>3</kbd></button>
+      <button class="response-btn" data-score="3"><i class="fas fa-star"></i> Easily recall <kbd>4</kbd></button>
     </div>
     <div class="progress-indicator">
       <span id="progressText"><i class="fas fa-chevron-circle-right"></i> 0 / 0</span>
@@ -787,7 +808,6 @@ Enzyme catalysis</textarea>
       resultPanel.classList.remove('active');
       responseBtns.forEach(btn => btn.classList.remove('selected'));
       
-      // Initialize persistent timer pool if needed
       if (timerEnabled && persistentTimerMode) {
         currentRemaining = Number(timerLength.value) || 30;
       }
@@ -795,19 +815,16 @@ Enzyme catalysis</textarea>
       renderCard();
     }
 
-    function handleResponse(e) {
-      // If NOT in persistent mode, we clear timer interval per question click
+    function handleResponse(scoreVal) {
       if (!persistentTimerMode) {
         clearInterval(timerInterval);
       }
       
-      const btn = e.currentTarget;
-      if (btn.disabled || !tested || flashcards.length === 0) return;
+      if (!tested || flashcards.length === 0) return;
       
       timerSpent[currentIndex] = currentRemaining;
 
-      const score = parseInt(btn.dataset.score, 10);
-      scores[currentIndex] = score;
+      scores[currentIndex] = scoreVal;
       if (currentIndex + 1 < flashcards.length) {
         currentIndex++;
         renderCard();
@@ -855,12 +872,10 @@ Enzyme catalysis</textarea>
     function startTimer(){
       if(!timerEnabled || !tested) return;
 
-      // If per-card mode, reset timer every card
       if(!persistentTimerMode) {
         clearInterval(timerInterval);
         currentRemaining = Number(timerLength.value) || 15;
       } else {
-        // If persistent mode and interval is already running, do nothing to avoid double intervals
         if(timerInterval) return;
       }
 
@@ -953,7 +968,27 @@ Enzyme catalysis</textarea>
     });
 
     responseBtns.forEach(btn => {
-      btn.addEventListener('click', handleResponse);
+      btn.addEventListener('click', (e) => {
+        const val = parseInt(e.currentTarget.dataset.score, 10);
+        handleResponse(val);
+      });
+    });
+
+    // Global Keybind Listener for 1-4 keys during test mode
+    window.addEventListener('keydown', (e) => {
+      if (!tested) return;
+      // Do not trigger if typing in inputs/textareas
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+
+      if (e.key === '1') {
+        handleResponse(0); // Forgor
+      } else if (e.key === '2') {
+        handleResponse(1); // Partially recall
+      } else if (e.key === '3') {
+        handleResponse(2); // Recall
+      } else if (e.key === '4') {
+        handleResponse(3); // Easily recall
+      }
     });
 
     // initial render
