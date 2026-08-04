@@ -520,33 +520,56 @@
       color: #dcddde !important;
     }
 
-    /* Average 2009 Website */
+    /* Average 2009 Website (Old Windows XP / Classic PC Theme - Sharp Squares, Beveled Look) */
     body.theme-oldweb {
-      background: #c0c0c0 !important;
+      background: #3a6ea5 !important;
       color: #000000 !important;
+      /* Simulated vintage CRT scanline overlay */
+      background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)) !important;
+      background-size: 100% 4px, 6px 100% !important;
     }
     body.theme-oldweb .flashcardio {
-      background: #ffffff !important;
+      background: #ece9d8 !important;
       color: #000000 !important;
-      border-radius: 8px !important;
-      box-shadow: 0 2px 10px #777 !important;
-      border: 1px solid #808080 !important;
+      border-radius: 0 !important;
+      box-shadow: inset 1px 1px #ffffff, inset -1px -1px #000000, 3px 3px 10px rgba(0,0,0,0.5) !important;
+      border: 2px solid #0055ea !important;
+      padding: 0 !important;
+    }
+    /* Retro Window Titlebar */
+    body.theme-oldweb .flashcardio::before {
+      content: "Flashcardio - Microsoft Internet Explorer";
+      display: block;
+      background: linear-gradient(to right, #0055ea, #2884eb);
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
     }
     body.theme-oldweb .flashcard-area {
-      background: #eeeeee !important;
-      border-left-color: #0000ff !important;
+      background: #ffffff !important;
+      border-radius: 0 !important;
+      border: 2px inset #7f7f7f !important;
+      border-left: 6px solid #0000ff !important;
+      margin: 10px !important;
+      padding: 1rem !important;
     }
     body.theme-oldweb .header {
-      border-bottom-color: #808080 !important;
+      border-bottom: 2px groove #808080 !important;
+      padding: 0 1rem 0.5rem 1rem !important;
+      margin-bottom: 1rem !important;
     }
     body.theme-oldweb .header h1 {
       background: none !important;
-      -webkit-text-fill-color: #0000ff !important;
-      color: #0000ff !important;
+      -webkit-text-fill-color: #000080 !important;
+      color: #000080 !important;
+      font-size: 1.6rem !important;
     }
     body.theme-oldweb .header h1 i {
-      -webkit-text-fill-color: #0000ff !important;
-      color: #0000ff !important;
+      -webkit-text-fill-color: #000080 !important;
+      color: #000080 !important;
     }
     body.theme-oldweb .input-row input, 
     body.theme-oldweb .input-row textarea,
@@ -556,17 +579,51 @@
     body.theme-oldweb .badge,
     body.theme-oldweb .response-btn,
     body.theme-oldweb .btn {
-      background: #e0e0e0 !important;
+      background: #f4f0ec !important;
       color: #000000 !important;
-      border: 1px solid #7f7f7f !important;
+      border-radius: 0 !important;
+      border: 2px outset #ffffff !important;
+      border-right-color: #404040 !important;
+      border-bottom-color: #404040 !important;
+    }
+    body.theme-oldweb .btn:active, 
+    body.theme-oldweb .response-btn:active {
+      border: 2px inset #ffffff !important;
+      border-top-color: #404040 !important;
+      border-left-color: #404040 !important;
+    }
+    body.theme-oldweb .input-row input:focus, 
+    body.theme-oldweb .input-row textarea:focus {
+      background: #ffffff !important;
+      box-shadow: none !important;
+      border: 2px inset #000000 !important;
     }
     body.theme-oldweb .flashcard-prompt,
     body.theme-oldweb .input-row label,
     body.theme-oldweb .progress-indicator,
     body.theme-oldweb .footer,
     body.theme-oldweb .status-message,
-    body.theme-oldweb .result-title {
+    body.theme-oldweb .result-title,
+    body.theme-oldweb .badge {
       color: #000000 !important;
+      background: transparent !important;
+    }
+    body.theme-oldweb .result-panel {
+      background: #f4f0ec !important;
+      border-radius: 0 !important;
+      border: 2px inset #7f7f7f !important;
+      border-left: 6px solid #00aa00 !important;
+    }
+    body.theme-oldweb .focus-list li {
+      background: #ffffff !important;
+      border-radius: 0 !important;
+      border: 1px solid #7f7f7f !important;
+      border-left: 4px solid #cc0000 !important;
+    }
+    body.theme-oldweb .footer {
+      border-top: 1px groove #808080 !important;
+      margin: 10px !important;
+      padding: 5px !important;
     }
 
     /* Twitter Black */
