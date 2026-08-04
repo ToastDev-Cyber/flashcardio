@@ -1184,19 +1184,21 @@ The sky is green || false</textarea>
         `;
       }
 
-      responseButtonsContainer.querySelectorAll('.response-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const targetBtn = e.currentTarget;
-          if (card.isTrueFalse) {
-            const userChoice = targetBtn.dataset.val === 'true';
-            const scoreVal = userChoice === card.expectedBool ? 3 : 0;
-            handleResponse(scoreVal);
-          } else if (!card.isBlank) {
-            const val = parseInt(targetBtn.dataset.score, 10);
-            handleResponse(val);
-          }
+      if (!card.isBlank) {
+        responseButtonsContainer.querySelectorAll('.response-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const targetBtn = e.currentTarget;
+            if (card.isTrueFalse) {
+              const userChoice = targetBtn.dataset.val === 'true';
+              const scoreVal = userChoice === card.expectedBool ? 3 : 0;
+              handleResponse(scoreVal);
+            } else {
+              const val = parseInt(targetBtn.dataset.score, 10);
+              handleResponse(val);
+            }
+          });
         });
-      });
+      }
 
       if (scores.every(s => s !== -1)) {
         showResults();
@@ -1207,6 +1209,7 @@ The sky is green || false</textarea>
       const focusItems = [];
       for (let i = 0; i < flashcards.length; i++) {
         const score = scores[i];
+        const card = flashcards[i];
         if (score === 0 || score === 1) {
           const overflow = timerSpent[i];
           let timeLabel = '';
@@ -1215,9 +1218,16 @@ The sky is green || false</textarea>
           } else if (overflow > 0 && timerEnabled) {
             timeLabel = ` (${overflow}s left)`;
           }
-          const labelText = flashcards[i].isTrueFalse ? 'Incorrect' : (score === 0 ? 'Forgor' : 'Partially recall');
+          
+          let labelText = 'Forgor';
+          if (card.isBlank || card.isTrueFalse) {
+            labelText = 'Incorrect';
+          } else if (score === 1) {
+            labelText = 'Partially recall';
+          }
+
           focusItems.push({
-            question: (flashcards[i].question || 'Untitled') + timeLabel,
+            question: (card.question || 'Untitled') + timeLabel,
             score: score,
             label: labelText
           });
