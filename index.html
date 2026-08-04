@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flashcardio</title>
+  <title>Flashcardio[cite: 1]</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Roboto:wght@400;700&family=VT323&family=Press+Start+2P&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <!-- Fontawesome (Discord-like icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -494,103 +494,267 @@
       outline: none;
     }
 
-    /* ===== THEMES ===== */
+    /* ===== THEMES (Backgrounds, Component Layouts & Adaptive Typography) ===== */
 
     /* Discord Black */
     body.theme-discord {
-      background:#36393f !important;
+      background: #36393f !important;
+      color: #dcddde !important;
     }
-
     body.theme-discord .flashcardio {
-      background:#2f3136 !important;
+      background: #2f3136 !important;
+      color: #dcddde !important;
     }
-
     body.theme-discord .flashcard-area {
-      background:#292b2f !important;
+      background: #292b2f !important;
     }
-
+    body.theme-discord .input-row input, 
+    body.theme-discord .input-row textarea,
+    body.theme-discord .timer-container,
+    body.theme-discord .timer-container input,
+    body.theme-discord .theme-selector,
+    body.theme-discord .badge,
+    body.theme-discord .response-btn,
+    body.theme-discord .btn {
+      background: #40444b !important;
+      color: #dcddde !important;
+    }
 
     /* Average 2009 Website */
     body.theme-oldweb {
-      background:#c0c0c0 !important;
+      background: #c0c0c0 !important;
+      color: #000000 !important;
     }
-
     body.theme-oldweb .flashcardio {
-      background:white !important;
-      color:black !important;
-      border-radius:8px !important;
+      background: #ffffff !important;
+      color: #000000 !important;
+      border-radius: 8px !important;
+      box-shadow: 0 2px 10px #777 !important;
+      border: 1px solid #808080 !important;
     }
-
     body.theme-oldweb .flashcard-area {
-      background:#eeeeee !important;
-      border-left-color:blue !important;
+      background: #eeeeee !important;
+      border-left-color: #0000ff !important;
     }
-
+    body.theme-oldweb .header {
+      border-bottom-color: #808080 !important;
+    }
+    body.theme-oldweb .header h1 {
+      background: none !important;
+      -webkit-text-fill-color: #0000ff !important;
+      color: #0000ff !important;
+    }
+    body.theme-oldweb .header h1 i {
+      -webkit-text-fill-color: #0000ff !important;
+      color: #0000ff !important;
+    }
+    body.theme-oldweb .input-row input, 
+    body.theme-oldweb .input-row textarea,
+    body.theme-oldweb .timer-container,
+    body.theme-oldweb .timer-container input,
+    body.theme-oldweb .theme-selector,
+    body.theme-oldweb .badge,
+    body.theme-oldweb .response-btn,
     body.theme-oldweb .btn {
-      background:#dddddd !important;
-      color:black !important;
+      background: #e0e0e0 !important;
+      color: #000000 !important;
+      border: 1px solid #7f7f7f !important;
     }
-
+    body.theme-oldweb .flashcard-prompt,
+    body.theme-oldweb .input-row label,
+    body.theme-oldweb .progress-indicator,
+    body.theme-oldweb .footer,
+    body.theme-oldweb .status-message,
+    body.theme-oldweb .result-title {
+      color: #000000 !important;
+    }
 
     /* Twitter Black */
     body.theme-twitter {
-      background:#000 !important;
+      background: #000000 !important;
+      color: #f7f9f9 !important;
     }
-
     body.theme-twitter .flashcardio {
-      background:#15202b !important;
+      background: #15202b !important;
+      color: #f7f9f9 !important;
+      border: 1px solid #38444d !important;
     }
-
     body.theme-twitter .flashcard-area {
-      background:#192734 !important;
+      background: #192734 !important;
     }
-
+    body.theme-twitter .header {
+      border-bottom-color: #38444d !important;
+    }
+    body.theme-twitter .header h1 {
+      background: none !important;
+      -webkit-text-fill-color: #1da1f2 !important;
+      color: #1da1f2 !important;
+    }
+    body.theme-twitter .header h1 i {
+      -webkit-text-fill-color: #1da1f2 !important;
+      color: #1da1f2 !important;
+    }
+    body.theme-twitter .input-row input, 
+    body.theme-twitter .input-row textarea,
+    body.theme-twitter .timer-container,
+    body.theme-twitter .timer-container input,
+    body.theme-twitter .theme-selector,
+    body.theme-twitter .badge,
+    body.theme-twitter .response-btn,
+    body.theme-twitter .btn {
+      background: #253341 !important;
+      color: #f7f9f9 !important;
+      border: 1px solid #38444d !important;
+    }
+    body.theme-twitter .flashcard-prompt,
+    body.theme-twitter .input-row label,
+    body.theme-twitter .progress-indicator,
+    body.theme-twitter .footer,
+    body.theme-twitter .status-message,
+    body.theme-twitter .result-title {
+      color: #f7f9f9 !important;
+    }
 
     /* Roblox Light Mode */
     body.theme-roblox {
-      background:#eeeeee !important;
+      background: #eeeeee !important;
+      color: #111111 !important;
     }
-
     body.theme-roblox .flashcardio {
-      background:#ffffff !important;
-      color:#222 !important;
+      background: #ffffff !important;
+      color: #111111 !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
     }
-
     body.theme-roblox .flashcard-area {
-      background:#f5f5f5 !important;
+      background: #f5f5f5 !important;
+      border-left-color: #0074e8 !important;
     }
-
+    body.theme-roblox .header {
+      border-bottom-color: #dddddd !important;
+    }
+    body.theme-roblox .header h1 {
+      background: none !important;
+      -webkit-text-fill-color: #0074e8 !important;
+      color: #0074e8 !important;
+    }
+    body.theme-roblox .header h1 i {
+      -webkit-text-fill-color: #0074e8 !important;
+      color: #0074e8 !important;
+    }
+    body.theme-roblox .input-row input, 
+    body.theme-roblox .input-row textarea,
+    body.theme-roblox .timer-container,
+    body.theme-roblox .timer-container input,
+    body.theme-roblox .theme-selector,
+    body.theme-roblox .badge,
+    body.theme-roblox .response-btn,
+    body.theme-roblox .btn {
+      background: #e9e9e9 !important;
+      color: #111111 !important;
+      border: 1px solid #cccccc !important;
+    }
+    body.theme-roblox .flashcard-prompt,
+    body.theme-roblox .input-row label,
+    body.theme-roblox .progress-indicator,
+    body.theme-roblox .footer,
+    body.theme-roblox .status-message,
+    body.theme-roblox .result-title {
+      color: #222222 !important;
+    }
 
     /* YELOOW */
     body.theme-yellow {
-      background:#ffff00 !important;
+      background: #ffd700 !important;
+      color: #1a1a1a !important;
     }
-
     body.theme-yellow .flashcardio {
-      background:#fff700 !important;
+      background: #ffea75 !important;
+      color: #1a1a1a !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important;
     }
-
     body.theme-yellow .flashcard-area {
-      background:#ffe600 !important;
+      background: #fff099 !important;
+      border-left-color: #d4ac0d !important;
     }
-
+    body.theme-yellow .header {
+      border-bottom-color: #e5c158 !important;
+    }
+    body.theme-yellow .header h1 {
+      background: none !important;
+      -webkit-text-fill-color: #7d6608 !important;
+      color: #7d6608 !important;
+    }
+    body.theme-yellow .header h1 i {
+      -webkit-text-fill-color: #7d6608 !important;
+      color: #7d6608 !important;
+    }
+    body.theme-yellow .input-row input, 
+    body.theme-yellow .input-row textarea,
+    body.theme-yellow .timer-container,
+    body.theme-yellow .timer-container input,
+    body.theme-yellow .theme-selector,
+    body.theme-yellow .badge,
+    body.theme-yellow .response-btn,
+    body.theme-yellow .btn {
+      background: #fdf2a4 !important;
+      color: #1a1a1a !important;
+      border: 1px solid #d4ac0d !important;
+    }
+    body.theme-yellow .flashcard-prompt,
+    body.theme-yellow .input-row label,
+    body.theme-yellow .progress-indicator,
+    body.theme-yellow .footer,
+    body.theme-yellow .status-message,
+    body.theme-yellow .result-title {
+      color: #222222 !important;
+    }
 
     /* Neon Dark Green */
     body.theme-neongreen {
-      background:#001000 !important;
+      background: #001000 !important;
+      color: #00ff66 !important;
     }
-
     body.theme-neongreen .flashcardio {
-      background:#002000 !important;
-      box-shadow:0 0 30px #00ff00 !important;
+      background: #002000 !important;
+      color: #00ff66 !important;
+      box-shadow: 0 0 30px #00ff00 !important;
+      border: 1px solid #00aa33 !important;
     }
-
     body.theme-neongreen .flashcard-area {
-      background:#003300 !important;
+      background: #003300 !important;
+      border-left-color: #00ff44 !important;
     }
-
+    body.theme-neongreen .header {
+      border-bottom-color: #004400 !important;
+    }
+    body.theme-neongreen .header h1 {
+      background: linear-gradient(135deg,#00ff44,#00ffaa) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+    }
+    body.theme-neongreen .header h1 i {
+      -webkit-text-fill-color: #00ff44 !important;
+      color: #00ff44 !important;
+    }
+    body.theme-neongreen .input-row input, 
+    body.theme-neongreen .input-row textarea,
+    body.theme-neongreen .timer-container,
+    body.theme-neongreen .timer-container input,
+    body.theme-neongreen .theme-selector,
+    body.theme-neongreen .badge,
+    body.theme-neongreen .response-btn,
     body.theme-neongreen .btn {
-      background:#006600 !important;
+      background: #004400 !important;
+      color: #00ff66 !important;
+      border: 1px solid #008822 !important;
+    }
+    body.theme-neongreen .flashcard-prompt,
+    body.theme-neongreen .input-row label,
+    body.theme-neongreen .progress-indicator,
+    body.theme-neongreen .footer,
+    body.theme-neongreen .status-message,
+    body.theme-neongreen .result-title {
+      color: #00ff88 !important;
     }
   
     /* Theme Fonts (Excluding FontAwesome elements using :not([class*="fa-"])) */
@@ -610,7 +774,7 @@
   <div class="header">
     <h1><i class="fas fa-brain"></i> Flashcardio</h1>
     <span class="badge"><i class="fas fa-tasks"></i> active</span>
-    <span style="margin-left: auto; color: #8e9297; font-size: 0.9rem;"><i class="fas fa-comments"></i>probably a vibe</span>
+    <span style="margin-left: auto; color: inherit; font-size: 0.9rem;"><i class="fas fa-comments"></i>probably a vibe</span>
     <select id="themeSelector" class="theme-selector">
       <option value="discord">Discord Black</option>
       <option value="oldweb">Average 2009 Website</option>
@@ -637,9 +801,9 @@ The sky is green || false</textarea>
     </div>
     <div class="button-group">
       <div class="timer-container">
-        <i class="fas fa-hourglass-half" style="color:#b9bbbe; font-size: 0.85rem;"></i>
+        <i class="fas fa-hourglass-half" style="font-size: 0.85rem;"></i>
         <input type="number" id="timerLength" min="1" max="600" value="30">
-        <span style="color:#b9bbbe; font-size:0.85rem; padding-right:4px;">s</span>
+        <span style="font-size:0.85rem; padding-right:4px;">s</span>
       </div>
       <button class="btn btn-primary" id="loadBtn"><i class="fas fa-upload"></i> Load cards</button>
       <button class="btn btn-success" id="testBtn"><i class="fas fa-pen-fancy"></i> Test</button>
@@ -653,7 +817,7 @@ The sky is green || false</textarea>
   <!-- flashcard area -->
   <div class="flashcard-area" id="flashcardArea">
     <div class="flashcard-prompt">
-      <i class="fas fa-quote-left" style="color:#5865f2; margin-right: 6px;"></i>
+      <i class="fas fa-quote-left" style="margin-right: 6px;"></i>
       <span id="questionText">Add your subject & notes, then click "Test"</span>
       <small id="cardCounter"></small>
     </div>
@@ -662,7 +826,7 @@ The sky is green || false</textarea>
     </div>
     <div class="progress-indicator">
       <span id="progressText"><i class="fas fa-chevron-circle-right"></i> 0 / 0</span>
-      <span id="statusBadge" style="background:#40444b; padding:0.2rem 1rem; border-radius:40px;">ready</span>
+      <span id="statusBadge" style="padding:0.2rem 1rem; border-radius:40px;">ready</span>
     </div>
   </div>
 
@@ -844,7 +1008,7 @@ The sky is green || false</textarea>
       resultPanel.classList.add('active');
       focusList.innerHTML = '';
       if (focusItems.length === 0) {
-        focusList.innerHTML = `<li style="border-left-color: #3ba55d; background: #2f3136; color: #b9bbbe;"><i class="fas fa-check-circle" style="color:#3ba55d;"></i> All cards mastered! Keep it up 🎉</li>`;
+        focusList.innerHTML = `<li style="border-left-color: #3ba55d; background: rgba(0,0,0,0.05);"><i class="fas fa-check-circle" style="color:#3ba55d;"></i> All cards mastered! Keep it up 🎉</li>`;
         extraMessage.textContent = '✨ You answered everything correctly. Great job!';
       } else {
         focusItems.forEach(item => {
@@ -1061,7 +1225,7 @@ The sky is green || false</textarea>
       timerModeBtn.innerHTML = persistentTimerMode
         ? '<i class="fas fa-sync-alt"></i> Mode: Session'
         : '<i class="fas fa-sync-alt"></i> Mode: Per-Card';
-      timerModeBtn.style.background = persistentTimerMode ? '#5865f2' : '#40444b';
+      timerModeBtn.style.background = persistentTimerMode ? '#5865f2' : '';
 
       if (tested && timerEnabled) {
         clearInterval(timerInterval);
@@ -1077,7 +1241,7 @@ The sky is green || false</textarea>
       negativeTimerBtn.innerHTML = negativeTimerEnabled
         ? '<i class="fas fa-history"></i> Neg. Timer: ON'
         : '<i class="fas fa-history"></i> Neg. Timer: OFF';
-      negativeTimerBtn.style.background = negativeTimerEnabled ? '#5865f2' : '#40444b';
+      negativeTimerBtn.style.background = negativeTimerEnabled ? '#5865f2' : '';
     });
 
     loadBtn.addEventListener('click', loadCards);
