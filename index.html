@@ -1211,6 +1211,32 @@ The sky is green || false</textarea>
       }
 
       const currentScore = scores[currentIndex];
+
+      if (card.isBlank) {
+  responseButtonsContainer.innerHTML = `
+    <input 
+      id="blankAnswerInput"
+      class="response-btn"
+      placeholder="Type your answer..."
+      style="flex:1; padding:1rem;"
+      autocomplete="off"
+    >
+    <button class="response-btn" id="blankSubmitBtn">
+      <i class="fas fa-check"></i> Submit
+    </button>
+  `;
+
+  document.getElementById("blankSubmitBtn").onclick = () => {
+    const input = document.getElementById("blankAnswerInput");
+    const userAnswer = input.value.trim().toLowerCase();
+    const correctAnswer = card.answer.trim().toLowerCase();
+
+    handleResponse(userAnswer === correctAnswer ? 3 : 0);
+  };
+
+  return;
+
+} else if (card.isTrueFalse) {
       
       if (card.isTrueFalse) {
         responseButtonsContainer.innerHTML = `
