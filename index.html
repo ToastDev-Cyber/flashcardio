@@ -1017,6 +1017,15 @@ The sky is green || false</textarea>
       <button class="btn btn-secondary" id="timerBtn"><i class="fas fa-clock"></i> Timer: OFF</button>
       <button class="btn btn-secondary" id="timerModeBtn"><i class="fas fa-sync-alt"></i> Mode: Per-Card</button>
       <button class="btn btn-secondary" id="negativeTimerBtn"><i class="fas fa-history"></i> Neg. Timer: OFF</button>
+      <button class="btn btn-secondary" id="exportBtn">
+  <i class="fas fa-download"></i> Export Notes
+</button>
+
+<button class="btn btn-secondary" id="importBtn">
+  <i class="fas fa-upload"></i> Import Notes
+</button>
+
+<input type="file" id="importFile" accept=".txt" style="display:none;">
     </div>
   </div>
 
@@ -1078,6 +1087,9 @@ The sky is green || false</textarea>
     const timerBtn = document.getElementById('timerBtn');
     const timerModeBtn = document.getElementById('timerModeBtn');
     const negativeTimerBtn = document.getElementById('negativeTimerBtn');
+    const exportBtn = document.getElementById("exportBtn");
+const importBtn = document.getElementById("importBtn");
+const importFile = document.getElementById("importFile");
     const questionText = document.getElementById('questionText');
     const cardCounter = document.getElementById('cardCounter');
     const progressText = document.getElementById('progressText');
@@ -1496,7 +1508,42 @@ The sky is green || false</textarea>
         : '<i class="fas fa-history"></i> Neg. Timer: OFF';
       negativeTimerBtn.style.background = negativeTimerEnabled ? '#5865f2' : '';
     });
+exportBtn.addEventListener("click", () => {
+  const subject = subjectInput.value.trim();
+  const notes = notesInput.value;
 
+  const content = subject + "\n\n" + notes;
+
+  const blob = new Blob([content], {type:"text/plain"});
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "Notes.txt";
+  a.click();
+
+  URL.revokeObjectURL(url);
+});
+
+importBtn.addEventListener("click", () => {
+  importFile.click();
+});
+
+importFile.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    const parts = reader.result.split("\n\n");
+
+    subjectInput.value = parts[0] || "";
+    notesInput.value = parts.slice(1).join("\n\n") || "";
+  };
+
+  reader.readAsText(file);
+});
     loadBtn.addEventListener('click', loadCards);
     testBtn.addEventListener('click', startTest);
     
