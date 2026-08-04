@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flashcardio</title>
+  <link rel="icon" type="image/png" href="flashcardio-icon.png">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Roboto:wght@400;700&family=VT323&family=Press+Start+2P&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <!-- Fontawesome (Discord-like icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -494,94 +495,540 @@
       outline: none;
     }
 
-    /* ===== THEMES ===== */
+    /* ===== THEMES (Backgrounds, Component Layouts & Adaptive Typography) ===== */
 
     /* Discord Black */
     body.theme-discord {
       background: #36393f !important;
+      color: #dcddde !important;
     }
     body.theme-discord .flashcardio {
       background: #2f3136 !important;
+      color: #dcddde !important;
     }
     body.theme-discord .flashcard-area {
       background: #292b2f !important;
     }
+    body.theme-discord .input-row input, 
+    body.theme-discord .input-row textarea,
+    body.theme-discord .timer-container,
+    body.theme-discord .timer-container input,
+    body.theme-discord .theme-selector,
+    body.theme-discord .badge,
+    body.theme-discord .response-btn,
+    body.theme-discord .btn {
+      background: #40444b !important;
+      color: #dcddde !important;
+    }
 
-    /* Average 2009 Website */
+    /* Average 2009 Website (Old Windows XP / Classic PC Theme - Sharp Squares, Beveled Look) */
     body.theme-oldweb {
-      background: #c0c0c0 !important;
+      background: #3a6ea5 !important;
+      color: #000000 !important;
+      /* Simulated vintage CRT scanline overlay */
+      background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)) !important;
+      background-size: 100% 4px, 6px 100% !important;
     }
     body.theme-oldweb .flashcardio {
-      background: white !important;
-      color: black !important;
-      border-radius: 8px !important;
+      background: #ece9d8 !important;
+      color: #000000 !important;
+      border-radius: 0 !important;
+      box-shadow: inset 1px 1px #ffffff, inset -1px -1px #000000, 3px 3px 10px rgba(0,0,0,0.5) !important;
+      border: 2px solid #0055ea !important;
+      padding: 0 !important;
+    }
+    /* Retro Window Titlebar */
+    body.theme-oldweb .flashcardio::before {
+      content: "Flashcardio - Microsoft Internet Explorer";
+      display: block;
+      background: linear-gradient(to right, #0055ea, #2884eb);
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
     }
     body.theme-oldweb .flashcard-area {
-      background: #eeeeee !important;
-      border-left-color: blue !important;
+      background: #ffffff !important;
+      border-radius: 0 !important;
+      border: 2px inset #7f7f7f !important;
+      border-left: 6px solid #0000ff !important;
+      margin: 10px !important;
+      padding: 1rem !important;
     }
+    body.theme-oldweb .header {
+      border-bottom: 2px groove #808080 !important;
+      padding: 0 1rem 0.5rem 1rem !important;
+      margin-bottom: 1rem !important;
+    }
+    body.theme-oldweb .header h1 {
+      background: none !important;
+      -webkit-text-fill-color: #000080 !important;
+      color: #000080 !important;
+      font-size: 1.6rem !important;
+    }
+    body.theme-oldweb .header h1 i {
+      -webkit-text-fill-color: #000080 !important;
+      color: #000080 !important;
+    }
+    body.theme-oldweb .input-row input, 
+    body.theme-oldweb .input-row textarea,
+    body.theme-oldweb .timer-container,
+    body.theme-oldweb .timer-container input,
+    body.theme-oldweb .theme-selector,
+    body.theme-oldweb .badge,
+    body.theme-oldweb .response-btn,
     body.theme-oldweb .btn {
-      background: #dddddd !important;
-      color: black !important;
+      background: #f4f0ec !important;
+      color: #000000 !important;
+      border-radius: 0 !important;
+      border: 2px outset #ffffff !important;
+      border-right-color: #404040 !important;
+      border-bottom-color: #404040 !important;
+    }
+    body.theme-oldweb .btn:active, 
+    body.theme-oldweb .response-btn:active {
+      border: 2px inset #ffffff !important;
+      border-top-color: #404040 !important;
+      border-left-color: #404040 !important;
+    }
+    body.theme-oldweb .input-row input:focus, 
+    body.theme-oldweb .input-row textarea:focus {
+      background: #ffffff !important;
+      box-shadow: none !important;
+      border: 2px inset #000000 !important;
+    }
+    body.theme-oldweb .flashcard-prompt,
+    body.theme-oldweb .input-row label,
+    body.theme-oldweb .progress-indicator,
+    body.theme-oldweb .footer,
+    body.theme-oldweb .status-message,
+    body.theme-oldweb .result-title,
+    body.theme-oldweb .badge {
+      color: #000000 !important;
+      background: transparent !important;
+    }
+    body.theme-oldweb .result-panel {
+      background: #f4f0ec !important;
+      border-radius: 0 !important;
+      border: 2px inset #7f7f7f !important;
+      border-left: 6px solid #00aa00 !important;
+    }
+    body.theme-oldweb .focus-list li {
+      background: #ffffff !important;
+      border-radius: 0 !important;
+      border: 1px solid #7f7f7f !important;
+      border-left: 4px solid #cc0000 !important;
+    }
+    body.theme-oldweb .footer {
+      border-top: 1px groove #808080 !important;
+      margin: 10px !important;
+      padding: 5px !important;
     }
 
     /* Twitter Black */
     body.theme-twitter {
-      background: #000 !important;
+      background: #000000 !important;
+      color: #f7f9f9 !important;
     }
     body.theme-twitter .flashcardio {
       background: #15202b !important;
+      color: #f7f9f9 !important;
+      border: 1px solid #38444d !important;
     }
     body.theme-twitter .flashcard-area {
       background: #192734 !important;
+    }
+    body.theme-twitter .header {
+      border-bottom-color: #38444d !important;
+    }
+    body.theme-twitter .header h1 {
+      background: none !important;
+      -webkit-text-fill-color: #1da1f2 !important;
+      color: #1da1f2 !important;
+    }
+    body.theme-twitter .header h1 i {
+      -webkit-text-fill-color: #1da1f2 !important;
+      color: #1da1f2 !important;
+    }
+    body.theme-twitter .input-row input, 
+    body.theme-twitter .input-row textarea,
+    body.theme-twitter .timer-container,
+    body.theme-twitter .timer-container input,
+    body.theme-twitter .theme-selector,
+    body.theme-twitter .badge,
+    body.theme-twitter .response-btn,
+    body.theme-twitter .btn {
+      background: #253341 !important;
+      color: #f7f9f9 !important;
+      border: 1px solid #38444d !important;
+    }
+    body.theme-twitter .flashcard-prompt,
+    body.theme-twitter .input-row label,
+    body.theme-twitter .progress-indicator,
+    body.theme-twitter .footer,
+    body.theme-twitter .status-message,
+    body.theme-twitter .result-title {
+      color: #f7f9f9 !important;
     }
 
     /* Roblox Light Mode */
     body.theme-roblox {
       background: #eeeeee !important;
+      color: #111111 !important;
     }
     body.theme-roblox .flashcardio {
       background: #ffffff !important;
-      color: #222 !important;
+      color: #111111 !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
     }
     body.theme-roblox .flashcard-area {
       background: #f5f5f5 !important;
+      border-left-color: #0074e8 !important;
+    }
+    body.theme-roblox .header {
+      border-bottom-color: #dddddd !important;
+    }
+    body.theme-roblox .header h1 {
+      background: none !important;
+      -webkit-text-fill-color: #0074e8 !important;
+      color: #0074e8 !important;
+    }
+    body.theme-roblox .header h1 i {
+      -webkit-text-fill-color: #0074e8 !important;
+      color: #0074e8 !important;
+    }
+    body.theme-roblox .input-row input, 
+    body.theme-roblox .input-row textarea,
+    body.theme-roblox .timer-container,
+    body.theme-roblox .timer-container input,
+    body.theme-roblox .theme-selector,
+    body.theme-roblox .badge,
+    body.theme-roblox .response-btn,
+    body.theme-roblox .btn {
+      background: #e9e9e9 !important;
+      color: #111111 !important;
+      border: 1px solid #cccccc !important;
+    }
+    body.theme-roblox .flashcard-prompt,
+    body.theme-roblox .input-row label,
+    body.theme-roblox .progress-indicator,
+    body.theme-roblox .footer,
+    body.theme-roblox .status-message,
+    body.theme-roblox .result-title {
+      color: #222222 !important;
     }
 
     /* YELOOW */
     body.theme-yellow {
-      background: #ffff00 !important;
+      background: #ffd700 !important;
+      color: #1a1a1a !important;
     }
     body.theme-yellow .flashcardio {
-      background: #fff700 !important;
+      background: #ffea75 !important;
+      color: #1a1a1a !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important;
     }
     body.theme-yellow .flashcard-area {
-      background: #ffe600 !important;
+      background: #fff099 !important;
+      border-left-color: #d4ac0d !important;
+    }
+    body.theme-yellow .header {
+      border-bottom-color: #e5c158 !important;
+    }
+    body.theme-yellow .header h1 {
+      background: none !important;
+      -webkit-text-fill-color: #7d6608 !important;
+      color: #7d6608 !important;
+    }
+    body.theme-yellow .header h1 i {
+      -webkit-text-fill-color: #7d6608 !important;
+      color: #7d6608 !important;
+    }
+    body.theme-yellow .input-row input, 
+    body.theme-yellow .input-row textarea,
+    body.theme-yellow .timer-container,
+    body.theme-yellow .timer-container input,
+    body.theme-yellow .theme-selector,
+    body.theme-yellow .badge,
+    body.theme-yellow .response-btn,
+    body.theme-yellow .btn {
+      background: #fdf2a4 !important;
+      color: #1a1a1a !important;
+      border: 1px solid #d4ac0d !important;
+    }
+    body.theme-yellow .flashcard-prompt,
+    body.theme-yellow .input-row label,
+    body.theme-yellow .progress-indicator,
+    body.theme-yellow .footer,
+    body.theme-yellow .status-message,
+    body.theme-yellow .result-title {
+      color: #222222 !important;
     }
 
     /* Neon Dark Green */
     body.theme-neongreen {
       background: #001000 !important;
+      color: #00ff66 !important;
     }
     body.theme-neongreen .flashcardio {
       background: #002000 !important;
+      color: #00ff66 !important;
       box-shadow: 0 0 30px #00ff00 !important;
+      border: 1px solid #00aa33 !important;
     }
     body.theme-neongreen .flashcard-area {
       background: #003300 !important;
+      border-left-color: #00ff44 !important;
     }
+    body.theme-neongreen .header {
+      border-bottom-color: #004400 !important;
+    }
+    body.theme-neongreen .header h1 {
+      background: linear-gradient(135deg,#00ff44,#00ffaa) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+    }
+    body.theme-neongreen .header h1 i {
+      -webkit-text-fill-color: #00ff44 !important;
+      color: #00ff44 !important;
+    }
+    body.theme-neongreen .input-row input, 
+    body.theme-neongreen .input-row textarea,
+    body.theme-neongreen .timer-container,
+    body.theme-neongreen .timer-container input,
+    body.theme-neongreen .theme-selector,
+    body.theme-neongreen .badge,
+    body.theme-neongreen .response-btn,
     body.theme-neongreen .btn {
-      background: #006600 !important;
+      background: #004400 !important;
+      color: #00ff66 !important;
+      border: 1px solid #008822 !important;
     }
-      
-    /* Theme Fonts */
-    body.theme-discord, body.theme-discord * { font-family: "Segoe UI", "Helvetica Neue", sans-serif !important; }
-    body.theme-oldweb, body.theme-oldweb * { font-family: Tahoma, Verdana, Arial, sans-serif !important; }
-    body.theme-twitter, body.theme-twitter * { font-family: Roboto, Helvetica, Arial, sans-serif !important; }
-    body.theme-roblox, body.theme-roblox * { font-family: Nunito, sans-serif !important; }
-    body.theme-yellow, body.theme-yellow * { font-family: Caveat, cursive !important; }
-    body.theme-neongreen, body.theme-neongreen * { font-family: VT323, monospace !important; letter-spacing: 1px; }
-    body.theme-neongreen .header h1 { font-family: "Press Start 2P", monospace !important; font-size: 1.3rem; }
+    body.theme-neongreen .flashcard-prompt,
+    body.theme-neongreen .input-row label,
+    body.theme-neongreen .progress-indicator,
+    body.theme-neongreen .footer,
+    body.theme-neongreen .status-message,
+    body.theme-neongreen .result-title {
+      color: #00ff88 !important;
+    }
+  
+    /* Theme Fonts (Excluding FontAwesome elements using :not([class*="fa-"])) */
+    body.theme-discord *:not([class*="fa-"]), body.theme-discord {font-family:"Segoe UI","Helvetica Neue",sans-serif!important;}
+    body.theme-oldweb *:not([class*="fa-"]), body.theme-oldweb {font-family:Tahoma,Verdana,Arial,sans-serif!important;}
+    body.theme-twitter *:not([class*="fa-"]), body.theme-twitter {font-family:Roboto,Helvetica,Arial,sans-serif!important;}
+    body.theme-roblox *:not([class*="fa-"]), body.theme-roblox {font-family:Nunito,sans-serif!important;}
+    body.theme-yellow *:not([class*="fa-"]), body.theme-yellow {font-family:Caveat,cursive!important;}
+    body.theme-neongreen *:not([class*="fa-"]), body.theme-neongreen {font-family:VT323,monospace!important;letter-spacing:1px;}
+    body.theme-neongreen .header h1 *:not([class*="fa-"]), body.theme-neongreen .header h1{font-family:"Press Start 2P",monospace!important;font-size:1.3rem;}
+
+    /* ===== Minecraft Inventory Theme ===== */
+
+body.theme-minecraft {
+  background: #1b1b1b !important;
+  color: white !important;
+  image-rendering: pixelated;
+}
+
+body.theme-minecraft .flashcardio {
+  background: #c6c6c6 !important;
+  color: #222 !important;
+  border-radius: 0 !important;
+  border: 6px solid #555 !important;
+  box-shadow:
+    inset 4px 4px #ffffff,
+    inset -4px -4px #777,
+    10px 10px 0 rgba(0,0,0,.6) !important;
+}
+
+/* Inventory title */
+body.theme-minecraft .header h1 {
+  background: none !important;
+  -webkit-text-fill-color: #222 !important;
+  color: #222 !important;
+  font-family: "Press Start 2P", monospace !important;
+  font-size: 1rem !important;
+}
+
+body.theme-minecraft .header {
+  border-bottom: 4px solid #777 !important;
+}
+
+/* Inventory slots */
+body.theme-minecraft .flashcard-area {
+  background: #8b8b8b !important;
+  border: 4px solid #373737 !important;
+  border-left: 4px solid #373737 !important;
+  border-radius: 0 !important;
+  box-shadow:
+    inset 3px 3px #d0d0d0,
+    inset -3px -3px #555 !important;
+}
+
+/* Inputs become item slots */
+body.theme-minecraft .input-row input,
+body.theme-minecraft .input-row textarea,
+body.theme-minecraft .timer-container,
+body.theme-minecraft .timer-container input,
+body.theme-minecraft .theme-selector,
+body.theme-minecraft .badge {
+  background: #8b8b8b !important;
+  color: white !important;
+  border-radius: 0 !important;
+  border: 4px solid #373737 !important;
+  box-shadow:
+    inset 3px 3px #cfcfcf,
+    inset -3px -3px #555 !important;
+  font-family: "VT323", monospace !important;
+  font-size: 1.2rem !important;
+}
+
+/* Buttons look like inventory slots */
+body.theme-minecraft .btn,
+body.theme-minecraft .response-btn {
+  background: #8b8b8b !important;
+  color: white !important;
+  border-radius: 0 !important;
+  border: 4px outset #d0d0d0 !important;
+  font-family: "VT323", monospace !important;
+  font-size: 1.2rem !important;
+}
+
+body.theme-minecraft .btn:hover,
+body.theme-minecraft .response-btn:hover {
+  background: #aaa !important;
+}
+
+/* Selected item slot */
+body.theme-minecraft .response-btn.selected {
+  background: #55aa55 !important;
+  border-color: #ffffff !important;
+}
+
+/* Green XP bar vibe */
+body.theme-minecraft .progress-indicator {
+  background: #222 !important;
+  padding: 8px !important;
+  border: 3px solid #000 !important;
+  color: #55ff55 !important;
+  font-family: "VT323", monospace !important;
+}
+
+/* Results chest panel */
+body.theme-minecraft .result-panel {
+  background: #8b8b8b !important;
+  border-radius: 0 !important;
+  border: 5px solid #373737 !important;
+}
+
+/* Focus items */
+body.theme-minecraft .focus-list li {
+  background: #555 !important;
+  color: white !important;
+  border-radius: 0 !important;
+  border-left: 6px solid #aa3333 !important;
+}
+
+/* Pixel font */
+body.theme-minecraft *:not([class*="fa-"]) {
+  font-family: "VT323", monospace;
+}
+    /* ===== Windows Longhorn Theme ===== */
+
+body.theme-longhorn {
+  background:
+    radial-gradient(circle at top, #8fd8ff, #2869a8) !important;
+  color: #1b2a3a !important;
+}
+
+body.theme-longhorn .flashcardio {
+  background: rgba(220,240,255,0.75) !important;
+  backdrop-filter: blur(18px);
+  border-radius: 18px !important;
+  border: 1px solid rgba(255,255,255,.8) !important;
+  box-shadow:
+    0 10px 40px rgba(0,0,0,.35),
+    inset 0 1px white !important;
+}
+
+/* Glass title */
+body.theme-longhorn .header h1 {
+  background: linear-gradient(#ffffff,#4ba9ff) !important;
+  -webkit-background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+  font-family:"Segoe UI",sans-serif !important;
+}
+
+/* Panels */
+body.theme-longhorn .flashcard-area {
+  background: rgba(255,255,255,.35) !important;
+  border-left: 5px solid #4da6ff !important;
+  border-radius:16px !important;
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.9);
+}
+
+/* Inputs */
+body.theme-longhorn input,
+body.theme-longhorn textarea,
+body.theme-longhorn .timer-container,
+body.theme-longhorn .theme-selector {
+  background:rgba(255,255,255,.55) !important;
+  color:#123 !important;
+  border:1px solid white !important;
+  border-radius:10px !important;
+  box-shadow:inset 0 1px white !important;
+}
+
+/* Aero buttons */
+body.theme-longhorn .btn,
+body.theme-longhorn .response-btn {
+  background:
+    linear-gradient(#ffffff,#c9e8ff) !important;
+  color:#174a75 !important;
+  border-radius:12px !important;
+  border:1px solid #8bcaff !important;
+  box-shadow:
+    inset 0 2px white,
+    0 2px 5px rgba(0,0,0,.25);
+}
+
+body.theme-longhorn .btn:hover,
+body.theme-longhorn .response-btn:hover {
+  background:
+    linear-gradient(#dff5ff,#79c5ff) !important;
+}
+
+/* Results */
+body.theme-longhorn .result-panel {
+  background:rgba(255,255,255,.5) !important;
+  border-left:5px solid #00aaff !important;
+  border-radius:16px !important;
+}
+
+/* Text */
+body.theme-longhorn .flashcard-prompt,
+body.theme-longhorn .progress-indicator,
+body.theme-longhorn .footer {
+  color:#123 !important;
+}
+
+/* Aurora glow */
+body.theme-longhorn .header::after {
+  content:"";
+  display:block;
+  height:3px;
+  margin-top:10px;
+  background:linear-gradient(
+    90deg,
+    #00ffff,
+    #ffffff,
+    #0077ff
+  );
+  filter:blur(1px);
+}
   </style>
 </head>
 <body>
@@ -590,7 +1037,7 @@
   <div class="header">
     <h1><i class="fas fa-brain"></i> Flashcardio</h1>
     <span class="badge"><i class="fas fa-tasks"></i> active</span>
-    <span style="margin-left: auto; color: #8e9297; font-size: 0.9rem;"><i class="fas fa-comments"></i>probably a vibe</span>
+    <span style="margin-left: auto; color: inherit; font-size: 0.9rem;"><i class="fas fa-comments"></i>probably a vibe</span>
     <select id="themeSelector" class="theme-selector">
       <option value="discord">Discord Black</option>
       <option value="oldweb">Average 2009 Website</option>
@@ -598,6 +1045,8 @@
       <option value="roblox">Roblox Light Mode</option>
       <option value="yellow">YELOOW</option>
       <option value="neongreen">Neon Dark Green</option>
+      <option value="minecraft">Minecraft Inventory</option>
+      <option value="longhorn">Windows Longhorn</option>
     </select>
   </div>
 
@@ -612,14 +1061,15 @@
       <textarea id="notesInput" placeholder="One item per line&#10;e.g.&#10;Mitochondria is powerhouse || true&#10;Earth is flat || false&#10;DNA double helix">Mitochondria is powerhouse || true
 Earth is flat || false
 DNA double helix
+TYPE:blank|What is the powerhouse of the cell?|mitochondria
 Cell membrane function || true
 The sky is green || false</textarea>
     </div>
     <div class="button-group">
       <div class="timer-container">
-        <i class="fas fa-hourglass-half" style="color:#b9bbbe; font-size: 0.85rem;"></i>
+        <i class="fas fa-hourglass-half" style="font-size: 0.85rem;"></i>
         <input type="number" id="timerLength" min="1" max="600" value="30">
-        <span style="color:#b9bbbe; font-size:0.85rem; padding-right:4px;">s</span>
+        <span style="font-size:0.85rem; padding-right:4px;">s</span>
       </div>
       <button class="btn btn-primary" id="loadBtn"><i class="fas fa-upload"></i> Load cards</button>
       <button class="btn btn-success" id="testBtn"><i class="fas fa-pen-fancy"></i> Test</button>
@@ -633,7 +1083,7 @@ The sky is green || false</textarea>
   <!-- flashcard area -->
   <div class="flashcard-area" id="flashcardArea">
     <div class="flashcard-prompt">
-      <i class="fas fa-quote-left" style="color:#5865f2; margin-right: 6px;"></i>
+      <i class="fas fa-quote-left" style="margin-right: 6px;"></i>
       <span id="questionText">Add your subject & notes, then click "Test"</span>
       <small id="cardCounter"></small>
     </div>
@@ -642,7 +1092,7 @@ The sky is green || false</textarea>
     </div>
     <div class="progress-indicator">
       <span id="progressText"><i class="fas fa-chevron-circle-right"></i> 0 / 0</span>
-      <span id="statusBadge" style="background:#40444b; padding:0.2rem 1rem; border-radius:40px;">ready</span>
+      <span id="statusBadge" style="padding:0.2rem 1rem; border-radius:40px;">ready</span>
     </div>
   </div>
 
@@ -668,7 +1118,6 @@ The sky is green || false</textarea>
 
 <script>
   (function(){
-    // ----- state -----
     let flashcards = [];
     let currentIndex = 0;
     let scores = [];
@@ -677,12 +1126,11 @@ The sky is green || false</textarea>
     let subject = 'Biology 101';
 
     let timerEnabled = false;
-    let persistentTimerMode = false; // false = per-card reset, true = continuous session timer
+    let persistentTimerMode = false;
     let negativeTimerEnabled = false;
     let timerInterval = null;
     let currentRemaining = 30;
 
-    // DOM refs
     const subjectInput = document.getElementById('subjectInput');
     const notesInput = document.getElementById('notesInput');
     const loadBtn = document.getElementById('loadBtn');
@@ -763,6 +1211,32 @@ The sky is green || false</textarea>
       }
 
       const currentScore = scores[currentIndex];
+
+      if (card.isBlank) {
+  responseButtonsContainer.innerHTML = `
+    <input 
+      id="blankAnswerInput"
+      class="response-btn"
+      placeholder="Type your answer..."
+      style="flex:1; padding:1rem;"
+      autocomplete="off"
+    >
+    <button class="response-btn" id="blankSubmitBtn">
+      <i class="fas fa-check"></i> Submit
+    </button>
+  `;
+
+  document.getElementById("blankSubmitBtn").onclick = () => {
+    const input = document.getElementById("blankAnswerInput");
+    const userAnswer = input.value.trim().toLowerCase();
+    const correctAnswer = card.answer.trim().toLowerCase();
+
+    handleResponse(userAnswer === correctAnswer ? 3 : 0);
+  };
+
+  return;
+
+} else if (card.isTrueFalse) {
       
       if (card.isTrueFalse) {
         responseButtonsContainer.innerHTML = `
@@ -826,7 +1300,7 @@ The sky is green || false</textarea>
       resultPanel.classList.add('active');
       focusList.innerHTML = '';
       if (focusItems.length === 0) {
-        focusList.innerHTML = `<li style="border-left-color: #3ba55d; background: #2f3136; color: #b9bbbe;"><i class="fas fa-check-circle" style="color:#3ba55d;"></i> All cards mastered! Keep it up 🎉</li>`;
+        focusList.innerHTML = `<li style="border-left-color: #3ba55d; background: rgba(0,0,0,0.05);"><i class="fas fa-check-circle" style="color:#3ba55d;"></i> All cards mastered! Keep it up 🎉</li>`;
         extraMessage.textContent = '✨ You answered everything correctly. Great job!';
       } else {
         focusItems.forEach(item => {
@@ -839,28 +1313,6 @@ The sky is green || false</textarea>
       }
       responseButtonsContainer.innerHTML = '';
       statusBadge.textContent = '✅ done';
-    }
-
-    function resetTest() {
-      clearInterval(timerInterval);
-      tested = false;
-      scores = flashcards.map(card => card.defaultScore !== undefined ? card.defaultScore : -1);
-      timerSpent = new Array(flashcards.length).fill(0);
-      currentIndex = 0;
-      resultPanel.classList.remove('active');
-      responseButtonsContainer.innerHTML = '';
-      if (flashcards.length > 0) {
-        questionText.textContent = 'Press "Test" to start.';
-        cardCounter.textContent = `${flashcards.length} cards ready`;
-        progressText.textContent = `⏳ ${flashcards.length} cards`;
-        statusBadge.textContent = '📋 loaded';
-      } else {
-        questionText.textContent = 'Add notes and load cards.';
-        cardCounter.textContent = '';
-        progressText.textContent = '📭 0';
-        statusBadge.textContent = '⏸ idle';
-      }
-      extraMessage.textContent = '';
     }
 
     function loadCards() {
@@ -887,11 +1339,20 @@ The sky is green || false</textarea>
 
       flashcards = lines.map(line => {
         let questionText = line;
-        let defaultScore = undefined; 
-        let isTrueFalse = false;
-        let expectedBool = false;
+let defaultScore = undefined;
+let isTrueFalse = false;
+let expectedBool = false;
+let isBlank = false;
+let answer = "";
 
-        if (line.endsWith('|| true')) {
+        if (line.startsWith("TYPE:blank|")) {
+  const parts = line.split("|");
+
+  questionText = parts[1];
+  answer = parts[2].trim().toLowerCase();
+  isBlank = true;
+}
+else if (line.endsWith('|| true')) {
           questionText = line.slice(0, line.lastIndexOf('|| true')).trim();
           isTrueFalse = true;
           expectedBool = true;
@@ -905,7 +1366,9 @@ The sky is green || false</textarea>
           question: questionText, 
           defaultScore: defaultScore, 
           isTrueFalse: isTrueFalse, 
-          expectedBool: expectedBool 
+          expectedBool: expectedBool,
+          isBlank: isBlank,
+          answer: answer
         };
       });
 
@@ -1039,7 +1502,6 @@ The sky is green || false</textarea>
       }, 1000);
     }
 
-    // ---- event bindings ----
     shuffleBtn.addEventListener('click', shuffleCards);
     
     timerBtn.addEventListener('click', () => {
@@ -1066,7 +1528,7 @@ The sky is green || false</textarea>
       timerModeBtn.innerHTML = persistentTimerMode
         ? '<i class="fas fa-sync-alt"></i> Mode: Session'
         : '<i class="fas fa-sync-alt"></i> Mode: Per-Card';
-      timerModeBtn.style.background = persistentTimerMode ? '#5865f2' : '#40444b';
+      timerModeBtn.style.background = persistentTimerMode ? '#5865f2' : '';
 
       if (tested && timerEnabled) {
         clearInterval(timerInterval);
@@ -1082,13 +1544,26 @@ The sky is green || false</textarea>
       negativeTimerBtn.innerHTML = negativeTimerEnabled
         ? '<i class="fas fa-history"></i> Neg. Timer: ON'
         : '<i class="fas fa-history"></i> Neg. Timer: OFF';
-      negativeTimerBtn.style.background = negativeTimerEnabled ? '#5865f2' : '#40444b';
+      negativeTimerBtn.style.background = negativeTimerEnabled ? '#5865f2' : '';
     });
 
     loadBtn.addEventListener('click', loadCards);
     testBtn.addEventListener('click', startTest);
+
+    function handleBlankAnswer() {
+  const input = document.getElementById("blankAnswerInput");
+  if (!input) return;
+
+  const userAnswer = input.value.trim().toLowerCase();
+  const correctAnswer = flashcards[currentIndex].answer.trim().toLowerCase();
+
+  if (userAnswer === correctAnswer) {
+    handleResponse(3);
+  } else {
+    handleResponse(0);
+  }
+}
     
-    // Theme changer listener (consolidated)
     themeSelector.addEventListener('change', () => {
       document.body.classList.remove(
         'theme-discord',
@@ -1096,9 +1571,14 @@ The sky is green || false</textarea>
         'theme-twitter',
         'theme-roblox',
         'theme-yellow',
-        'theme-neongreen'
+        'theme-neongreen',
+        'theme-minecraft',
+        'theme-longhorn'
       );
-      document.body.classList.add('theme-' + themeSelector.value);
+
+      document.body.classList.add(
+        'theme-' + themeSelector.value
+      );
     });
     
     resetBtn.addEventListener('click', function() {
@@ -1114,14 +1594,15 @@ The sky is green || false</textarea>
       exitTestMode();
     });
 
-    // Global Keybind Listener for 1-4 keys (or 1-2 for T/F) during test mode
     window.addEventListener('keydown', (e) => {
       if (!tested || flashcards.length === 0) return;
       if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
 
       const card = flashcards[currentIndex];
 
-      if (card.isTrueFalse) {
+if (card.isBlank) {
+  return;
+} else if (card.isTrueFalse) {
         if (e.key === '1') {
           const scoreVal = (true === card.expectedBool) ? 3 : 0;
           handleResponse(scoreVal);
@@ -1131,18 +1612,17 @@ The sky is green || false</textarea>
         }
       } else {
         if (e.key === '1') {
-          handleResponse(0); // Forgor
+          handleResponse(0);
         } else if (e.key === '2') {
-          handleResponse(1); // Partially recall
+          handleResponse(1);
         } else if (e.key === '3') {
-          handleResponse(2); // Recall
+          handleResponse(2);
         } else if (e.key === '4') {
-          handleResponse(3); // Easily recall
+          handleResponse(3);
         }
       }
     });
 
-    // initial render
     loadCards();
   })();
 </script>
