@@ -1522,6 +1522,20 @@ else if (line.endsWith('|| true')) {
 
     loadBtn.addEventListener('click', loadCards);
     testBtn.addEventListener('click', startTest);
+
+    function handleBlankAnswer() {
+  const input = document.getElementById("blankAnswerInput");
+  if (!input) return;
+
+  const userAnswer = input.value.trim().toLowerCase();
+  const correctAnswer = flashcards[currentIndex].answer.trim().toLowerCase();
+
+  if (userAnswer === correctAnswer) {
+    handleResponse(3);
+  } else {
+    handleResponse(0);
+  }
+}
     
     themeSelector.addEventListener('change', () => {
       document.body.classList.remove(
@@ -1560,15 +1574,7 @@ else if (line.endsWith('|| true')) {
       const card = flashcards[currentIndex];
 
 if (card.isBlank) {
-  window.addEventListener('keydown', (e) => {
-  if (!tested || flashcards.length === 0) return;
-  if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-
-  const card = flashcards[currentIndex];
-
-  if (card.isBlank) return;
-  };
-
+  return;
 } else if (card.isTrueFalse) {
         if (e.key === '1') {
           const scoreVal = (true === card.expectedBool) ? 3 : 0;
