@@ -521,11 +521,10 @@
       color: #dcddde !important;
     }
 
-    /* Average 2009 Website (Old Windows XP / Classic PC Theme - Sharp Squares, Beveled Look) */
+    /* Average 2009 Website */
     body.theme-oldweb {
       background: #3a6ea5 !important;
       color: #000000 !important;
-      /* Simulated vintage CRT scanline overlay */
       background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)) !important;
       background-size: 100% 4px, 6px 100% !important;
     }
@@ -537,7 +536,6 @@
       border: 2px solid #0055ea !important;
       padding: 0 !important;
     }
-    /* Retro Window Titlebar */
     body.theme-oldweb .flashcardio::before {
       content: "Flashcardio - Microsoft Internet Explorer";
       display: block;
@@ -814,8 +812,156 @@
     body.theme-neongreen .result-title {
       color: #00ff88 !important;
     }
-  
-    /* Theme Fonts (Excluding FontAwesome elements using :not([class*="fa-"])) */
+
+    /* Minecraft Inventory Theme */
+    body.theme-minecraft {
+      background: #1b1b1b !important;
+      color: white !important;
+      image-rendering: pixelated;
+    }
+    body.theme-minecraft .flashcardio {
+      background: #c6c6c6 !important;
+      color: #222 !important;
+      border-radius: 0 !important;
+      border: 6px solid #555 !important;
+      box-shadow: inset 4px 4px #ffffff, inset -4px -4px #777, 10px 10px 0 rgba(0,0,0,.6) !important;
+    }
+    body.theme-minecraft .header h1 {
+      background: none !important;
+      -webkit-text-fill-color: #222 !important;
+      color: #222 !important;
+      font-family: "Press Start 2P", monospace !important;
+      font-size: 1rem !important;
+    }
+    body.theme-minecraft .header {
+      border-bottom: 4px solid #777 !important;
+    }
+    body.theme-minecraft .flashcard-area {
+      background: #8b8b8b !important;
+      border: 4px solid #373737 !important;
+      border-left: 4px solid #373737 !important;
+      border-radius: 0 !important;
+      box-shadow: inset 3px 3px #d0d0d0, inset -3px -3px #555 !important;
+    }
+    body.theme-minecraft .input-row input,
+    body.theme-minecraft .input-row textarea,
+    body.theme-minecraft .timer-container,
+    body.theme-minecraft .timer-container input,
+    body.theme-minecraft .theme-selector,
+    body.theme-minecraft .badge {
+      background: #8b8b8b !important;
+      color: white !important;
+      border-radius: 0 !important;
+      border: 4px solid #373737 !important;
+      box-shadow: inset 3px 3px #cfcfcf, inset -3px -3px #555 !important;
+      font-family: "VT323", monospace !important;
+      font-size: 1.2rem !important;
+    }
+    body.theme-minecraft .btn,
+    body.theme-minecraft .response-btn {
+      background: #8b8b8b !important;
+      color: white !important;
+      border-radius: 0 !important;
+      border: 4px outset #d0d0d0 !important;
+      font-family: "VT323", monospace !important;
+      font-size: 1.2rem !important;
+    }
+    body.theme-minecraft .btn:hover,
+    body.theme-minecraft .response-btn:hover {
+      background: #aaa !important;
+    }
+    body.theme-minecraft .response-btn.selected {
+      background: #55aa55 !important;
+      border-color: #ffffff !important;
+    }
+    body.theme-minecraft .progress-indicator {
+      background: #222 !important;
+      padding: 8px !important;
+      border: 3px solid #000 !important;
+      color: #55ff55 !important;
+      font-family: "VT323", monospace !important;
+    }
+    body.theme-minecraft .result-panel {
+      background: #8b8b8b !important;
+      border-radius: 0 !important;
+      border: 5px solid #373737 !important;
+    }
+    body.theme-minecraft .focus-list li {
+      background: #555 !important;
+      color: white !important;
+      border-radius: 0 !important;
+      border-left: 6px solid #aa3333 !important;
+    }
+    body.theme-minecraft *:not([class*="fa-"]) {
+      font-family: "VT323", monospace;
+    }
+
+    /* Windows Longhorn Theme */
+    body.theme-longhorn {
+      background: radial-gradient(circle at top, #8fd8ff, #2869a8) !important;
+      color: #1b2a3a !important;
+    }
+    body.theme-longhorn .flashcardio {
+      background: rgba(220,240,255,0.75) !important;
+      backdrop-filter: blur(18px);
+      border-radius: 18px !important;
+      border: 1px solid rgba(255,255,255,.8) !important;
+      box-shadow: 0 10px 40px rgba(0,0,0,.35), inset 0 1px white !important;
+    }
+    body.theme-longhorn .header h1 {
+      background: linear-gradient(#ffffff,#4ba9ff) !important;
+      -webkit-background-clip:text !important;
+      -webkit-text-fill-color:transparent !important;
+      font-family:"Segoe UI",sans-serif !important;
+    }
+    body.theme-longhorn .flashcard-area {
+      background: rgba(255,255,255,.35) !important;
+      border-left: 5px solid #4da6ff !important;
+      border-radius:16px !important;
+      box-shadow: inset 0 1px rgba(255,255,255,.9);
+    }
+    body.theme-longhorn input,
+    body.theme-longhorn textarea,
+    body.theme-longhorn .timer-container,
+    body.theme-longhorn .theme-selector {
+      background:rgba(255,255,255,.55) !important;
+      color:#123 !important;
+      border:1px solid white !important;
+      border-radius:10px !important;
+      box-shadow:inset 0 1px white !important;
+    }
+    body.theme-longhorn .btn,
+    body.theme-longhorn .response-btn {
+      background: linear-gradient(#ffffff,#c9e8ff) !important;
+      color:#174a75 !important;
+      border-radius:12px !important;
+      border:1px solid #8bcaff !important;
+      box-shadow: inset 0 2px white, 0 2px 5px rgba(0,0,0,.25);
+    }
+    body.theme-longhorn .btn:hover,
+    body.theme-longhorn .response-btn:hover {
+      background: linear-gradient(#dff5ff,#79c5ff) !important;
+    }
+    body.theme-longhorn .result-panel {
+      background:rgba(255,255,255,.5) !important;
+      border-left:5px solid #00aaff !important;
+      border-radius:16px !important;
+    }
+    body.theme-longhorn .flashcard-prompt,
+    body.theme-longhorn .progress-indicator,
+    body.theme-longhorn .footer {
+      color:#123 !important;
+    }
+    body.theme-longhorn .header::after {
+      content:"";
+      display:block;
+      height:3px;
+      margin-top:10px;
+      background:linear-gradient(90deg, #00ffff, #ffffff, #0077ff);
+      filter:blur(1px);
+    }
+
+    /* Theme Fonts */
     body.theme-discord *:not([class*="fa-"]), body.theme-discord {font-family:"Segoe UI","Helvetica Neue",sans-serif!important;}
     body.theme-oldweb *:not([class*="fa-"]), body.theme-oldweb {font-family:Tahoma,Verdana,Arial,sans-serif!important;}
     body.theme-twitter *:not([class*="fa-"]), body.theme-twitter {font-family:Roboto,Helvetica,Arial,sans-serif!important;}
@@ -823,212 +969,6 @@
     body.theme-yellow *:not([class*="fa-"]), body.theme-yellow {font-family:Caveat,cursive!important;}
     body.theme-neongreen *:not([class*="fa-"]), body.theme-neongreen {font-family:VT323,monospace!important;letter-spacing:1px;}
     body.theme-neongreen .header h1 *:not([class*="fa-"]), body.theme-neongreen .header h1{font-family:"Press Start 2P",monospace!important;font-size:1.3rem;}
-
-    /* ===== Minecraft Inventory Theme ===== */
-
-body.theme-minecraft {
-  background: #1b1b1b !important;
-  color: white !important;
-  image-rendering: pixelated;
-}
-
-body.theme-minecraft .flashcardio {
-  background: #c6c6c6 !important;
-  color: #222 !important;
-  border-radius: 0 !important;
-  border: 6px solid #555 !important;
-  box-shadow:
-    inset 4px 4px #ffffff,
-    inset -4px -4px #777,
-    10px 10px 0 rgba(0,0,0,.6) !important;
-}
-
-/* Inventory title */
-body.theme-minecraft .header h1 {
-  background: none !important;
-  -webkit-text-fill-color: #222 !important;
-  color: #222 !important;
-  font-family: "Press Start 2P", monospace !important;
-  font-size: 1rem !important;
-}
-
-body.theme-minecraft .header {
-  border-bottom: 4px solid #777 !important;
-}
-
-/* Inventory slots */
-body.theme-minecraft .flashcard-area {
-  background: #8b8b8b !important;
-  border: 4px solid #373737 !important;
-  border-left: 4px solid #373737 !important;
-  border-radius: 0 !important;
-  box-shadow:
-    inset 3px 3px #d0d0d0,
-    inset -3px -3px #555 !important;
-}
-
-/* Inputs become item slots */
-body.theme-minecraft .input-row input,
-body.theme-minecraft .input-row textarea,
-body.theme-minecraft .timer-container,
-body.theme-minecraft .timer-container input,
-body.theme-minecraft .theme-selector,
-body.theme-minecraft .badge {
-  background: #8b8b8b !important;
-  color: white !important;
-  border-radius: 0 !important;
-  border: 4px solid #373737 !important;
-  box-shadow:
-    inset 3px 3px #cfcfcf,
-    inset -3px -3px #555 !important;
-  font-family: "VT323", monospace !important;
-  font-size: 1.2rem !important;
-}
-
-/* Buttons look like inventory slots */
-body.theme-minecraft .btn,
-body.theme-minecraft .response-btn {
-  background: #8b8b8b !important;
-  color: white !important;
-  border-radius: 0 !important;
-  border: 4px outset #d0d0d0 !important;
-  font-family: "VT323", monospace !important;
-  font-size: 1.2rem !important;
-}
-
-body.theme-minecraft .btn:hover,
-body.theme-minecraft .response-btn:hover {
-  background: #aaa !important;
-}
-
-/* Selected item slot */
-body.theme-minecraft .response-btn.selected {
-  background: #55aa55 !important;
-  border-color: #ffffff !important;
-}
-
-/* Green XP bar vibe */
-body.theme-minecraft .progress-indicator {
-  background: #222 !important;
-  padding: 8px !important;
-  border: 3px solid #000 !important;
-  color: #55ff55 !important;
-  font-family: "VT323", monospace !important;
-}
-
-/* Results chest panel */
-body.theme-minecraft .result-panel {
-  background: #8b8b8b !important;
-  border-radius: 0 !important;
-  border: 5px solid #373737 !important;
-}
-
-/* Focus items */
-body.theme-minecraft .focus-list li {
-  background: #555 !important;
-  color: white !important;
-  border-radius: 0 !important;
-  border-left: 6px solid #aa3333 !important;
-}
-
-/* Pixel font */
-body.theme-minecraft *:not([class*="fa-"]) {
-  font-family: "VT323", monospace;
-}
-    /* ===== Windows Longhorn Theme ===== */
-
-body.theme-longhorn {
-  background:
-    radial-gradient(circle at top, #8fd8ff, #2869a8) !important;
-  color: #1b2a3a !important;
-}
-
-body.theme-longhorn .flashcardio {
-  background: rgba(220,240,255,0.75) !important;
-  backdrop-filter: blur(18px);
-  border-radius: 18px !important;
-  border: 1px solid rgba(255,255,255,.8) !important;
-  box-shadow:
-    0 10px 40px rgba(0,0,0,.35),
-    inset 0 1px white !important;
-}
-
-/* Glass title */
-body.theme-longhorn .header h1 {
-  background: linear-gradient(#ffffff,#4ba9ff) !important;
-  -webkit-background-clip:text !important;
-  -webkit-text-fill-color:transparent !important;
-  font-family:"Segoe UI",sans-serif !important;
-}
-
-/* Panels */
-body.theme-longhorn .flashcard-area {
-  background: rgba(255,255,255,.35) !important;
-  border-left: 5px solid #4da6ff !important;
-  border-radius:16px !important;
-  box-shadow:
-    inset 0 1px rgba(255,255,255,.9);
-}
-
-/* Inputs */
-body.theme-longhorn input,
-body.theme-longhorn textarea,
-body.theme-longhorn .timer-container,
-body.theme-longhorn .theme-selector {
-  background:rgba(255,255,255,.55) !important;
-  color:#123 !important;
-  border:1px solid white !important;
-  border-radius:10px !important;
-  box-shadow:inset 0 1px white !important;
-}
-
-/* Aero buttons */
-body.theme-longhorn .btn,
-body.theme-longhorn .response-btn {
-  background:
-    linear-gradient(#ffffff,#c9e8ff) !important;
-  color:#174a75 !important;
-  border-radius:12px !important;
-  border:1px solid #8bcaff !important;
-  box-shadow:
-    inset 0 2px white,
-    0 2px 5px rgba(0,0,0,.25);
-}
-
-body.theme-longhorn .btn:hover,
-body.theme-longhorn .response-btn:hover {
-  background:
-    linear-gradient(#dff5ff,#79c5ff) !important;
-}
-
-/* Results */
-body.theme-longhorn .result-panel {
-  background:rgba(255,255,255,.5) !important;
-  border-left:5px solid #00aaff !important;
-  border-radius:16px !important;
-}
-
-/* Text */
-body.theme-longhorn .flashcard-prompt,
-body.theme-longhorn .progress-indicator,
-body.theme-longhorn .footer {
-  color:#123 !important;
-}
-
-/* Aurora glow */
-body.theme-longhorn .header::after {
-  content:"";
-  display:block;
-  height:3px;
-  margin-top:10px;
-  background:linear-gradient(
-    90deg,
-    #00ffff,
-    #ffffff,
-    #0077ff
-  );
-  filter:blur(1px);
-}
   </style>
 </head>
 <body>
@@ -1087,9 +1027,7 @@ The sky is green || false</textarea>
       <span id="questionText">Add your subject & notes, then click "Test"</span>
       <small id="cardCounter"></small>
     </div>
-    <div id="responseButtons" class="response-buttons">
-      <!-- Dynamically filled with either 4-tier memory buttons or True/False buttons -->
-    </div>
+    <div id="responseButtons" class="response-buttons"></div>
     <div class="progress-indicator">
       <span id="progressText"><i class="fas fa-chevron-circle-right"></i> 0 / 0</span>
       <span id="statusBadge" style="padding:0.2rem 1rem; border-radius:40px;">ready</span>
@@ -1213,32 +1151,26 @@ The sky is green || false</textarea>
       const currentScore = scores[currentIndex];
 
       if (card.isBlank) {
-  responseButtonsContainer.innerHTML = `
-    <input 
-      id="blankAnswerInput"
-      class="response-btn"
-      placeholder="Type your answer..."
-      style="flex:1; padding:1rem;"
-      autocomplete="off"
-    >
-    <button class="response-btn" id="blankSubmitBtn">
-      <i class="fas fa-check"></i> Submit
-    </button>
-  `;
+        responseButtonsContainer.innerHTML = `
+          <input 
+            id="blankAnswerInput"
+            class="response-btn"
+            placeholder="Type your answer..."
+            style="flex:1; padding:1rem;"
+            autocomplete="off"
+          >
+          <button class="response-btn" id="blankSubmitBtn">
+            <i class="fas fa-check"></i> Submit
+          </button>
+        `;
 
-  document.getElementById("blankSubmitBtn").onclick = () => {
-    const input = document.getElementById("blankAnswerInput");
-    const userAnswer = input.value.trim().toLowerCase();
-    const correctAnswer = card.answer.trim().toLowerCase();
-
-    handleResponse(userAnswer === correctAnswer ? 3 : 0);
-  };
-
-  return;
-
-} else if (card.isTrueFalse) {
-      
-      if (card.isTrueFalse) {
+        document.getElementById("blankSubmitBtn").onclick = () => {
+          const input = document.getElementById("blankAnswerInput");
+          const userAnswer = input.value.trim().toLowerCase();
+          const correctAnswer = card.answer.trim().toLowerCase();
+          handleResponse(userAnswer === correctAnswer ? 3 : 0);
+        };
+      } else if (card.isTrueFalse) {
         responseButtonsContainer.innerHTML = `
           <button class="response-btn ${currentScore === 3 ? 'selected' : ''}" data-val="true"><i class="fas fa-check" style="color:#3ba55d;"></i> True <kbd>1</kbd></button>
           <button class="response-btn ${currentScore === 0 ? 'selected' : ''}" data-val="false"><i class="fas fa-times" style="color:#ed4245;"></i> False <kbd>2</kbd></button>
@@ -1259,7 +1191,7 @@ The sky is green || false</textarea>
             const userChoice = targetBtn.dataset.val === 'true';
             const scoreVal = userChoice === card.expectedBool ? 3 : 0;
             handleResponse(scoreVal);
-          } else {
+          } else if (!card.isBlank) {
             const val = parseInt(targetBtn.dataset.score, 10);
             handleResponse(val);
           }
@@ -1339,20 +1271,18 @@ The sky is green || false</textarea>
 
       flashcards = lines.map(line => {
         let questionText = line;
-let defaultScore = undefined;
-let isTrueFalse = false;
-let expectedBool = false;
-let isBlank = false;
-let answer = "";
+        let defaultScore = undefined;
+        let isTrueFalse = false;
+        let expectedBool = false;
+        let isBlank = false;
+        let answer = "";
 
         if (line.startsWith("TYPE:blank|")) {
-  const parts = line.split("|");
-
-  questionText = parts[1];
-  answer = parts[2].trim().toLowerCase();
-  isBlank = true;
-}
-else if (line.endsWith('|| true')) {
+          const parts = line.split("|");
+          questionText = parts[1];
+          answer = parts[2].trim().toLowerCase();
+          isBlank = true;
+        } else if (line.endsWith('|| true')) {
           questionText = line.slice(0, line.lastIndexOf('|| true')).trim();
           isTrueFalse = true;
           expectedBool = true;
@@ -1413,8 +1343,8 @@ else if (line.endsWith('|| true')) {
       if (!tested || flashcards.length === 0) return;
       
       timerSpent[currentIndex] = currentRemaining;
-
       scores[currentIndex] = scoreVal;
+      
       if (currentIndex + 1 < flashcards.length) {
         currentIndex++;
         renderCard();
@@ -1424,6 +1354,16 @@ else if (line.endsWith('|| true')) {
           showResults();
         }
       }
+    }
+
+    function resetTest() {
+      clearInterval(timerInterval);
+      tested = false;
+      scores = flashcards.map(card => card.defaultScore !== undefined ? card.defaultScore : -1);
+      timerSpent = new Array(flashcards.length).fill(0);
+      currentIndex = 0;
+      resultPanel.classList.remove('active');
+      exitTestMode();
     }
 
     function resetAll() {
@@ -1549,20 +1489,6 @@ else if (line.endsWith('|| true')) {
 
     loadBtn.addEventListener('click', loadCards);
     testBtn.addEventListener('click', startTest);
-
-    function handleBlankAnswer() {
-  const input = document.getElementById("blankAnswerInput");
-  if (!input) return;
-
-  const userAnswer = input.value.trim().toLowerCase();
-  const correctAnswer = flashcards[currentIndex].answer.trim().toLowerCase();
-
-  if (userAnswer === correctAnswer) {
-    handleResponse(3);
-  } else {
-    handleResponse(0);
-  }
-}
     
     themeSelector.addEventListener('change', () => {
       document.body.classList.remove(
@@ -1600,9 +1526,9 @@ else if (line.endsWith('|| true')) {
 
       const card = flashcards[currentIndex];
 
-if (card.isBlank) {
-  return;
-} else if (card.isTrueFalse) {
+      if (card.isBlank) {
+        return;
+      } else if (card.isTrueFalse) {
         if (e.key === '1') {
           const scoreVal = (true === card.expectedBool) ? 3 : 0;
           handleResponse(scoreVal);
