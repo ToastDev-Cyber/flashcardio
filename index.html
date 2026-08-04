@@ -823,6 +823,118 @@
     body.theme-neongreen *:not([class*="fa-"]), body.theme-neongreen {font-family:VT323,monospace!important;letter-spacing:1px;}
     body.theme-neongreen .header h1 *:not([class*="fa-"]), body.theme-neongreen .header h1{font-family:"Press Start 2P",monospace!important;font-size:1.3rem;}
 
+    /* ===== Minecraft Inventory Theme ===== */
+
+body.theme-minecraft {
+  background: #1b1b1b !important;
+  color: white !important;
+  image-rendering: pixelated;
+}
+
+body.theme-minecraft .flashcardio {
+  background: #c6c6c6 !important;
+  color: #222 !important;
+  border-radius: 0 !important;
+  border: 6px solid #555 !important;
+  box-shadow:
+    inset 4px 4px #ffffff,
+    inset -4px -4px #777,
+    10px 10px 0 rgba(0,0,0,.6) !important;
+}
+
+/* Inventory title */
+body.theme-minecraft .header h1 {
+  background: none !important;
+  -webkit-text-fill-color: #222 !important;
+  color: #222 !important;
+  font-family: "Press Start 2P", monospace !important;
+  font-size: 1rem !important;
+}
+
+body.theme-minecraft .header {
+  border-bottom: 4px solid #777 !important;
+}
+
+/* Inventory slots */
+body.theme-minecraft .flashcard-area {
+  background: #8b8b8b !important;
+  border: 4px solid #373737 !important;
+  border-left: 4px solid #373737 !important;
+  border-radius: 0 !important;
+  box-shadow:
+    inset 3px 3px #d0d0d0,
+    inset -3px -3px #555 !important;
+}
+
+/* Inputs become item slots */
+body.theme-minecraft .input-row input,
+body.theme-minecraft .input-row textarea,
+body.theme-minecraft .timer-container,
+body.theme-minecraft .timer-container input,
+body.theme-minecraft .theme-selector,
+body.theme-minecraft .badge {
+  background: #8b8b8b !important;
+  color: white !important;
+  border-radius: 0 !important;
+  border: 4px solid #373737 !important;
+  box-shadow:
+    inset 3px 3px #cfcfcf,
+    inset -3px -3px #555 !important;
+  font-family: "VT323", monospace !important;
+  font-size: 1.2rem !important;
+}
+
+/* Buttons look like inventory slots */
+body.theme-minecraft .btn,
+body.theme-minecraft .response-btn {
+  background: #8b8b8b !important;
+  color: white !important;
+  border-radius: 0 !important;
+  border: 4px outset #d0d0d0 !important;
+  font-family: "VT323", monospace !important;
+  font-size: 1.2rem !important;
+}
+
+body.theme-minecraft .btn:hover,
+body.theme-minecraft .response-btn:hover {
+  background: #aaa !important;
+}
+
+/* Selected item slot */
+body.theme-minecraft .response-btn.selected {
+  background: #55aa55 !important;
+  border-color: #ffffff !important;
+}
+
+/* Green XP bar vibe */
+body.theme-minecraft .progress-indicator {
+  background: #222 !important;
+  padding: 8px !important;
+  border: 3px solid #000 !important;
+  color: #55ff55 !important;
+  font-family: "VT323", monospace !important;
+}
+
+/* Results chest panel */
+body.theme-minecraft .result-panel {
+  background: #8b8b8b !important;
+  border-radius: 0 !important;
+  border: 5px solid #373737 !important;
+}
+
+/* Focus items */
+body.theme-minecraft .focus-list li {
+  background: #555 !important;
+  color: white !important;
+  border-radius: 0 !important;
+  border-left: 6px solid #aa3333 !important;
+}
+
+/* Pixel font */
+body.theme-minecraft *:not([class*="fa-"]) {
+  font-family: "VT323", monospace !important;
+}
+
   </style>
 </head>
 <body>
@@ -839,6 +951,7 @@
       <option value="roblox">Roblox Light Mode</option>
       <option value="yellow">YELOOW</option>
       <option value="neongreen">Neon Dark Green</option>
+      <option value="minecraft">Minecraft Inventory</option>
     </select>
   </div>
 
