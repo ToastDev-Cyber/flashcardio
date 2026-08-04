@@ -1312,11 +1312,20 @@ The sky is green || false</textarea>
 
       flashcards = lines.map(line => {
         let questionText = line;
-        let defaultScore = undefined; 
-        let isTrueFalse = false;
-        let expectedBool = false;
+let defaultScore = undefined;
+let isTrueFalse = false;
+let expectedBool = false;
+let isBlank = false;
+let answer = "";
 
-        if (line.endsWith('|| true')) {
+        if (line.startsWith("TYPE:blank|")) {
+  const parts = line.split("|");
+
+  questionText = parts[1];
+  answer = parts[2].trim().toLowerCase();
+  isBlank = true;
+}
+else if (line.endsWith('|| true')) {
           questionText = line.slice(0, line.lastIndexOf('|| true')).trim();
           isTrueFalse = true;
           expectedBool = true;
@@ -1330,7 +1339,9 @@ The sky is green || false</textarea>
           question: questionText, 
           defaultScore: defaultScore, 
           isTrueFalse: isTrueFalse, 
-          expectedBool: expectedBool 
+          expectedBool: expectedBool,
+          isBlank: isBlank,
+          answer: answer
         };
       });
 
@@ -1548,7 +1559,17 @@ The sky is green || false</textarea>
 
       const card = flashcards[currentIndex];
 
-      if (card.isTrueFalse) {
+if (card.isBlank) {
+  window.addEventListener('keydown', (e) => {
+  if (!tested || flashcards.length === 0) return;
+  if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+
+  const card = flashcards[currentIndex];
+
+  if (card.isBlank) return;
+  };
+
+} else if (card.isTrueFalse) {
         if (e.key === '1') {
           const scoreVal = (true === card.expectedBool) ? 3 : 0;
           handleResponse(scoreVal);
