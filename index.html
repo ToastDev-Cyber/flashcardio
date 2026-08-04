@@ -934,6 +934,100 @@ body.theme-minecraft .focus-list li {
 body.theme-minecraft *:not([class*="fa-"]) {
   font-family: "VT323", monospace;
 }
+    /* ===== Windows Longhorn Theme ===== */
+
+body.theme-longhorn {
+  background:
+    radial-gradient(circle at top, #8fd8ff, #2869a8) !important;
+  color: #1b2a3a !important;
+}
+
+body.theme-longhorn .flashcardio {
+  background: rgba(220,240,255,0.75) !important;
+  backdrop-filter: blur(18px);
+  border-radius: 18px !important;
+  border: 1px solid rgba(255,255,255,.8) !important;
+  box-shadow:
+    0 10px 40px rgba(0,0,0,.35),
+    inset 0 1px white !important;
+}
+
+/* Glass title */
+body.theme-longhorn .header h1 {
+  background: linear-gradient(#ffffff,#4ba9ff) !important;
+  -webkit-background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+  font-family:"Segoe UI",sans-serif !important;
+}
+
+/* Panels */
+body.theme-longhorn .flashcard-area {
+  background: rgba(255,255,255,.35) !important;
+  border-left: 5px solid #4da6ff !important;
+  border-radius:16px !important;
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.9);
+}
+
+/* Inputs */
+body.theme-longhorn input,
+body.theme-longhorn textarea,
+body.theme-longhorn .timer-container,
+body.theme-longhorn .theme-selector {
+  background:rgba(255,255,255,.55) !important;
+  color:#123 !important;
+  border:1px solid white !important;
+  border-radius:10px !important;
+  box-shadow:inset 0 1px white !important;
+}
+
+/* Aero buttons */
+body.theme-longhorn .btn,
+body.theme-longhorn .response-btn {
+  background:
+    linear-gradient(#ffffff,#c9e8ff) !important;
+  color:#174a75 !important;
+  border-radius:12px !important;
+  border:1px solid #8bcaff !important;
+  box-shadow:
+    inset 0 2px white,
+    0 2px 5px rgba(0,0,0,.25);
+}
+
+body.theme-longhorn .btn:hover,
+body.theme-longhorn .response-btn:hover {
+  background:
+    linear-gradient(#dff5ff,#79c5ff) !important;
+}
+
+/* Results */
+body.theme-longhorn .result-panel {
+  background:rgba(255,255,255,.5) !important;
+  border-left:5px solid #00aaff !important;
+  border-radius:16px !important;
+}
+
+/* Text */
+body.theme-longhorn .flashcard-prompt,
+body.theme-longhorn .progress-indicator,
+body.theme-longhorn .footer {
+  color:#123 !important;
+}
+
+/* Aurora glow */
+body.theme-longhorn .header::after {
+  content:"";
+  display:block;
+  height:3px;
+  margin-top:10px;
+  background:linear-gradient(
+    90deg,
+    #00ffff,
+    #ffffff,
+    #0077ff
+  );
+  filter:blur(1px);
+}
   </style>
 </head>
 <body>
@@ -951,6 +1045,7 @@ body.theme-minecraft *:not([class*="fa-"]) {
       <option value="yellow">YELOOW</option>
       <option value="neongreen">Neon Dark Green</option>
       <option value="minecraft">Minecraft Inventory</option>
+      <option value="longhorn">Windows Longhorn</option>
     </select>
   </div>
 
@@ -1424,7 +1519,8 @@ The sky is green || false</textarea>
         'theme-roblox',
         'theme-yellow',
         'theme-neongreen',
-        'theme-minecraft'
+        'theme-minecraft',
+        'theme-longhorn'
       );
 
       document.body.classList.add(
