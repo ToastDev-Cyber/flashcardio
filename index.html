@@ -1546,30 +1546,18 @@ importFile.addEventListener("change", (e) => {
 });
     loadBtn.addEventListener('click', loadCards);
     testBtn.addEventListener('click', startTest);
-
-    loadCards();
     
-    function applyTheme(theme) {
-  document.body.classList.remove(
-    'theme-discord',
-    'theme-oldweb',
-    'theme-twitter',
-    'theme-roblox',
-    'theme-yellow',
-    'theme-neongreen',
-    'theme-minecraft',
-    'theme-longhorn'
-  );
-
-  document.body.classList.add('theme-' + theme);
-}
-
-themeSelector.addEventListener('change', () => {
-  applyTheme(themeSelector.value);
-});
-
-// Apply Discord theme when page loads
-applyTheme(themeSelector.value);
+    themeSelector.addEventListener('change', () => {
+      document.body.classList.remove(
+        'theme-discord',
+        'theme-oldweb',
+        'theme-twitter',
+        'theme-roblox',
+        'theme-yellow',
+        'theme-neongreen',
+        'theme-minecraft',
+        'theme-longhorn'
+      );
 
       document.body.classList.add(
         'theme-' + themeSelector.value
