@@ -495,470 +495,368 @@
       outline: none;
     }
 
-    /* ===== THEMES (Backgrounds, Component Layouts & Adaptive Typography) ===== */
-
-    /* Discord Black */
-    body.theme-discord {
-      background: #36393f !important;
-      color: #dcddde !important;
-    }
-    body.theme-discord .flashcardio {
-      background: #2f3136 !important;
-      color: #dcddde !important;
-    }
-    body.theme-discord .flashcard-area {
-      background: #292b2f !important;
-    }
-    body.theme-discord .input-row input, 
-    body.theme-discord .input-row textarea,
-    body.theme-discord .timer-container,
-    body.theme-discord .timer-container input,
-    body.theme-discord .theme-selector,
-    body.theme-discord .badge,
-    body.theme-discord .response-btn,
-    body.theme-discord .btn {
-      background: #40444b !important;
-      color: #dcddde !important;
+    /* ===== SLIDER STYLES ===== */
+    .slider-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
     }
 
-    /* Average 2009 Website */
-    body.theme-oldweb {
-      background: #3a6ea5 !important;
-      color: #000000 !important;
-      background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)) !important;
-      background-size: 100% 4px, 6px 100% !important;
+    .slider-container input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 12px;
+      border-radius: 10px;
+      background: linear-gradient(to right, #ed4245, #faa81a, #3ba55d);
+      outline: none;
+      transition: opacity 0.2s;
     }
-    body.theme-oldweb .flashcardio {
-      background: #ece9d8 !important;
-      color: #000000 !important;
-      border-radius: 0 !important;
-      box-shadow: inset 1px 1px #ffffff, inset -1px -1px #000000, 3px 3px 10px rgba(0,0,0,0.5) !important;
-      border: 2px solid #0055ea !important;
-      padding: 0 !important;
+
+    .slider-container input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      border: 3px solid #5865f2;
+      transition: 0.1s;
     }
-    body.theme-oldweb .flashcardio::before {
-      content: "Flashcardio - Microsoft Internet Explorer";
-      display: block;
-      background: linear-gradient(to right, #0055ea, #2884eb);
-      color: #ffffff;
+
+    .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+      border-color: #8ea1f0;
+    }
+
+    .slider-container input[type="range"]::-moz-range-thumb {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: white;
+      cursor: pointer;
+      border: 3px solid #5865f2;
+    }
+
+    .slider-value {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      font-size: 1.2rem;
       font-weight: bold;
-      font-size: 0.85rem;
-      padding: 4px 8px;
-      margin-bottom: 1rem;
-      letter-spacing: 0.5px;
-    }
-    body.theme-oldweb .flashcard-area {
-      background: #ffffff !important;
-      border-radius: 0 !important;
-      border: 2px inset #7f7f7f !important;
-      border-left: 6px solid #0000ff !important;
-      margin: 10px !important;
-      padding: 1rem !important;
-    }
-    body.theme-oldweb .header {
-      border-bottom: 2px groove #808080 !important;
-      padding: 0 1rem 0.5rem 1rem !important;
-      margin-bottom: 1rem !important;
-    }
-    body.theme-oldweb .header h1 {
-      background: none !important;
-      -webkit-text-fill-color: #000080 !important;
-      color: #000080 !important;
-      font-size: 1.6rem !important;
-    }
-    body.theme-oldweb .header h1 i {
-      -webkit-text-fill-color: #000080 !important;
-      color: #000080 !important;
-    }
-    body.theme-oldweb .input-row input, 
-    body.theme-oldweb .input-row textarea,
-    body.theme-oldweb .timer-container,
-    body.theme-oldweb .timer-container input,
-    body.theme-oldweb .theme-selector,
-    body.theme-oldweb .badge,
-    body.theme-oldweb .response-btn,
-    body.theme-oldweb .btn {
-      background: #f4f0ec !important;
-      color: #000000 !important;
-      border-radius: 0 !important;
-      border: 2px outset #ffffff !important;
-      border-right-color: #404040 !important;
-      border-bottom-color: #404040 !important;
-    }
-    body.theme-oldweb .btn:active, 
-    body.theme-oldweb .response-btn:active {
-      border: 2px inset #ffffff !important;
-      border-top-color: #404040 !important;
-      border-left-color: #404040 !important;
-    }
-    body.theme-oldweb .input-row input:focus, 
-    body.theme-oldweb .input-row textarea:focus {
-      background: #ffffff !important;
-      box-shadow: none !important;
-      border: 2px inset #000000 !important;
-    }
-    body.theme-oldweb .flashcard-prompt,
-    body.theme-oldweb .input-row label,
-    body.theme-oldweb .progress-indicator,
-    body.theme-oldweb .footer,
-    body.theme-oldweb .status-message,
-    body.theme-oldweb .result-title,
-    body.theme-oldweb .badge {
-      color: #000000 !important;
-      background: transparent !important;
-    }
-    body.theme-oldweb .result-panel {
-      background: #f4f0ec !important;
-      border-radius: 0 !important;
-      border: 2px inset #7f7f7f !important;
-      border-left: 6px solid #00aa00 !important;
-    }
-    body.theme-oldweb .focus-list li {
-      background: #ffffff !important;
-      border-radius: 0 !important;
-      border: 1px solid #7f7f7f !important;
-      border-left: 4px solid #cc0000 !important;
-    }
-    body.theme-oldweb .footer {
-      border-top: 1px groove #808080 !important;
-      margin: 10px !important;
-      padding: 5px !important;
     }
 
-    /* Twitter Black */
-    body.theme-twitter {
-      background: #000000 !important;
-      color: #f7f9f9 !important;
-    }
-    body.theme-twitter .flashcardio {
-      background: #15202b !important;
-      color: #f7f9f9 !important;
-      border: 1px solid #38444d !important;
-    }
-    body.theme-twitter .flashcard-area {
-      background: #192734 !important;
-    }
-    body.theme-twitter .header {
-      border-bottom-color: #38444d !important;
-    }
-    body.theme-twitter .header h1 {
-      background: none !important;
-      -webkit-text-fill-color: #1da1f2 !important;
-      color: #1da1f2 !important;
-    }
-    body.theme-twitter .header h1 i {
-      -webkit-text-fill-color: #1da1f2 !important;
-      color: #1da1f2 !important;
-    }
-    body.theme-twitter .input-row input, 
-    body.theme-twitter .input-row textarea,
-    body.theme-twitter .timer-container,
-    body.theme-twitter .timer-container input,
-    body.theme-twitter .theme-selector,
-    body.theme-twitter .badge,
-    body.theme-twitter .response-btn,
-    body.theme-twitter .btn {
-      background: #253341 !important;
-      color: #f7f9f9 !important;
-      border: 1px solid #38444d !important;
-    }
-    body.theme-twitter .flashcard-prompt,
-    body.theme-twitter .input-row label,
-    body.theme-twitter .progress-indicator,
-    body.theme-twitter .footer,
-    body.theme-twitter .status-message,
-    body.theme-twitter .result-title {
-      color: #f7f9f9 !important;
+    .slider-value .current-value {
+      font-size: 2rem;
+      padding: 8px 20px;
+      border-radius: 12px;
+      background: #40444b;
+      min-width: 80px;
+      text-align: center;
     }
 
-    /* Roblox Light Mode */
-    body.theme-roblox {
-      background: #eeeeee !important;
-      color: #111111 !important;
-    }
-    body.theme-roblox .flashcardio {
-      background: #ffffff !important;
-      color: #111111 !important;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
-    }
-    body.theme-roblox .flashcard-area {
-      background: #f5f5f5 !important;
-      border-left-color: #0074e8 !important;
-    }
-    body.theme-roblox .header {
-      border-bottom-color: #dddddd !important;
-    }
-    body.theme-roblox .header h1 {
-      background: none !important;
-      -webkit-text-fill-color: #0074e8 !important;
-      color: #0074e8 !important;
-    }
-    body.theme-roblox .header h1 i {
-      -webkit-text-fill-color: #0074e8 !important;
-      color: #0074e8 !important;
-    }
-    body.theme-roblox .input-row input, 
-    body.theme-roblox .input-row textarea,
-    body.theme-roblox .timer-container,
-    body.theme-roblox .timer-container input,
-    body.theme-roblox .theme-selector,
-    body.theme-roblox .badge,
-    body.theme-roblox .response-btn,
-    body.theme-roblox .btn {
-      background: #e9e9e9 !important;
-      color: #111111 !important;
-      border: 1px solid #cccccc !important;
-    }
-    body.theme-roblox .flashcard-prompt,
-    body.theme-roblox .input-row label,
-    body.theme-roblox .progress-indicator,
-    body.theme-roblox .footer,
-    body.theme-roblox .status-message,
-    body.theme-roblox .result-title {
-      color: #222222 !important;
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: #8e9297;
+      margin-top: 5px;
     }
 
-    /* YELOOW */
-    body.theme-yellow {
-      background: #ffd700 !important;
-      color: #1a1a1a !important;
-    }
-    body.theme-yellow .flashcardio {
-      background: #ffea75 !important;
-      color: #1a1a1a !important;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important;
-    }
-    body.theme-yellow .flashcard-area {
-      background: #fff099 !important;
-      border-left-color: #d4ac0d !important;
-    }
-    body.theme-yellow .header {
-      border-bottom-color: #e5c158 !important;
-    }
-    body.theme-yellow .header h1 {
-      background: none !important;
-      -webkit-text-fill-color: #7d6608 !important;
-      color: #7d6608 !important;
-    }
-    body.theme-yellow .header h1 i {
-      -webkit-text-fill-color: #7d6608 !important;
-      color: #7d6608 !important;
-    }
-    body.theme-yellow .input-row input, 
-    body.theme-yellow .input-row textarea,
-    body.theme-yellow .timer-container,
-    body.theme-yellow .timer-container input,
-    body.theme-yellow .theme-selector,
-    body.theme-yellow .badge,
-    body.theme-yellow .response-btn,
-    body.theme-yellow .btn {
-      background: #fdf2a4 !important;
-      color: #1a1a1a !important;
-      border: 1px solid #d4ac0d !important;
-    }
-    body.theme-yellow .flashcard-prompt,
-    body.theme-yellow .input-row label,
-    body.theme-yellow .progress-indicator,
-    body.theme-yellow .footer,
-    body.theme-yellow .status-message,
-    body.theme-yellow .result-title {
-      color: #222222 !important;
+    .slider-submit {
+      margin-top: 15px;
+      padding: 12px 40px;
+      font-size: 1.1rem;
+      border-radius: 40px;
+      background: #3ba55d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.15s;
+      font-weight: 600;
     }
 
-    /* Neon Dark Green */
-    body.theme-neongreen {
-      background: #001000 !important;
-      color: #00ff66 !important;
+    .slider-submit:hover {
+      background: #2d8b4e;
+      transform: scale(1.02);
     }
-    body.theme-neongreen .flashcardio {
-      background: #002000 !important;
-      color: #00ff66 !important;
-      box-shadow: 0 0 30px #00ff00 !important;
-      border: 1px solid #00aa33 !important;
+
+    body.test-active .slider-container input[type="range"] {
+      height: 16px;
     }
-    body.theme-neongreen .flashcard-area {
-      background: #003300 !important;
-      border-left-color: #00ff44 !important;
+
+    body.test-active .slider-container input[type="range"]::-webkit-slider-thumb {
+      width: 36px;
+      height: 36px;
     }
-    body.theme-neongreen .header {
-      border-bottom-color: #004400 !important;
+
+    body.test-active .slider-value .current-value {
+      font-size: 2.5rem;
+      padding: 12px 30px;
     }
-    body.theme-neongreen .header h1 {
-      background: linear-gradient(135deg,#00ff44,#00ffaa) !important;
+
+    /* ===== KAHOOT THEME ===== */
+    body.theme-kahoot {
+      background: #46178f !important;
+      color: #ffffff !important;
+    }
+
+    body.theme-kahoot .flashcardio {
+      background: rgba(32, 12, 70, 0.92) !important;
+      color: #ffffff !important;
+      border: 3px solid #6a3b9a !important;
+      box-shadow: 0 0 60px rgba(70, 23, 143, 0.5), inset 0 0 30px rgba(106, 59, 154, 0.2) !important;
+    }
+
+    body.theme-kahoot .header {
+      border-bottom-color: #6a3b9a !important;
+    }
+
+    body.theme-kahoot .header h1 {
+      background: linear-gradient(135deg, #ffcd00, #ff6b00) !important;
       -webkit-background-clip: text !important;
       -webkit-text-fill-color: transparent !important;
     }
-    body.theme-neongreen .header h1 i {
-      -webkit-text-fill-color: #00ff44 !important;
-      color: #00ff44 !important;
-    }
-    body.theme-neongreen .input-row input, 
-    body.theme-neongreen .input-row textarea,
-    body.theme-neongreen .timer-container,
-    body.theme-neongreen .timer-container input,
-    body.theme-neongreen .theme-selector,
-    body.theme-neongreen .badge,
-    body.theme-neongreen .response-btn,
-    body.theme-neongreen .btn {
-      background: #004400 !important;
-      color: #00ff66 !important;
-      border: 1px solid #008822 !important;
-    }
-    body.theme-neongreen .flashcard-prompt,
-    body.theme-neongreen .input-row label,
-    body.theme-neongreen .progress-indicator,
-    body.theme-neongreen .footer,
-    body.theme-neongreen .status-message,
-    body.theme-neongreen .result-title {
-      color: #00ff88 !important;
+
+    body.theme-kahoot .header h1 i {
+      -webkit-text-fill-color: #ffcd00 !important;
+      color: #ffcd00 !important;
     }
 
-    /* Minecraft Inventory Theme */
-    body.theme-minecraft {
-      background: #1b1b1b !important;
-      color: white !important;
-      image-rendering: pixelated;
-    }
-    body.theme-minecraft .flashcardio {
-      background: #c6c6c6 !important;
-      color: #222 !important;
-      border-radius: 0 !important;
-      border: 6px solid #555 !important;
-      box-shadow: inset 4px 4px #ffffff, inset -4px -4px #777, 10px 10px 0 rgba(0,0,0,.6) !important;
-    }
-    body.theme-minecraft .header h1 {
-      background: none !important;
-      -webkit-text-fill-color: #222 !important;
-      color: #222 !important;
-      font-family: "Press Start 2P", monospace !important;
-      font-size: 1rem !important;
-    }
-    body.theme-minecraft .header {
-      border-bottom: 4px solid #777 !important;
-    }
-    body.theme-minecraft .flashcard-area {
-      background: #8b8b8b !important;
-      border: 4px solid #373737 !important;
-      border-left: 4px solid #373737 !important;
-      border-radius: 0 !important;
-      box-shadow: inset 3px 3px #d0d0d0, inset -3px -3px #555 !important;
-    }
-    body.theme-minecraft .input-row input,
-    body.theme-minecraft .input-row textarea,
-    body.theme-minecraft .timer-container,
-    body.theme-minecraft .timer-container input,
-    body.theme-minecraft .theme-selector,
-    body.theme-minecraft .badge {
-      background: #8b8b8b !important;
-      color: white !important;
-      border-radius: 0 !important;
-      border: 4px solid #373737 !important;
-      box-shadow: inset 3px 3px #cfcfcf, inset -3px -3px #555 !important;
-      font-family: "VT323", monospace !important;
-      font-size: 1.2rem !important;
-    }
-    body.theme-minecraft .btn,
-    body.theme-minecraft .response-btn {
-      background: #8b8b8b !important;
-      color: white !important;
-      border-radius: 0 !important;
-      border: 4px outset #d0d0d0 !important;
-      font-family: "VT323", monospace !important;
-      font-size: 1.2rem !important;
-    }
-    body.theme-minecraft .btn:hover,
-    body.theme-minecraft .response-btn:hover {
-      background: #aaa !important;
-    }
-    body.theme-minecraft .response-btn.selected {
-      background: #55aa55 !important;
-      border-color: #ffffff !important;
-    }
-    body.theme-minecraft .progress-indicator {
-      background: #222 !important;
-      padding: 8px !important;
-      border: 3px solid #000 !important;
-      color: #55ff55 !important;
-      font-family: "VT323", monospace !important;
-    }
-    body.theme-minecraft .result-panel {
-      background: #8b8b8b !important;
-      border-radius: 0 !important;
-      border: 5px solid #373737 !important;
-    }
-    body.theme-minecraft .focus-list li {
-      background: #555 !important;
-      color: white !important;
-      border-radius: 0 !important;
-      border-left: 6px solid #aa3333 !important;
-    }
-    body.theme-minecraft *:not([class*="fa-"]) {
-      font-family: "VT323", monospace;
+    body.theme-kahoot .flashcard-area {
+      background: rgba(255, 255, 255, 0.05) !important;
+      border-left: 4px solid #ffcd00 !important;
     }
 
-    /* Windows Longhorn Theme */
-    body.theme-longhorn {
-      background: radial-gradient(circle at top, #8fd8ff, #2869a8) !important;
-      color: #1b2a3a !important;
+    body.theme-kahoot .input-row input,
+    body.theme-kahoot .input-row textarea,
+    body.theme-kahoot .timer-container,
+    body.theme-kahoot .timer-container input,
+    body.theme-kahoot .theme-selector,
+    body.theme-kahoot .badge {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: #ffffff !important;
+      border: 2px solid #6a3b9a !important;
     }
-    body.theme-longhorn .flashcardio {
-      background: rgba(220,240,255,0.75) !important;
-      backdrop-filter: blur(18px);
-      border-radius: 18px !important;
-      border: 1px solid rgba(255,255,255,.8) !important;
-      box-shadow: 0 10px 40px rgba(0,0,0,.35), inset 0 1px white !important;
+
+    body.theme-kahoot .btn {
+      background: #6a3b9a !important;
+      color: white !important;
+      border: 2px solid #8a5bbd !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
     }
-    body.theme-longhorn .header h1 {
-      background: linear-gradient(#ffffff,#4ba9ff) !important;
-      -webkit-background-clip:text !important;
-      -webkit-text-fill-color:transparent !important;
-      font-family:"Segoe UI",sans-serif !important;
+
+    body.theme-kahoot .btn-primary {
+      background: #ffcd00 !important;
+      color: #46178f !important;
+      border-color: #ffcd00 !important;
     }
-    body.theme-longhorn .flashcard-area {
-      background: rgba(255,255,255,.35) !important;
-      border-left: 5px solid #4da6ff !important;
-      border-radius:16px !important;
-      box-shadow: inset 0 1px rgba(255,255,255,.9);
+
+    body.theme-kahoot .btn-primary:hover {
+      background: #ffdb4d !important;
+      transform: scale(1.05);
     }
-    body.theme-longhorn input,
-    body.theme-longhorn textarea,
-    body.theme-longhorn .timer-container,
-    body.theme-longhorn .theme-selector {
-      background:rgba(255,255,255,.55) !important;
-      color:#123 !important;
-      border:1px solid white !important;
-      border-radius:10px !important;
-      box-shadow:inset 0 1px white !important;
+
+    body.theme-kahoot .btn-success {
+      background: #27ae60 !important;
+      border-color: #2ecc71 !important;
     }
-    body.theme-longhorn .btn,
-    body.theme-longhorn .response-btn {
-      background: linear-gradient(#ffffff,#c9e8ff) !important;
-      color:#174a75 !important;
-      border-radius:12px !important;
-      border:1px solid #8bcaff !important;
-      box-shadow: inset 0 2px white, 0 2px 5px rgba(0,0,0,.25);
+
+    body.theme-kahoot .btn-success:hover {
+      background: #2ecc71 !important;
+      transform: scale(1.05);
     }
-    body.theme-longhorn .btn:hover,
-    body.theme-longhorn .response-btn:hover {
-      background: linear-gradient(#dff5ff,#79c5ff) !important;
+
+    body.theme-kahoot .btn-danger {
+      background: #e74c3c !important;
+      border-color: #ff6b6b !important;
     }
-    body.theme-longhorn .result-panel {
-      background:rgba(255,255,255,.5) !important;
-      border-left:5px solid #00aaff !important;
-      border-radius:16px !important;
+
+    body.theme-kahoot .btn-danger:hover {
+      background: #ff6b6b !important;
+      transform: scale(1.05);
     }
-    body.theme-longhorn .flashcard-prompt,
-    body.theme-longhorn .progress-indicator,
-    body.theme-longhorn .footer {
-      color:#123 !important;
+
+    body.theme-kahoot .btn-secondary:hover {
+      transform: scale(1.05);
     }
-    body.theme-longhorn .header::after {
-      content:"";
-      display:block;
-      height:3px;
-      margin-top:10px;
-      background:linear-gradient(90deg, #00ffff, #ffffff, #0077ff);
-      filter:blur(1px);
+
+    body.theme-kahoot .response-btn {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+      border: 3px solid #6a3b9a !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      transition: 0.15s !important;
+    }
+
+    body.theme-kahoot .response-btn:hover {
+      background: rgba(255, 255, 255, 0.2) !important;
+      border-color: #8a5bbd !important;
+      transform: scale(1.05);
+    }
+
+    body.theme-kahoot .response-btn.selected {
+      background: #ffcd00 !important;
+      color: #46178f !important;
+      border-color: #ffcd00 !important;
+      transform: scale(1.08);
+    }
+
+    body.theme-kahoot .response-btn.selected kbd {
+      background: #46178f !important;
+      color: #ffcd00 !important;
+      border-color: #46178f !important;
+    }
+
+    body.theme-kahoot .progress-indicator {
+      color: #b08fd4 !important;
+    }
+
+    body.theme-kahoot .result-panel {
+      background: rgba(255, 255, 255, 0.08) !important;
+      border-left: 4px solid #ffcd00 !important;
+    }
+
+    body.theme-kahoot .focus-list li {
+      background: rgba(255, 255, 255, 0.08) !important;
+      border-left: 3px solid #ff6b6b !important;
+    }
+
+    body.theme-kahoot .focus-list .tag {
+      background: #ff6b6b !important;
+    }
+
+    body.theme-kahoot .footer {
+      border-top-color: #6a3b9a !important;
+      color: #8a5bbd !important;
+    }
+
+    body.theme-kahoot .flashcard-prompt,
+    body.theme-kahoot .input-row label,
+    body.theme-kahoot .status-message {
+      color: #ffffff !important;
+    }
+
+    body.theme-kahoot .status-badge {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: #ffcd00 !important;
+    }
+
+    body.theme-kahoot .slider-container input[type="range"] {
+      background: linear-gradient(to right, #ff6b6b, #ffcd00, #2ecc71) !important;
+    }
+
+    body.theme-kahoot .slider-container input[type="range"]::-webkit-slider-thumb {
+      background: #ffcd00 !important;
+      border-color: #46178f !important;
+      box-shadow: 0 0 20px rgba(255, 205, 0, 0.5) !important;
+    }
+
+    body.theme-kahoot .slider-value .current-value {
+      background: rgba(255, 255, 255, 0.1) !important;
+      border: 2px solid #ffcd00 !important;
+      color: #ffcd00 !important;
+    }
+
+    body.theme-kahoot .slider-submit {
+      background: #ffcd00 !important;
+      color: #46178f !important;
+    }
+
+    body.theme-kahoot .slider-submit:hover {
+      background: #ffdb4d !important;
+      transform: scale(1.05);
+    }
+
+    body.theme-kahoot .slider-labels {
+      color: #b08fd4 !important;
+    }
+
+    /* Kahoot animations */
+    @keyframes kahootPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+
+    body.theme-kahoot .flashcardio {
+      animation: kahootPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes kahootGlow {
+      0% { box-shadow: 0 0 60px rgba(70, 23, 143, 0.5); }
+      50% { box-shadow: 0 0 80px rgba(255, 205, 0, 0.3); }
+      100% { box-shadow: 0 0 60px rgba(70, 23, 143, 0.5); }
+    }
+
+    body.theme-kahoot .flashcardio {
+      animation: kahootPulse 3s ease-in-out infinite, kahootGlow 4s ease-in-out infinite;
+    }
+
+    /* ===== Regular flashcard flip animation ===== */
+    .flashcard-container {
+      perspective: 1000px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      min-height: 120px;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .flashcard-inner.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      min-height: 120px;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      padding: 1.5rem;
+      background: #40444b;
+      border: 2px solid #5865f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1.2rem;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .flashcard-back {
+      transform: rotateY(180deg);
+      background: #4752c4;
+    }
+
+    .flashcard-front .hint, .flashcard-back .hint {
+      font-size: 0.85rem;
+      color: #8e9297;
+      margin-top: 8px;
+    }
+
+    body.test-active .flashcard-front, 
+    body.test-active .flashcard-back {
+      min-height: 200px;
+      font-size: 1.8rem;
+      padding: 2.5rem;
     }
 
     /* Theme Fonts */
@@ -969,6 +867,7 @@
     body.theme-yellow *:not([class*="fa-"]), body.theme-yellow {font-family:Caveat,cursive!important;}
     body.theme-neongreen *:not([class*="fa-"]), body.theme-neongreen {font-family:VT323,monospace!important;letter-spacing:1px;}
     body.theme-neongreen .header h1 *:not([class*="fa-"]), body.theme-neongreen .header h1{font-family:"Press Start 2P",monospace!important;font-size:1.3rem;}
+    body.theme-kahoot *:not([class*="fa-"]), body.theme-kahoot {font-family:"Nunito","Segoe UI",sans-serif!important;}
   </style>
 </head>
 <body>
@@ -987,6 +886,7 @@
       <option value="neongreen">Neon Dark Green</option>
       <option value="minecraft">Minecraft Inventory</option>
       <option value="longhorn">Windows Longhorn</option>
+      <option value="kahoot">🎮 Kahoot</option>
     </select>
   </div>
 
@@ -998,12 +898,17 @@
     </div>
     <div class="input-row">
       <label><i class="fas fa-list-ul"></i> Notes</label>
-      <textarea id="notesInput" placeholder="One item per line&#10;e.g.&#10;Mitochondria is powerhouse || true&#10;Earth is flat || false&#10;DNA double helix">Mitochondria is powerhouse || true
+      <textarea id="notesInput" placeholder="One item per line&#10;e.g.&#10;Mitochondria is powerhouse || true&#10;Earth is flat || false&#10;front|back&#10;TYPE:slider|min:0|max:100|num:67">Mitochondria is powerhouse || true
 Earth is flat || false
 DNA double helix
 TYPE:blank|What is the powerhouse of the cell?|mitochondria
 Cell membrane function || true
-The sky is green || false</textarea>
+The sky is green || false
+What is the capital of France?|Paris
+Who wrote Romeo and Juliet?|William Shakespeare
+What is 2+2?|4
+TYPE:slider|min:0|max:100|num:67|What is the probability?
+TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
     </div>
     <div class="button-group">
       <div class="timer-container">
@@ -1071,6 +976,7 @@ The sky is green || false</textarea>
     let timerSpent = []; 
     let tested = false;
     let subject = 'Biology 101';
+    let isRegularFlashcard = false;
 
     let timerEnabled = false;
     let persistentTimerMode = false;
@@ -1088,8 +994,8 @@ The sky is green || false</textarea>
     const timerModeBtn = document.getElementById('timerModeBtn');
     const negativeTimerBtn = document.getElementById('negativeTimerBtn');
     const exportBtn = document.getElementById("exportBtn");
-const importBtn = document.getElementById("importBtn");
-const importFile = document.getElementById("importFile");
+    const importBtn = document.getElementById("importBtn");
+    const importFile = document.getElementById("importFile");
     const questionText = document.getElementById('questionText');
     const cardCounter = document.getElementById('cardCounter');
     const progressText = document.getElementById('progressText');
@@ -1105,6 +1011,17 @@ const importFile = document.getElementById("importFile");
     const body = document.body;
     const themeSelector = document.getElementById("themeSelector");
 
+    // Function to calculate score based on slider accuracy
+    function calculateSliderScore(selected, correct) {
+      const diff = Math.abs(selected - correct);
+      const maxDiff = Math.max(Math.abs(correct), 100);
+      const accuracy = Math.max(0, 1 - (diff / maxDiff));
+      if (accuracy >= 0.9) return 3;
+      if (accuracy >= 0.7) return 2;
+      if (accuracy >= 0.5) return 1;
+      return 0;
+    }
+
     function enterTestMode() {
       body.classList.add('test-active');
       void body.offsetWidth;
@@ -1117,6 +1034,7 @@ const importFile = document.getElementById("importFile");
       scores = flashcards.map(card => card.defaultScore !== undefined ? card.defaultScore : -1);
       timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
+      isRegularFlashcard = false;
       resultPanel.classList.remove('active');
       responseButtonsContainer.innerHTML = '';
       if (flashcards.length > 0) {
@@ -1153,7 +1071,7 @@ const importFile = document.getElementById("importFile");
 
       const card = flashcards[currentIndex];
       startTimer();
-      questionText.textContent = card.question || 'Untitled';
+      
       cardCounter.textContent = `${currentIndex+1} / ${flashcards.length}`;
       progressText.textContent = `🧠 ${scores.filter(s => s !== -1).length} / ${flashcards.length} answered`;
       if (!timerEnabled) {
@@ -1162,7 +1080,101 @@ const importFile = document.getElementById("importFile");
 
       const currentScore = scores[currentIndex];
 
-      if (card.isBlank) {
+      // Check for slider type
+      if (card.isSlider) {
+        isRegularFlashcard = false;
+        questionText.textContent = card.question || 'Untitled';
+        
+        // Get min, max, and correct value
+        const min = card.sliderMin !== undefined ? card.sliderMin : 0;
+        const max = card.sliderMax !== undefined ? card.sliderMax : 100;
+        const correct = card.sliderCorrect !== undefined ? card.sliderCorrect : 50;
+        const range = max - min;
+        
+        // Create slider UI
+        responseButtonsContainer.innerHTML = `
+          <div class="slider-container">
+            <div class="slider-labels">
+              <span>${min}</span>
+              <span>${max}</span>
+            </div>
+            <input type="range" id="sliderInput" min="${min}" max="${max}" value="${Math.round((min + max) / 2)}" step="1">
+            <div class="slider-value">
+              <span>Value:</span>
+              <span class="current-value" id="sliderValue">${Math.round((min + max) / 2)}</span>
+            </div>
+            <button class="slider-submit" id="sliderSubmit">
+              <i class="fas fa-check"></i> Submit
+            </button>
+          </div>
+        `;
+
+        // Add event listeners
+        const sliderInput = document.getElementById('sliderInput');
+        const sliderValue = document.getElementById('sliderValue');
+        const sliderSubmit = document.getElementById('sliderSubmit');
+
+        sliderInput.addEventListener('input', function() {
+          sliderValue.textContent = this.value;
+        });
+
+        sliderSubmit.addEventListener('click', function() {
+          const selectedValue = parseInt(sliderInput.value);
+          const scoreVal = calculateSliderScore(selectedValue, correct);
+          handleResponse(scoreVal);
+        });
+
+        // Keyboard support: Enter to submit
+        sliderInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            const selectedValue = parseInt(this.value);
+            const scoreVal = calculateSliderScore(selectedValue, correct);
+            handleResponse(scoreVal);
+          }
+        });
+
+      } else if (card.isRegular) {
+        isRegularFlashcard = true;
+        questionText.innerHTML = `
+          <div class="flashcard-container">
+            <div class="flashcard-inner" id="flashcardInner">
+              <div class="flashcard-front">
+                <i class="fas fa-eye" style="opacity:0.5; margin-bottom:8px;"></i>
+                ${card.question}
+                <div class="hint">👆 Click to flip</div>
+              </div>
+              <div class="flashcard-back">
+                <i class="fas fa-lightbulb" style="opacity:0.5; margin-bottom:8px;"></i>
+                ${card.backContent}
+                <div class="hint">👆 Click to flip back</div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        const flashcardInner = document.getElementById('flashcardInner');
+        if (flashcardInner) {
+          flashcardInner.addEventListener('click', function(e) {
+            this.classList.toggle('flipped');
+          });
+        }
+
+        responseButtonsContainer.innerHTML = `
+          <button class="response-btn ${currentScore === 0 ? 'selected' : ''}" data-score="0"><i class="fas fa-skull"></i> Forgor <kbd>1</kbd></button>
+          <button class="response-btn ${currentScore === 1 ? 'selected' : ''}" data-score="1"><i class="fas fa-question-circle"></i> Partially recall <kbd>2</kbd></button>
+          <button class="response-btn ${currentScore === 2 ? 'selected' : ''}" data-score="2"><i class="fas fa-check-circle"></i> Recall <kbd>3</kbd></button>
+          <button class="response-btn ${currentScore === 3 ? 'selected' : ''}" data-score="3"><i class="fas fa-star"></i> Easily recall <kbd>4</kbd></button>
+        `;
+
+        responseButtonsContainer.querySelectorAll('.response-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const val = parseInt(e.currentTarget.dataset.score, 10);
+            handleResponse(val);
+          });
+        });
+      } else if (card.isBlank) {
+        isRegularFlashcard = false;
+        questionText.textContent = card.question || 'Untitled';
         responseButtonsContainer.innerHTML = `
           <input 
             id="blankAnswerInput"
@@ -1183,11 +1195,15 @@ const importFile = document.getElementById("importFile");
           handleResponse(userAnswer === correctAnswer ? 3 : 0);
         };
       } else if (card.isTrueFalse) {
+        isRegularFlashcard = false;
+        questionText.textContent = card.question || 'Untitled';
         responseButtonsContainer.innerHTML = `
           <button class="response-btn ${currentScore === 3 ? 'selected' : ''}" data-val="true"><i class="fas fa-check" style="color:#3ba55d;"></i> True <kbd>1</kbd></button>
           <button class="response-btn ${currentScore === 0 ? 'selected' : ''}" data-val="false"><i class="fas fa-times" style="color:#ed4245;"></i> False <kbd>2</kbd></button>
         `;
       } else {
+        isRegularFlashcard = false;
+        questionText.textContent = card.question || 'Untitled';
         responseButtonsContainer.innerHTML = `
           <button class="response-btn ${currentScore === 0 ? 'selected' : ''}" data-score="0"><i class="fas fa-skull"></i> Forgor <kbd>1</kbd></button>
           <button class="response-btn ${currentScore === 1 ? 'selected' : ''}" data-score="1"><i class="fas fa-question-circle"></i> Partially recall <kbd>2</kbd></button>
@@ -1196,7 +1212,8 @@ const importFile = document.getElementById("importFile");
         `;
       }
 
-      if (!card.isBlank) {
+      // Add event listeners for non-regular, non-blank, non-slider cards
+      if (!card.isRegular && !card.isBlank && !card.isSlider) {
         responseButtonsContainer.querySelectorAll('.response-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
             const targetBtn = e.currentTarget;
@@ -1234,6 +1251,8 @@ const importFile = document.getElementById("importFile");
           let labelText = 'Forgor';
           if (card.isBlank || card.isTrueFalse) {
             labelText = 'Incorrect';
+          } else if (card.isSlider) {
+            labelText = 'Off target';
           } else if (score === 1) {
             labelText = 'Partially recall';
           }
@@ -1298,8 +1317,56 @@ const importFile = document.getElementById("importFile");
         let expectedBool = false;
         let isBlank = false;
         let answer = "";
+        let isRegular = false;
+        let backContent = "";
+        let isSlider = false;
+        let sliderMin = 0;
+        let sliderMax = 100;
+        let sliderCorrect = 50;
 
-        if (line.startsWith("TYPE:blank|")) {
+        // Check for slider type
+        if (line.startsWith("TYPE:slider|")) {
+          const parts = line.split("|");
+          isSlider = true;
+          
+          // Parse min, max, num, and question
+          let question = "";
+          let min = 0;
+          let max = 100;
+          let correct = 50;
+          
+          for (let i = 1; i < parts.length; i++) {
+            const part = parts[i];
+            if (part.startsWith("min:")) {
+              min = parseFloat(part.substring(4));
+            } else if (part.startsWith("max:")) {
+              max = parseFloat(part.substring(4));
+            } else if (part.startsWith("num:")) {
+              correct = parseFloat(part.substring(4));
+            } else if (part.startsWith("neg:")) {
+              // Support negative values in min/max
+              const negValue = parseFloat(part.substring(4));
+              if (min === 0 && max === 100) {
+                min = -negValue;
+                max = negValue;
+              }
+            } else {
+              question = part;
+            }
+          }
+          
+          questionText = question || line;
+          sliderMin = min;
+          sliderMax = max;
+          sliderCorrect = correct;
+        } else if (line.includes('|') && !line.startsWith("TYPE:") && !line.includes('|| true') && !line.includes('|| false')) {
+          const parts = line.split('|');
+          if (parts.length >= 2) {
+            questionText = parts[0].trim();
+            backContent = parts.slice(1).join('|').trim();
+            isRegular = true;
+          }
+        } else if (line.startsWith("TYPE:blank|")) {
           const parts = line.split("|");
           questionText = parts[1];
           answer = parts[2].trim().toLowerCase();
@@ -1320,7 +1387,13 @@ const importFile = document.getElementById("importFile");
           isTrueFalse: isTrueFalse, 
           expectedBool: expectedBool,
           isBlank: isBlank,
-          answer: answer
+          answer: answer,
+          isRegular: isRegular,
+          backContent: backContent,
+          isSlider: isSlider,
+          sliderMin: sliderMin,
+          sliderMax: sliderMax,
+          sliderCorrect: sliderCorrect
         };
       });
 
@@ -1328,6 +1401,7 @@ const importFile = document.getElementById("importFile");
       scores = flashcards.map(card => card.defaultScore !== undefined ? card.defaultScore : -1);
       timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
+      isRegularFlashcard = false;
       resultPanel.classList.remove('active');
       responseButtonsContainer.innerHTML = '';
       questionText.textContent = 'Press "Test" to start.';
@@ -1348,6 +1422,7 @@ const importFile = document.getElementById("importFile");
       scores = flashcards.map(card => card.defaultScore !== undefined ? card.defaultScore : -1);
       timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
+      isRegularFlashcard = false;
       resultPanel.classList.remove('active');
       
       if (timerEnabled && persistentTimerMode) {
@@ -1384,6 +1459,7 @@ const importFile = document.getElementById("importFile");
       scores = flashcards.map(card => card.defaultScore !== undefined ? card.defaultScore : -1);
       timerSpent = new Array(flashcards.length).fill(0);
       currentIndex = 0;
+      isRegularFlashcard = false;
       resultPanel.classList.remove('active');
       exitTestMode();
     }
@@ -1395,6 +1471,7 @@ const importFile = document.getElementById("importFile");
       timerSpent = [];
       currentIndex = 0;
       tested = false;
+      isRegularFlashcard = false;
       resultPanel.classList.remove('active');
       responseButtonsContainer.innerHTML = '';
       questionText.textContent = 'Add notes and load cards.';
@@ -1508,42 +1585,44 @@ const importFile = document.getElementById("importFile");
         : '<i class="fas fa-history"></i> Neg. Timer: OFF';
       negativeTimerBtn.style.background = negativeTimerEnabled ? '#5865f2' : '';
     });
-exportBtn.addEventListener("click", () => {
-  const subject = subjectInput.value.trim();
-  const notes = notesInput.value;
+    
+    exportBtn.addEventListener("click", () => {
+      const subject = subjectInput.value.trim();
+      const notes = notesInput.value;
 
-  const content = subject + "\n\n" + notes;
+      const content = subject + "\n\n" + notes;
 
-  const blob = new Blob([content], {type:"text/plain"});
-  const url = URL.createObjectURL(blob);
+      const blob = new Blob([content], {type:"text/plain"});
+      const url = URL.createObjectURL(blob);
 
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "Notes.txt";
-  a.click();
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Notes.txt";
+      a.click();
 
-  URL.revokeObjectURL(url);
-});
+      URL.revokeObjectURL(url);
+    });
 
-importBtn.addEventListener("click", () => {
-  importFile.click();
-});
+    importBtn.addEventListener("click", () => {
+      importFile.click();
+    });
 
-importFile.addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
+    importFile.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
 
-  const reader = new FileReader();
+      const reader = new FileReader();
 
-  reader.onload = () => {
-    const parts = reader.result.split("\n\n");
+      reader.onload = () => {
+        const parts = reader.result.split("\n\n");
 
-    subjectInput.value = parts[0] || "";
-    notesInput.value = parts.slice(1).join("\n\n") || "";
-  };
+        subjectInput.value = parts[0] || "";
+        notesInput.value = parts.slice(1).join("\n\n") || "";
+      };
 
-  reader.readAsText(file);
-});
+      reader.readAsText(file);
+    });
+    
     loadBtn.addEventListener('click', loadCards);
     testBtn.addEventListener('click', startTest);
     
@@ -1556,7 +1635,8 @@ importFile.addEventListener("change", (e) => {
         'theme-yellow',
         'theme-neongreen',
         'theme-minecraft',
-        'theme-longhorn'
+        'theme-longhorn',
+        'theme-kahoot'
       );
 
       document.body.classList.add(
@@ -1583,7 +1663,17 @@ importFile.addEventListener("change", (e) => {
 
       const card = flashcards[currentIndex];
 
-      if (card.isBlank) {
+      // For regular flashcards, space bar flips the card
+      if (card.isRegular && e.key === ' ') {
+        e.preventDefault();
+        const flashcardInner = document.getElementById('flashcardInner');
+        if (flashcardInner) {
+          flashcardInner.classList.toggle('flipped');
+        }
+        return;
+      }
+
+      if (card.isBlank || card.isSlider) {
         return;
       } else if (card.isTrueFalse) {
         if (e.key === '1') {
