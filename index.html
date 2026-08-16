@@ -6,7 +6,6 @@
   <title>Flashcardio</title>
   <link rel="icon" type="image/png" href="flashcardio-icon.png">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Roboto:wght@400;700&family=VT323&family=Press+Start+2P&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Fontawesome (Discord-like icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -55,7 +54,6 @@
       justify-content: center;
     }
 
-    /* header */
     .header {
       display: flex;
       align-items: center;
@@ -97,7 +95,6 @@
       color: #b9bbbe;
     }
 
-    /* input section - hidden during test */
     .input-section {
       display: flex;
       flex-direction: column;
@@ -233,7 +230,6 @@
       pointer-events: none;
     }
 
-    /* flashcard area - normal mode */
     .flashcard-area {
       background: #292b2f;
       border-radius: 20px;
@@ -244,7 +240,6 @@
       transition: all 0.3s ease;
     }
 
-    /* flashcard area - test mode (full screen) */
     body.test-active .flashcard-area {
       background: transparent;
       border-radius: 0;
@@ -495,7 +490,6 @@
       outline: none;
     }
 
-    /* ===== SLIDER STYLES ===== */
     .slider-container {
       width: 100%;
       max-width: 500px;
@@ -599,208 +593,6 @@
       padding: 12px 30px;
     }
 
-    /* ===== KAHOOT THEME ===== */
-    body.theme-kahoot {
-      background: #46178f !important;
-      color: #ffffff !important;
-    }
-
-    body.theme-kahoot .flashcardio {
-      background: rgba(32, 12, 70, 0.92) !important;
-      color: #ffffff !important;
-      border: 3px solid #6a3b9a !important;
-      box-shadow: 0 0 60px rgba(70, 23, 143, 0.5), inset 0 0 30px rgba(106, 59, 154, 0.2) !important;
-    }
-
-    body.theme-kahoot .header {
-      border-bottom-color: #6a3b9a !important;
-    }
-
-    body.theme-kahoot .header h1 {
-      background: linear-gradient(135deg, #ffcd00, #ff6b00) !important;
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-    }
-
-    body.theme-kahoot .header h1 i {
-      -webkit-text-fill-color: #ffcd00 !important;
-      color: #ffcd00 !important;
-    }
-
-    body.theme-kahoot .flashcard-area {
-      background: rgba(255, 255, 255, 0.05) !important;
-      border-left: 4px solid #ffcd00 !important;
-    }
-
-    body.theme-kahoot .input-row input,
-    body.theme-kahoot .input-row textarea,
-    body.theme-kahoot .timer-container,
-    body.theme-kahoot .timer-container input,
-    body.theme-kahoot .theme-selector,
-    body.theme-kahoot .badge {
-      background: rgba(255, 255, 255, 0.1) !important;
-      color: #ffffff !important;
-      border: 2px solid #6a3b9a !important;
-    }
-
-    body.theme-kahoot .btn {
-      background: #6a3b9a !important;
-      color: white !important;
-      border: 2px solid #8a5bbd !important;
-      font-weight: 700 !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.5px !important;
-    }
-
-    body.theme-kahoot .btn-primary {
-      background: #ffcd00 !important;
-      color: #46178f !important;
-      border-color: #ffcd00 !important;
-    }
-
-    body.theme-kahoot .btn-primary:hover {
-      background: #ffdb4d !important;
-      transform: scale(1.05);
-    }
-
-    body.theme-kahoot .btn-success {
-      background: #27ae60 !important;
-      border-color: #2ecc71 !important;
-    }
-
-    body.theme-kahoot .btn-success:hover {
-      background: #2ecc71 !important;
-      transform: scale(1.05);
-    }
-
-    body.theme-kahoot .btn-danger {
-      background: #e74c3c !important;
-      border-color: #ff6b6b !important;
-    }
-
-    body.theme-kahoot .btn-danger:hover {
-      background: #ff6b6b !important;
-      transform: scale(1.05);
-    }
-
-    body.theme-kahoot .btn-secondary:hover {
-      transform: scale(1.05);
-    }
-
-    body.theme-kahoot .response-btn {
-      background: rgba(255, 255, 255, 0.1) !important;
-      color: white !important;
-      border: 3px solid #6a3b9a !important;
-      font-weight: 700 !important;
-      text-transform: uppercase !important;
-      transition: 0.15s !important;
-    }
-
-    body.theme-kahoot .response-btn:hover {
-      background: rgba(255, 255, 255, 0.2) !important;
-      border-color: #8a5bbd !important;
-      transform: scale(1.05);
-    }
-
-    body.theme-kahoot .response-btn.selected {
-      background: #ffcd00 !important;
-      color: #46178f !important;
-      border-color: #ffcd00 !important;
-      transform: scale(1.08);
-    }
-
-    body.theme-kahoot .response-btn.selected kbd {
-      background: #46178f !important;
-      color: #ffcd00 !important;
-      border-color: #46178f !important;
-    }
-
-    body.theme-kahoot .progress-indicator {
-      color: #b08fd4 !important;
-    }
-
-    body.theme-kahoot .result-panel {
-      background: rgba(255, 255, 255, 0.08) !important;
-      border-left: 4px solid #ffcd00 !important;
-    }
-
-    body.theme-kahoot .focus-list li {
-      background: rgba(255, 255, 255, 0.08) !important;
-      border-left: 3px solid #ff6b6b !important;
-    }
-
-    body.theme-kahoot .focus-list .tag {
-      background: #ff6b6b !important;
-    }
-
-    body.theme-kahoot .footer {
-      border-top-color: #6a3b9a !important;
-      color: #8a5bbd !important;
-    }
-
-    body.theme-kahoot .flashcard-prompt,
-    body.theme-kahoot .input-row label,
-    body.theme-kahoot .status-message {
-      color: #ffffff !important;
-    }
-
-    body.theme-kahoot .status-badge {
-      background: rgba(255, 255, 255, 0.1) !important;
-      color: #ffcd00 !important;
-    }
-
-    body.theme-kahoot .slider-container input[type="range"] {
-      background: linear-gradient(to right, #ff6b6b, #ffcd00, #2ecc71) !important;
-    }
-
-    body.theme-kahoot .slider-container input[type="range"]::-webkit-slider-thumb {
-      background: #ffcd00 !important;
-      border-color: #46178f !important;
-      box-shadow: 0 0 20px rgba(255, 205, 0, 0.5) !important;
-    }
-
-    body.theme-kahoot .slider-value .current-value {
-      background: rgba(255, 255, 255, 0.1) !important;
-      border: 2px solid #ffcd00 !important;
-      color: #ffcd00 !important;
-    }
-
-    body.theme-kahoot .slider-submit {
-      background: #ffcd00 !important;
-      color: #46178f !important;
-    }
-
-    body.theme-kahoot .slider-submit:hover {
-      background: #ffdb4d !important;
-      transform: scale(1.05);
-    }
-
-    body.theme-kahoot .slider-labels {
-      color: #b08fd4 !important;
-    }
-
-    /* Kahoot animations */
-    @keyframes kahootPulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-      100% { transform: scale(1); }
-    }
-
-    body.theme-kahoot .flashcardio {
-      animation: kahootPulse 3s ease-in-out infinite;
-    }
-
-    @keyframes kahootGlow {
-      0% { box-shadow: 0 0 60px rgba(70, 23, 143, 0.5); }
-      50% { box-shadow: 0 0 80px rgba(255, 205, 0, 0.3); }
-      100% { box-shadow: 0 0 60px rgba(70, 23, 143, 0.5); }
-    }
-
-    body.theme-kahoot .flashcardio {
-      animation: kahootPulse 3s ease-in-out infinite, kahootGlow 4s ease-in-out infinite;
-    }
-
-    /* ===== Regular flashcard flip animation ===== */
     .flashcard-container {
       perspective: 1000px;
       width: 100%;
@@ -867,12 +659,10 @@
     body.theme-yellow *:not([class*="fa-"]), body.theme-yellow {font-family:Caveat,cursive!important;}
     body.theme-neongreen *:not([class*="fa-"]), body.theme-neongreen {font-family:VT323,monospace!important;letter-spacing:1px;}
     body.theme-neongreen .header h1 *:not([class*="fa-"]), body.theme-neongreen .header h1{font-family:"Press Start 2P",monospace!important;font-size:1.3rem;}
-    body.theme-kahoot *:not([class*="fa-"]), body.theme-kahoot {font-family:"Nunito","Segoe UI",sans-serif!important;}
   </style>
 </head>
 <body>
 <div class="flashcardio" id="app">
-  <!-- header -->
   <div class="header">
     <h1><i class="fas fa-brain"></i> Flashcardio</h1>
     <span class="badge"><i class="fas fa-tasks"></i> active</span>
@@ -886,11 +676,9 @@
       <option value="neongreen">Neon Dark Green</option>
       <option value="minecraft">Minecraft Inventory</option>
       <option value="longhorn">Windows Longhorn</option>
-      <option value="kahoot">🎮 Kahoot</option>
     </select>
   </div>
 
-  <!-- input section -->
   <div class="input-section" id="inputSection">
     <div class="input-row">
       <label><i class="fas fa-book"></i> Subject</label>
@@ -934,7 +722,6 @@ TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
     </div>
   </div>
 
-  <!-- flashcard area -->
   <div class="flashcard-area" id="flashcardArea">
     <div class="flashcard-prompt">
       <i class="fas fa-quote-left" style="margin-right: 6px;"></i>
@@ -948,7 +735,6 @@ TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
     </div>
   </div>
 
-  <!-- result panel -->
   <div class="result-panel" id="resultPanel">
     <div class="result-title"><i class="fas fa-bullseye" style="color:#ed4245;"></i> Focus on these</div>
     <div id="focusContainer">
@@ -1011,7 +797,6 @@ TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
     const body = document.body;
     const themeSelector = document.getElementById("themeSelector");
 
-    // Function to calculate score based on slider accuracy
     function calculateSliderScore(selected, correct) {
       const diff = Math.abs(selected - correct);
       const maxDiff = Math.max(Math.abs(correct), 100);
@@ -1080,18 +865,14 @@ TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
 
       const currentScore = scores[currentIndex];
 
-      // Check for slider type
       if (card.isSlider) {
         isRegularFlashcard = false;
         questionText.textContent = card.question || 'Untitled';
         
-        // Get min, max, and correct value
         const min = card.sliderMin !== undefined ? card.sliderMin : 0;
         const max = card.sliderMax !== undefined ? card.sliderMax : 100;
         const correct = card.sliderCorrect !== undefined ? card.sliderCorrect : 50;
-        const range = max - min;
         
-        // Create slider UI
         responseButtonsContainer.innerHTML = `
           <div class="slider-container">
             <div class="slider-labels">
@@ -1109,7 +890,6 @@ TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
           </div>
         `;
 
-        // Add event listeners
         const sliderInput = document.getElementById('sliderInput');
         const sliderValue = document.getElementById('sliderValue');
         const sliderSubmit = document.getElementById('sliderSubmit');
@@ -1124,7 +904,6 @@ TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
           handleResponse(scoreVal);
         });
 
-        // Keyboard support: Enter to submit
         sliderInput.addEventListener('keydown', function(e) {
           if (e.key === 'Enter') {
             const selectedValue = parseInt(this.value);
@@ -1212,7 +991,6 @@ TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
         `;
       }
 
-      // Add event listeners for non-regular, non-blank, non-slider cards
       if (!card.isRegular && !card.isBlank && !card.isSlider) {
         responseButtonsContainer.querySelectorAll('.response-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
@@ -1324,12 +1102,10 @@ TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
         let sliderMax = 100;
         let sliderCorrect = 50;
 
-        // Check for slider type
         if (line.startsWith("TYPE:slider|")) {
           const parts = line.split("|");
           isSlider = true;
           
-          // Parse min, max, num, and question
           let question = "";
           let min = 0;
           let max = 100;
@@ -1344,7 +1120,6 @@ TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
             } else if (part.startsWith("num:")) {
               correct = parseFloat(part.substring(4));
             } else if (part.startsWith("neg:")) {
-              // Support negative values in min/max
               const negValue = parseFloat(part.substring(4));
               if (min === 0 && max === 100) {
                 min = -negValue;
@@ -1635,8 +1410,7 @@ TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
         'theme-yellow',
         'theme-neongreen',
         'theme-minecraft',
-        'theme-longhorn',
-        'theme-kahoot'
+        'theme-longhorn'
       );
 
       document.body.classList.add(
@@ -1663,7 +1437,6 @@ TYPE:slider|min:-50|max:50|num:-12|What is the temperature?</textarea>
 
       const card = flashcards[currentIndex];
 
-      // For regular flashcards, space bar flips the card
       if (card.isRegular && e.key === ' ') {
         e.preventDefault();
         const flashcardInner = document.getElementById('flashcardInner');
